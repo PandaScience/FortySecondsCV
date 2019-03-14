@@ -1,0 +1,300 @@
+% FortySecondsCV LaTeX template
+% Copyright © 2019 René Wirnata <rene.wirnata@pandascience.net>
+% Licensed under the 3-Clause BSD License. See LICENSE file for details.
+%
+% Attributions
+% ------------
+% * fortysecondscv is based on the twentysecondscv class by Carmine Spagnuolo 
+%   (cspagnuolo@unisa.it), released under the MIT license and available under
+%   https://github.com/spagnuolocarmine/TwentySecondsCurriculumVitae-LaTex
+% * further attributions are indicated immediately before corresponding code
+
+
+%-------------------------------------------------------------------------------
+%                             ADDITIONAL PACKAGES														 
+%-------------------------------------------------------------------------------
+% show sidebar and page margins
+% \PassOptionsToPackage{showframe}{geometry}
+% \PassOptionsToPackage{showboxes}{textpos}
+
+\documentclass[a4paper, 10pt, showframes]{fortysecondcv}
+
+% improve word spacing and hyphenation
+\usepackage{microtype}
+\usepackage{ragged2e}
+
+% change font
+\usepackage[sfdefault]{noto} % use noto google font
+% \RequirePackage[sfdefault]{noto} % use noto google font
+% \RequirePackage[quiet]{fontspec} % use to load font from local folder
+% \newfontfamily\headingfont[Path = fonts/]{segoeuib.ttf} % local font
+
+% enable mathematical syntax for some symbols like \varnothing
+\usepackage{amssymb}
+
+% bubble diagram configuration
+\usepackage{smartdiagram}
+\smartdiagramset{
+  % defaut font size is \large, so adjust to harmonize with sidebar layout
+  bubble center node font = \footnotesize,
+  bubble node font = \footnotesize,
+  % default: 4cm/2.5cm; make minimum diameter relative to sidebar size
+  bubble center node size = 0.4\sidebartextwidth,
+  bubble node size = 0.25\sidebartextwidth,
+  distance center/other bubbles = 1.5em,
+  % set center bubble color
+  bubble center node color = maincolor!70,
+  % define the list of colors usable in the diagram
+  set color list = {maincolor!10, maincolor!40,
+  maincolor!20, maincolor!60, maincolor!35},
+  % sets the opacity at which the bubbles are shown
+  bubble fill opacity = 0.8,
+}
+
+
+%-------------------------------------------------------------------------------
+%                            PERSONAL INFORMATION
+%-------------------------------------------------------------------------------
+% profile picture
+\cvprofilepic{pics/profile.png}
+% your name
+\cvname{Panda Bear}
+% job title/career
+\cvjobtitle{Panda Scientist,\\[0.2em] Panda of the Year}
+% date of birth
+\cvbirthday{Mar 7, 2019}
+% short address/location, use \newline if more than 1 line is required
+\cvaddress{Park Ave.~1, 555 555 B-Woods}
+% phone number
+\cvphone{+86 555 555 555}
+% personal website
+\cvsite{https://pandascience.net}
+% email address
+\cvmail{panda@bamboo.cn}
+% pgp key
+\cvkey{4096R/FF00FF00}{0xABCDEFGGIJKLMNOP}
+% add additional information
+% \newcommand{\additional}{some more?}
+
+
+%-------------------------------------------------------------------------------
+%                              SIDEBAR 1st PAGE
+%-------------------------------------------------------------------------------
+% overwrite default icons and order of personal information
+% \renewcommand{\personaltable}{%
+% 	\begin{personal}[0.8em]
+% 		\circleicon{\faKey}      & \cvkey  \\
+% 		\circleicon{\faAt}       & \cvmail \\
+% 		\circleicon{\faGlobe}    & \cvsite \\
+% 		\circleicon{\faPhone}    & \cvphone \\
+% 		\circleicon{\faEnvelope} & \cvaddress \\
+% 		\circleicon{\faInfo}     & \cvbirthday \\
+% 		% add another line
+% 		\circleicon{\faQuestion} & \additional
+% 	\end{personal}
+% }
+
+% add more profile sections to sidebar on first page
+\addtofrontsidebar{
+	% include gosquare national flags from https://github.com/gosquared/flags;
+	% naming according to ISO 3166-1 alpha-2 country codes
+	\graphicspath{{pics/flags/shiny/}}
+
+	\profilesection{Languages}
+		\pointskill{\flag{CN.png}}{Chinese}{5}
+		\pointskill{\flag{DE.png}}{German}{3}
+  	\pointskill{\flag{GB.png}}{English}{3}
+  	\pointskill{\flag{FR.png}}{French}{3}
+
+	\profilesection{Hard Skills}
+		\skill{\faAccusoft}{Sleeping almost all day}
+		\skill{\faSitemap}{Eating a lot bamboo sprouts}
+		\skill{\faGraduationCap}{Relaxing rest of the day}
+
+	\profilesection{Soft Skills}
+		\pointskill{\faHome}{Looking Cute}{5}
+ 			\skill[1.8em]{\faCompress}{No need to specify further}
+		\pointskill{\faTasks}{Being Black \& White}{5}
+ 			\skill[1.8em]{\faCompress}{Having white parts}
+ 			\skill[1.8em]{\faCompress}{Having black parts}
+		\pointskill{\faCodeBranch}{Chillin' hard}{4}
+ 			\skill[1.8em]{\faCompress}{On a tree}
+ 			\skill[1.8em]{\faCompress}{On the grass}
+			\pointskill{\faComment}{Being an Idol}{3}
+ 			\skill[1.8em]{\faCompress}{Kung Fu Panda 1-3}
+ 			\skill[1.8em]{\faCompress}{WoW: Mists of Pandaria}
+}
+
+
+%-------------------------------------------------------------------------------
+%                              SIDEBAR 2nd PAGE
+%-------------------------------------------------------------------------------
+\addtobacksidebar{
+	\profilesection{About Me}
+	\aboutme{
+		The giant panda is a terrestrial animal and primarily spends its life
+		roaming and feeding in the bamboo forests of the Qinling Mountains and in
+		the hilly province of Sichuan.
+	}
+
+	\profilesection{Diagrams}
+	\chartlabel{Bubble Diagram}
+	\begin{figure}\centering
+		\smartdiagram[bubble diagram]{
+			\textcolor{white}{\textbf{Being a}} \\ 
+			\textcolor{white}{\textbf{Panda}}, % center bubble	
+			\textcolor{black!90}{Eating},
+			\textcolor{black!90}{Sleeping},
+			\textcolor{black!90}{Rolling},
+			\textcolor{black!90}{Playing},
+			\textcolor{black!90}{Chilling}
+		}
+	\end{figure}
+
+	\chartlabel{Wheel Chart}
+
+	\wheelchart{4em}{2em}{%
+  	20/3em/maincolor!50/Chill,
+  	15/3em/maincolor!15/Play,
+  	30/4em/maincolor!40/Sleep,
+  	20/3em/maincolor!20/Eat
+	}
+
+	\profilesection{Barskills}
+	\barskill{\faAccusoft}{Wearing asian rice hats}{60}
+	\barskill{\faImage}{Playing Chess}{30}
+	\barskill{\faMusic}{Playing the bamboo flute}{50}
+
+	\profilesection{Memberships}
+	\begin{memberships}
+		\membership{pics/logo.png}{PandaScience.net}
+		\membership{pics/logo.png}{Here's some longer text spanning over more than
+			only one line}
+	\end{memberships}
+
+}
+
+
+%-------------------------------------------------------------------------------
+%                         TABLE ENTRIES RIGHT COLUMN
+%-------------------------------------------------------------------------------
+\begin{document}
+
+\makefrontsidebar
+
+\cvsection{Working Experience}
+\begin{cvtable}
+	\cvitem{currently}{CEO The Panda Way}{Start Up}{Chief executive officer, Head
+	developer and yoga ambassador of 'The Panda Way' - A company for pandas from
+	pandas that invents, advertises and distributes panda-related content all
+	over the world.}
+	\cvitem{2015 -- 2018}{Panda Scientist}{Bamboo University}{
+		Reasearching the impact of adequate bamboo nutrition compared to
+		conventional feeding methods.}
+	\cvitem{2010 -- 2015}{Bamboo Broker}{Stock Exchange}{Continuously achieving 
+		better bamboo bangs for the buck.}
+\end{cvtable}
+
+
+\cvsection{Education}
+\subsection{Postgraduate Training}
+\begin{cvtable}
+	\cvitem{2009 -- 2010}{Post-Doc Panda Studies}{Panda Academy}
+		{In-depth studies on the impact of bamboo nutrition for young pandas and
+		its relation to relaxing, sleeping and snoozing parts of the day.}
+	\cvitem{2008 -- 2009}{Research Stay Europe}{European Panda Labs}
+		{Spending one year abroad teaching european panda facilities about the
+		newest findings and research in the field of asian rice hat covers and
+		applications for bamboo as a material.}
+\end{cvtable}
+
+
+\subsection{Study}
+\begin{cvtable}
+	\cvitem{2006 -- 2008}{Master Studies Panda Science}{Panda Academy}
+		{Focus: Advanced rice hat studies and nouveau rain-reflecting cover
+		materials.}
+	\cvitem{}{Master Theses ($\varnothing\,	1,0$)}{Asian Rice Hat Institute}
+		{Impact on solar radiation onto rice hat cover materials with special
+		attention to water resistance.}
+	\cvitem{2003 -- 2006}{Bachelor Studies PandaScience}{Panda Academy}
+		{Focus: Bamboo morphology and its usage in different craftmanships.}
+	\cvitem{}{Bachelor Theses ($\varnothing\,	1,0$)}{Bamboo Institute}
+		{The bambo flute: An underestimated instrument in orchestras?}
+\end{cvtable}
+
+\cvsection{Publications}
+\begin{cvtable}
+	\cvitem{2010}{Cooking like a Panda-Pro: 100 recipes for lazy Pandas}{Panda's
+	Culinary World}{}
+	\cvitem{2005}{Pandastasia}{Bamboo Books Assoc.}{}
+	\cvitem{2000}{The Panda Way - A guide for mastering everyday life as a Panda}
+		{Young Panda's Journal}{}
+\end{cvtable}
+
+
+\cvsection{Awards}
+\begin{cvtable}
+	\cvitem{2010 -- now}{Panda of the Year}{Panda World Forum}{}
+	\cvitem{2005 -- now}{Face of World Wide Fund for Nature}{WWF}{}
+	\cvitem{2000}{Winner of Bamboo Sprouts Eating Contest}{Bamboo Society}{}
+\end{cvtable}
+
+
+\cvsection{Extra-Curricular Activities}
+\begin{cvtable}
+	\cvitemshort{Relaxing}{Master the fine art of relaxing everywhere}
+	\cvitemshort{Music}{Playing the bamboo flute in the 1st Panda Orchestra}
+	\cvitemshort{Education}{Teaching young pandas to be more panda-like}
+\end{cvtable}
+
+
+\newpage
+\makebacksidebar
+
+
+\cvsection{section}
+\subsection{Subsection}
+\begin{cvtable}
+	\cvitem{<dates>}{<cv-item title>}{<location>}{<optional: description>}
+\end{cvtable}
+
+\cvsection{cvitem}
+\subsection{Multi-line with longer description}
+\begin{cvtable}
+	\cvitem{date}{Description}{location}{Some longer and more detailed 
+		description, that takes two lines	of space instead of only one.}
+	\cvitem{date}{Description}{location}{Some longer and more detailed 
+		description, that takes two lines	of space instead of only one.}
+	\cvitem{date}{Description}{location}{Some longer and more detailed 
+		description, that takes two lines	of space instead of only one.}
+\end{cvtable}
+
+\subsection{One-line without description}
+\begin{cvtable}
+	\cvitem{Award}{One-line description}{Sponsor}{}
+	\cvitem{Award}{One-line description}{Sponsor}{}
+	\cvitem{Award}{One-line description}{Sponsor}{}
+\end{cvtable}
+
+\cvsection{cvitemshort}
+\subsection{One-line}
+\begin{cvtable}
+	\cvitemshort{Key}{Some further description}
+	\cvitemshort{Key}{Some further description}
+	\cvitemshort{Key}{Some further description}
+\end{cvtable}
+
+\subsection{Multi-line with longer description}
+\begin{cvtable}
+	\cvitemshort{Key}{Some further description. Can fill even more than
+		only one single line while still keeping the correct indendation level.}
+	\cvitemshort{Key}{Some further description. Can fill even more than
+		only one single line while still keeping the correct indendation level.}
+	\cvitemshort{Key}{Some further description. Can fill even more than
+		only one single line while still keeping the correct indendation level.}
+\end{cvtable}
+
+\cvsignature
+
+\end{document} 

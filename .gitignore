@@ -1,0 +1,11 @@
+fonts/*
+tmp/*
+*pdf
+*gz
+*aux
+*latexmk
+*log
+*synctex*
+*fls
+*out
+test*
