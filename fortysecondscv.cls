@@ -4,7 +4,7 @@
 %
 % Attributions
 % ------------
-% * fortysecondscv is based on the twentysecondscv class by Carmine Spagnuolo 
+% * fortysecondscv is based on the twentysecondcv class by Carmine Spagnuolo 
 %   (cspagnuolo@unisa.it), released under the MIT license and available under
 %   https://github.com/spagnuolocarmine/TwentySecondsCurriculumVitae-LaTex
 % * further attributions are indicated immediately before corresponding code
@@ -14,7 +14,7 @@
 %                           CLASS NAME AND VERSION
 %-------------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fortysecondcv}[2019/03/14 CV class]
+\ProvidesClass{fortysecondscv}[2019/03/14 CV class]
 \LoadClass{article}
 
 

@@ -1,14 +1,14 @@
-## Fourty Seconds CV
+## Forty Seconds CV
 
 ### Description
 
 Just another CV class for LaTeX - but this time highly customizable!
 
-This project can be regarded as a major rewrite of the original twentysecondscv
+This project can be regarded as a major rewrite of the original twentysecondcv
 class. It does not aim to provide a new CV style that you can't find anywhere
 else, but rather takes a very well established one and adds a straightforward
 user interface to almost all layout elements and thus creates a highly 
-customizable framework-class: FortySecondCV.
+customizable framework-class: FortySecondsCV.
 
 Just try it yourself starting from `template.tex`!
 
@@ -18,7 +18,7 @@ When you should use twentysecondcv or altacv or any other LaTeX CV class:
 * You don't need to change paper sizes / formats at all
 * You don't want to customize your CV further
 
-When you should use the FortySecondCV class:
+When you should use the FortySecondsCV class:
 
 * You want to highly customize your CV while keeping the sidebar layout
 * You don't want to modify any definition in the class file
