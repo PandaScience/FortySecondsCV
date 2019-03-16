@@ -25,7 +25,7 @@
 \RequirePackage[sfdefault]{ClearSans}
 
 % for easy color definitions; provides \definecolor; load before background pkg
-\RequirePackage[dvipsnames]{xcolor}
+\RequirePackage[dvipsnames, svgnames, x11names]{xcolor}
 
 % for positioning text within the side column | use showboxes for visible frame
 \RequirePackage[absolute,overlay]{textpos}
@@ -63,52 +63,90 @@
 % and \apptocmd{<command>}{<code>}{<success>}{<failure>}
 \RequirePackage{etoolbox}
 
+% enable simple math like +/- etc. on lengths
+\RequirePackage{calc}
 
-%	set page margins
-\newlength\sidebarwidth%
-\newlength\topbottommargin%
-\newlength\leftrightmargin%
-\newlength\sidebartextwidth
-\setlength{\sidebarwidth}{0.34\paperwidth}
-\setlength{\topbottommargin}{0.02\paperheight}
-\setlength{\leftrightmargin}{0.02\paperwidth}
-\setlength{\sidebartextwidth}{\sidebarwidth - 2\leftrightmargin}
+% enable links
+\RequirePackage[hidelinks]{hyperref}
+
+% change page margins
 \RequirePackage[
-	top=\topbottommargin,
-	bottom=\topbottommargin,
-	left=\sidebarwidth + \leftrightmargin,
-	right=\leftrightmargin,
 	nohead,
 	nofoot,
 	nomarginpar,
 ]{geometry}
 
-% enable links
-\RequirePackage[hidelinks]{hyperref}
-
-% pass further options to base class
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
-\ProcessOptions\relax
-
 
 %-------------------------------------------------------------------------------
-%                              COLOR DEFINITIONS
+%                               PROCESS OPTIONS
 %-------------------------------------------------------------------------------
-% default values and options
-\definecolor{sidecolor}{HTML}{E7E7E7}
+%	set page margins
+\newlength\sidebarwidth%
+\newlength\topbottommargin%
+\newlength\leftrightmargin%
+\newlength\sidebartextwidth
+% default values
+\setlength{\sidebarwidth}{0.34\paperwidth}
+\setlength{\topbottommargin}{0.02\paperheight}
+\setlength{\leftrightmargin}{0.02\paperwidth}
+% user overwrites
+\DeclareOptionX{sidebarwidth}{\setlength{\sidebarwidth}{#1}}
+\DeclareOptionX{topbottommargin}{\setlength{\topbottommargin}{#1}}
+\DeclareOptionX{leftrightmargin}{\setlength{\leftrightmargin}{#1}}
+% make current settings of \sidebar and \leftrightmargin available to class
+\ProcessOptionsX
+% compute "inner" margin of sidebar automatically
+\setlength{\sidebartextwidth}{\sidebarwidth - 2\leftrightmargin}
+% let geometry package perform the changes
+\geometry{
+	top=\topbottommargin,
+	bottom=\topbottommargin,
+	left=\sidebarwidth + \leftrightmargin,
+	right=\leftrightmargin,
+}
+
+% pre-define some colors the user can choose from
 \definecolor{cvblue}{HTML}{0E5484}
 \definecolor{cvgreen}{HTML}{007170}
 \definecolor{cvred}{HTML}{8B0000}
+\definecolor{cvsidecolor}{HTML}{E7E7E7}
+\definecolor{cvsectioncolor}{HTML}{0395DE}
+\definecolor{cvsubsectioncolor}{HTML}{4D4D4D}
+% set default values
 \colorlet{maincolor}{cvblue}
+\colorlet{sidecolor}{cvsidecolor}
+\colorlet{sectioncolor}{cvsectioncolor}
+\colorlet{subsectioncolor}{cvsubsectioncolor}
+% colors for document body (right column)
+% let user define main color
+\DeclareOptionX{maincolor}{\colorlet{maincolor}{#1}}
+\DeclareOptionX{sidecolor}{\colorlet{sidecolor}{#1}}
+\DeclareOptionX{sectioncolor}{\colorlet{sectioncolor}{#1}}
+\DeclareOptionX{subsectioncolor}{\colorlet{subsectioncolor}{#1}}
 
+% show sidebar and page margins
+\DeclareOptionX{showframes}{
+  \geometry{showframe}
+  \TPoptions{showboxes=true}
+}
+
+% pass further options to base class
+\DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{article}}
+\ProcessOptionsX\relax
+
+
+%-------------------------------------------------------------------------------
+%                          DERIVED COLOR DEFINITIONS
+%-------------------------------------------------------------------------------
+% profile section color (sidebar/left column)
 \colorlet{pseccolor}{maincolor!90}
+% color used for all icon arguments
 \colorlet{iconcolor}{maincolor!90}
-\definecolor{sectioncolor}{HTML}{0395DE}
-\definecolor{subsectioncolor}{HTML}{4D4D4D}
 
 % color definitions for TikZ drawings
-\colorlet{emphasis}{black}
-\colorlet{body}{black!80!white}
+\colorlet{wheelchartlabelcolor}{black}
+\colorlet{wheeltextcolor}{black!80!white}
+% color of unfilld skill points / bar / chart label
 \colorlet{skillbg}{black!25}
 
 
@@ -342,7 +380,7 @@
 	            -- cycle;
 
             % Draw the data labels
-            \draw [*-,thin,emphasis] node [append after command={
+            \draw [*-,thin,wheelchartlabelcolor] node [append after command={
 		          (\midangle:\midradius pt) -- 
  	  	        (\midangle:\outerradius + 1ex) -- 
 		          (\tikzlastnode)}] at (\midangle:\outerradius + 1ex) [
@@ -352,7 +390,7 @@
 		          anchor=\textanchor,
 		          align=\textalign,
 		          font=\small,
-		          text=body
+		          text=wheeltextcolor
 	          ]{\name};
             % Set the old cumulated angle to the new value
             \global\let\cumnum=\newcumnum
@@ -425,7 +463,7 @@
 	\end{sidebar}
 }
 
-\newcommand{\makebacksidebar}{
+\newcommand{\makebacksidebar}{%
  	\begin{sidebar}
 		% begin with name instead of picture
 		\nameandjob
@@ -465,7 +503,8 @@
 	\parbox[t]{0.17\textwidth}{\raggedright #1} &%
 	\parbox[t]{0.81\textwidth}{%
 		\if\relax\detokenize{#4}\relax%
-			\parbox[t]{0.7\textwidth}{\raggedright #2} \hfill {\footnotesize#3}%
+			\parbox[t]{\linewidth-\widthof{#3}-1em}{\raggedright #2}%
+  		\hfill {\footnotesize#3}%
 		\else%
 			\textbf{#2} \hfill {\footnotesize#3} \\ #4\vspace{\parsep}%
 		\fi%

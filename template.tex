@@ -13,11 +13,16 @@
 %-------------------------------------------------------------------------------
 %                             ADDITIONAL PACKAGES														 
 %-------------------------------------------------------------------------------
-% show sidebar and page margins
-% \PassOptionsToPackage{showframe}{geometry}
-% \PassOptionsToPackage{showboxes}{textpos}
-
-\documentclass[a4paper, 10pt, showframes]{fortysecondscv}
+\documentclass[
+  a4paper, 
+%   showframes,
+%   maincolor=cvgreen,
+%   sectioncolor=red,
+%   subsectioncolor=orange
+%   sidebarwidth=0.4\paperwidth,
+%   topbottommargin=0.03\paperheight,
+%   leftrightmargin=20pt
+]{fortysecondscv}
 
 % improve word spacing and hyphenation
 \usepackage{microtype}
@@ -72,7 +77,7 @@
 % email address
 \cvmail{panda@bamboo.cn}
 % pgp key
-\cvkey{4096R/FF00FF00}{0xABCDEFGGIJKLMNOP}
+\cvkey{4096R/FF00FF00}{0xAABBCCDDFF00FF00}
 % add additional information
 % \newcommand{\additional}{some more?}
 
@@ -120,7 +125,7 @@
 		\pointskill{\faCodeBranch}{Chillin' hard}{4}
  			\skill[1.8em]{\faCompress}{On a tree}
  			\skill[1.8em]{\faCompress}{On the grass}
-			\pointskill{\faComment}{Being an Idol}{3}
+		\pointskill{\faComment}{Being an Idol}{3}
  			\skill[1.8em]{\faCompress}{Kung Fu Panda 1-3}
  			\skill[1.8em]{\faCompress}{WoW: Mists of Pandaria}
 }
@@ -225,7 +230,7 @@
 
 \cvsection{Publications}
 \begin{cvtable}
-	\cvitem{2010}{Cooking like a Panda-Pro: 100 recipes for lazy Pandas}{Panda's
+	\cvitem{2010}{Cooking: 100 recipes for lazy Pandas}{Panda's
 	Culinary World}{}
 	\cvitem{2005}{Pandastasia}{Bamboo Books Assoc.}{}
 	\cvitem{2000}{The Panda Way - A guide for mastering everyday life as a Panda}
