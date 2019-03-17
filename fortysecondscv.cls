@@ -14,21 +14,90 @@
 %                           CLASS NAME AND VERSION
 %-------------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fortysecondscv}[2019/03/14 CV class]
+\ProvidesClass{fortysecondscv}[2019/03/17 CV class]
+
+
+%-------------------------------------------------------------------------------
+%                               PROCESS OPTIONS
+%-------------------------------------------------------------------------------
+%% load some required packages first
+% for easy color definitions; provides \definecolor; load before background pkg
+\RequirePackage[dvipsnames, svgnames, x11names]{xcolor}
+% for positioning text within the side column | use showboxes for visible frame
+\RequirePackage[absolute,overlay]{textpos}
+% provides key-value class options via \DeclareOptionX
+\RequirePackage{xkeyval}
+% enable simple math like +/- etc. on lengths
+\RequirePackage{calc}
+% change page margins
+\RequirePackage[
+	nohead,
+	nofoot,
+	nomarginpar,
+]{geometry}
+
+% pre-define some colors the user can choose from
+\definecolor{cvblue}{HTML}{0E5484}
+\definecolor{cvgreen}{HTML}{007170}
+\definecolor{cvred}{HTML}{8B0000}
+\definecolor{cvsidecolor}{HTML}{E7E7E7}
+\definecolor{cvsectioncolor}{HTML}{0395DE}
+\definecolor{cvsubsectioncolor}{HTML}{4D4D4D}
+% set default values
+\colorlet{maincolor}{cvblue}
+\colorlet{sidecolor}{cvsidecolor}
+\colorlet{sectioncolor}{cvsectioncolor}
+\colorlet{subsectioncolor}{cvsubsectioncolor}
+% colors for document body (right column)
+% let user define main color
+\DeclareOptionX{maincolor}{\colorlet{maincolor}{#1}}
+\DeclareOptionX{sidecolor}{\colorlet{sidecolor}{#1}}
+\DeclareOptionX{sectioncolor}{\colorlet{sectioncolor}{#1}}
+\DeclareOptionX{subsectioncolor}{\colorlet{subsectioncolor}{#1}}
+
+%	set page margins
+\newlength\sidebarwidth%
+\newlength\topbottommargin%
+\newlength\leftrightmargin%
+\newlength\sidebartextwidth
+% default values
+\setlength{\sidebarwidth}{0.34\paperwidth}
+\setlength{\topbottommargin}{0.02\paperheight}
+\setlength{\leftrightmargin}{0.02\paperwidth}
+% user overwrites
+\DeclareOptionX{sidebarwidth}{\setlength{\sidebarwidth}{#1}}
+\DeclareOptionX{topbottommargin}{\setlength{\topbottommargin}{#1}}
+\DeclareOptionX{leftrightmargin}{\setlength{\leftrightmargin}{#1}}
+
+% show sidebar and page margins
+\DeclareOptionX{showframes}{
+  \geometry{showframe}
+  \TPoptions{showboxes=true}
+}
+
+% pass further options to base class and load it
+\DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{article}}
+\ProcessOptionsX\relax
 \LoadClass{article}
 
+% compute "inner" margin of sidebar automatically;
+% must come after \sidebarwidth and \leftrightmargin possibly changed by user
+\setlength{\sidebartextwidth}{\sidebarwidth - 2\leftrightmargin}
+
+% let geometry package perform the changes;
+% must come after loading the base class prevent overwriting
+\geometry{
+	top=\topbottommargin,
+	bottom=\topbottommargin,
+	left=\sidebarwidth + \leftrightmargin,
+	right=\leftrightmargin,
+}
 
 %-------------------------------------------------------------------------------
 %                              REQUIRED PACKAGES
 %-------------------------------------------------------------------------------
 % font configuration
 \RequirePackage[sfdefault]{ClearSans}
-
-% for easy color definitions; provides \definecolor; load before background pkg
-\RequirePackage[dvipsnames, svgnames, x11names]{xcolor}
-
-% for positioning text within the side column | use showboxes for visible frame
-\RequirePackage[absolute,overlay]{textpos}
 
 % use as workaround for spacing problem when TikZ picture is not in paragraph;
 % details: https://tex.stackexchange.com/a/435790
@@ -53,9 +122,6 @@
 % provides \xrfill for horizontal rules
 \RequirePackage{xhfill}
 
-% provides key-value class options via \DeclareOptionX
-\RequirePackage{xkeyval}
-
 % provides basic conditional expressions
 \RequirePackage{ifthen}
 
@@ -63,76 +129,8 @@
 % and \apptocmd{<command>}{<code>}{<success>}{<failure>}
 \RequirePackage{etoolbox}
 
-% enable simple math like +/- etc. on lengths
-\RequirePackage{calc}
-
 % enable links
 \RequirePackage[hidelinks]{hyperref}
-
-% change page margins
-\RequirePackage[
-	nohead,
-	nofoot,
-	nomarginpar,
-]{geometry}
-
-
-%-------------------------------------------------------------------------------
-%                               PROCESS OPTIONS
-%-------------------------------------------------------------------------------
-%	set page margins
-\newlength\sidebarwidth%
-\newlength\topbottommargin%
-\newlength\leftrightmargin%
-\newlength\sidebartextwidth
-% default values
-\setlength{\sidebarwidth}{0.34\paperwidth}
-\setlength{\topbottommargin}{0.02\paperheight}
-\setlength{\leftrightmargin}{0.02\paperwidth}
-% user overwrites
-\DeclareOptionX{sidebarwidth}{\setlength{\sidebarwidth}{#1}}
-\DeclareOptionX{topbottommargin}{\setlength{\topbottommargin}{#1}}
-\DeclareOptionX{leftrightmargin}{\setlength{\leftrightmargin}{#1}}
-% make current settings of \sidebar and \leftrightmargin available to class
-\ProcessOptionsX
-% compute "inner" margin of sidebar automatically
-\setlength{\sidebartextwidth}{\sidebarwidth - 2\leftrightmargin}
-% let geometry package perform the changes
-\geometry{
-	top=\topbottommargin,
-	bottom=\topbottommargin,
-	left=\sidebarwidth + \leftrightmargin,
-	right=\leftrightmargin,
-}
-
-% pre-define some colors the user can choose from
-\definecolor{cvblue}{HTML}{0E5484}
-\definecolor{cvgreen}{HTML}{007170}
-\definecolor{cvred}{HTML}{8B0000}
-\definecolor{cvsidecolor}{HTML}{E7E7E7}
-\definecolor{cvsectioncolor}{HTML}{0395DE}
-\definecolor{cvsubsectioncolor}{HTML}{4D4D4D}
-% set default values
-\colorlet{maincolor}{cvblue}
-\colorlet{sidecolor}{cvsidecolor}
-\colorlet{sectioncolor}{cvsectioncolor}
-\colorlet{subsectioncolor}{cvsubsectioncolor}
-% colors for document body (right column)
-% let user define main color
-\DeclareOptionX{maincolor}{\colorlet{maincolor}{#1}}
-\DeclareOptionX{sidecolor}{\colorlet{sidecolor}{#1}}
-\DeclareOptionX{sectioncolor}{\colorlet{sectioncolor}{#1}}
-\DeclareOptionX{subsectioncolor}{\colorlet{subsectioncolor}{#1}}
-
-% show sidebar and page margins
-\DeclareOptionX{showframes}{
-  \geometry{showframe}
-  \TPoptions{showboxes=true}
-}
-
-% pass further options to base class
-\DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{article}}
-\ProcessOptionsX\relax
 
 
 %-------------------------------------------------------------------------------

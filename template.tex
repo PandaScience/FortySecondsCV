@@ -28,11 +28,16 @@
 \usepackage{microtype}
 \usepackage{ragged2e}
 
-% change font
-\usepackage[sfdefault]{noto} % use noto google font
-% \RequirePackage[sfdefault]{noto} % use noto google font
-% \RequirePackage[quiet]{fontspec} % use to load font from local folder
+% take care of proper font encoding
+\ifxetex
+	\usepackage[quiet]{fontspec}
+	\defaultfontfeatures{Ligatures=TeX}
 % \newfontfamily\headingfont[Path = fonts/]{segoeuib.ttf} % local font
+\else
+	\usepackage[utf8]{inputenc}
+	\usepackage[T1]{fontenc}
+% \usepackage[sfdefault]{noto} % use noto google font
+\fi
 
 % enable mathematical syntax for some symbols like \varnothing
 \usepackage{amssymb}
@@ -112,7 +117,7 @@
   	\pointskill{\flag{FR.png}}{French}{3}
 
 	\profilesection{Hard Skills}
-		\skill{\faAccusoft}{Sleeping almost all day}
+		\skill{\faBalanceScale}{Sleeping almost all day}
 		\skill{\faSitemap}{Eating a lot bamboo sprouts}
 		\skill{\faGraduationCap}{Relaxing rest of the day}
 
@@ -122,7 +127,7 @@
 		\pointskill{\faTasks}{Being Black \& White}{5}
  			\skill[1.8em]{\faCompress}{Having white parts}
  			\skill[1.8em]{\faCompress}{Having black parts}
-		\pointskill{\faCodeBranch}{Chillin' hard}{4}
+		\pointskill{\faChild}{Chillin' hard}{4}
  			\skill[1.8em]{\faCompress}{On a tree}
  			\skill[1.8em]{\faCompress}{On the grass}
 		\pointskill{\faComment}{Being an Idol}{3}
@@ -166,7 +171,7 @@
 	}
 
 	\profilesection{Barskills}
-	\barskill{\faAccusoft}{Wearing asian rice hats}{60}
+	\barskill{\faSkyatlas}{Wearing asian rice hats}{60}
 	\barskill{\faImage}{Playing Chess}{30}
 	\barskill{\faMusic}{Playing the bamboo flute}{50}
 
