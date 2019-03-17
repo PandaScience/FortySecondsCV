@@ -21,7 +21,8 @@ When you should use twentysecondcv or altacv or any other LaTeX CV class:
 
 When you should use the FortySecondsCV class:
 
-* You like to build a CV optimized for 2 pages incl. a sidebar
+* You like to build a CV optimized for 2 pages incl. a sidebar (with option for
+  additional pages)
 * You want to highly customize your CV using a great palette of colors and
   layout elements
 * You don't want to modify any definition in the class file
@@ -91,36 +92,38 @@ LaTeX code. It is recommended to use `\newpage` immediately before
   already set, or completely redefine them using
   ```latex
   \renewcommand{\makefrontsidebar}{%
-  	\begin{sidebar}
-		<your code>
-	\end{sidebar}
+    \begin{sidebar}
+      <your code>
+    \end{sidebar}
   }
   ```
   * The `sidebar` environment makes sure that all elements will be positioned
-  	correctly within the left column (sidebar) of each page.
+    correctly within the left column (sidebar) of each page.
+  * Using the `sidebar` environment, you can also add more sidebar definitions 
+    for additional pages easily.
 
 * Set personal information via
   ```latex
-	% profile picture
-	\cvprofilepic{pics/profile.png}
-	% your name
-	\cvname{Panda Bear}
-	% job title/career
-	\cvjobtitle{Panda Scientist,\\[0.2em] Panda of the Year}
-	% date of birth
-	\cvbirthday{Mar 7, 2019}
-	% short address/location, use \newline if more than 1 line is required
-	\cvaddress{Park Ave.~1, 555 555 B-Woods}
-	% phone number
-	\cvphone{+86 555 555 555}
-	% personal website
-	\cvsite{https://pandascience.net}
-	% email address
-	\cvmail{panda@bamboo.cn}
-	% pgp key
-	\cvkey{4096R/FF00FF00}{0xAABBCCDDFF00FF00}
-	% add additional information
-	\newcommand{\additional}{some more?}
+    % profile picture
+    \cvprofilepic{pics/profile.png}
+    % your name
+    \cvname{Panda Bear}
+    % job title/career
+    \cvjobtitle{Panda Scientist,\\[0.2em] Panda of the Year}
+    % date of birth
+    \cvbirthday{Mar 7, 2019}
+    % short address/location, use \newline if more than 1 line is required
+    \cvaddress{Park Ave.~1, 555 555 B-Woods}
+    % phone number
+    \cvphone{+86 555 555 555}
+    % personal website
+    \cvsite{https://pandascience.net}
+    % email address
+    \cvmail{panda@bamboo.cn}
+    % pgp key
+    \cvkey{4096R/FF00FF00}{0xAABBCCDDFF00FF00}
+    % add additional information
+    \newcommand{\additional}{some more?}
   ```
   * The email address will be automatically linked with `mailto:email`.
   * For the pgp key, the first argument defines the displayed text which is
@@ -132,20 +135,20 @@ LaTeX code. It is recommended to use `\newpage` immediately before
 * The personal information table can also be reconfigured completely via 
   ```latex
   \renewcommand{\personaltable}{%
-  	\begin{personal}[0.8em]
-  		\circleicon{\faKey}      & \cvkey  \\
-  		\circleicon{\faAt}       & \cvmail \\
-  		\circleicon{\faGlobe}    & \cvsite \\
-  		\circleicon{\faPhone}    & \cvphone \\
-  		\circleicon{\faEnvelope} & \cvaddress \\
-  		\circleicon{\faInfo}     & \cvbirthday \\
-  		% add another line
-  		\circleicon{\faQuestion} & \additional
-  	\end{personal}
+    \begin{personal}[0.8em]
+      \circleicon{\faKey}      & \cvkey  \\
+      \circleicon{\faAt}       & \cvmail \\
+      \circleicon{\faGlobe}    & \cvsite \\
+      \circleicon{\faPhone}    & \cvphone \\
+      \circleicon{\faEnvelope} & \cvaddress \\
+      \circleicon{\faInfo}     & \cvbirthday \\
+      % add another line
+      \circleicon{\faQuestion} & \additional
+    \end{personal}
   }
   ```
   * You can use all predefined macros like `\cvphone` etc. but also define new
-  	ones as shown above and use them in your own table.
+    ones as shown above and use them in your own table.
   * The second argument sets the space between icons and corresponding text.
 
 ### Further Sidebar Style Elements
@@ -229,10 +232,10 @@ has to be defined within the `document` environment.
   \end{cvtable}
   ```
   * `cvitem` including a description will make the title bold, left-align the
-  	date, right-align the location and put the description indented on the next
-  	line
+    date, right-align the location and put the description indented on the next
+    line
   * `cvitem` missing a description will add a one-line item in the style of the
-  	former one but with a "normal" title instead of a bold one.
+    former one but with a "normal" title instead of a bold one.
   * `cvitemshort` left-aligns `<key>` followed by its description
 
 * Profile picture styles
@@ -258,15 +261,16 @@ has to be defined within the `document` environment.
 
 ### Misc
 
-Change font either by loading the corresponding package, e.g. for google noto
-font
-
-	\RequirePackage[sfdefault]{noto} % use noto google font
-
-or by using XeLaTeX's option to load local fonts directly via fontspec
-
-	\RequirePackage[quiet]{fontspec} 
-	\newfontfamily\headingfont[Path = fonts/]{segoeuib.ttf}
+* Change font either by loading the corresponding package, e.g. for google noto
+  font
+  ```latex
+  \RequirePackage[sfdefault]{noto} % use noto google font
+  ```
+  or by using XeLaTeX's option to load local fonts directly via fontspec
+  ```latex
+  \RequirePackage[quiet]{fontspec}
+  \newfontfamily\headingfont[Path = fonts/]{segoeuib.ttf}
+  ```
 
 
 ## Example
