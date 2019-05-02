@@ -125,6 +125,7 @@
 
 \ifxetexorluatex
 	\RequirePackage{fontawesome5}
+	\RequirePackage{academicons}
 \else
 	\RequirePackage{fontawesome}
 \fi
