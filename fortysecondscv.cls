@@ -527,4 +527,11 @@
 	}\\
 }
 
+% Publication item
+% <title> <author> <journal> <year>
+\newcommand{\publiitem}[4]{%
+	\parbox[t]{0.17\textwidth}{\raggedright #4}&
+		\parbox[t]{0.81\textwidth}{\textbf{#1} \par {\textcolor{black}{\textit{#2}}}\par #3\vspace{\parsep}}\\
+}
+
 % EOF - fortysecondscv.cls
