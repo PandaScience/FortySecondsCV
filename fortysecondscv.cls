@@ -199,8 +199,11 @@
 %-------------------------------------------------------------------------------
 %                              SIDEBAR ELEMENTS
 %-------------------------------------------------------------------------------
+% Profile picture
+\newcommand{\plotProfilePicture}{}
+\newcommand*{\cvprofilepic}[1]{\renewcommand{\cvprofilepic}{#1}\renewcommand{\plotProfilePicture}{\profileroundedcorners}}
+
 % save user definition for personal information as makro that can be used later
-\newcommand*{\cvprofilepic}[1]{\renewcommand{\cvprofilepic}{#1}}
 \newcommand*{\cvname}[1]{\renewcommand{\cvname}{#1}}
 \newcommand*{\cvjobtitle}[1]{\renewcommand{\cvjobtitle}{#1}}
 \newcommand*{\cvbirthday}[1]{\renewcommand{\cvbirthday}{#1}}
@@ -459,7 +462,7 @@
 		\setlength{\parskip}{1ex}
 
 		% insert profile picture
-		\profileroundedcorners
+		\plotProfilePicture
 		\vspace{1ex}
 
 		% name and job
