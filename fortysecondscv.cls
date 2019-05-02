@@ -199,19 +199,26 @@
 %-------------------------------------------------------------------------------
 %                              SIDEBAR ELEMENTS
 %-------------------------------------------------------------------------------
+% Name and Job Title
+\newcommand*{\cvname}[1]{\renewcommand{\cvname}{#1}}
+\newcommand*{\cvjobtitle}[1]{\renewcommand{\cvjobtitle}{#1}}
+
 % Profile picture
 \newcommand{\plotProfilePicture}{}
 \newcommand*{\cvprofilepic}[1]{\renewcommand{\cvprofilepic}{#1}\renewcommand{\plotProfilePicture}{\profileroundedcorners}}
 
-% save user definition for personal information as makro that can be used later
-\newcommand*{\cvname}[1]{\renewcommand{\cvname}{#1}}
-\newcommand*{\cvjobtitle}[1]{\renewcommand{\cvjobtitle}{#1}}
-\newcommand*{\cvbirthday}[1]{\renewcommand{\cvbirthday}{#1}}
-\newcommand*{\cvaddress}[1]{\renewcommand{\cvaddress}{#1}}
-\newcommand*{\cvphone}[1]{\renewcommand{\cvphone}{#1}}
-\newcommand*{\cvsite}[1]{\renewcommand{\cvsite}{#1}}
-\newcommand*{\cvmail}[1]{\renewcommand{\cvmail}{\href{mailto:#1}{#1}}}
-\newcommand*{\cvkey}[2]{\renewcommand{\cvkey}{%
+% Other personal information as macro that can be used later. Usage:
+% \cvcustomdata{Icon}{Text}
+% Icon can be taken from FontAwesome or Academicsicon for example
+\newcommand*{\personnaldata}{}
+\newcommand{\cvcustomdata}[2]{\apptocmd{\personnaldata}{\circleicon{#1} & #2\\}{}{}}
+% Old/Usefull subcommands/Shortcuts
+\newcommand*{\cvbirthday}[1]{\cvcustomdata{\faInfo}{#1}}
+\newcommand*{\cvaddress}[1]{\cvcustomdata{\faEnvelope}{#1}}
+\newcommand*{\cvphone}[1]{\cvcustomdata{\faPhone}{#1}}
+\newcommand*{\cvsite}[1]{\cvcustomdata{\faGlobe}{\url{#1}}}
+\newcommand*{\cvmail}[1]{\cvcustomdata{\faAt}{\href{mailto:#1}{#1}}}
+\newcommand*{\cvkey}[2]{\cvcustomdata{\faKey}{%
 	\href{https://keyserver.ubuntu.com/pks/lookup?search=#2\&op=vindex\&fingerprint=on}{#1}%
 }}
 
@@ -261,12 +268,7 @@
 % table with personal information on top sidebar on first page
 \newcommand{\personaltable}{%
 	\begin{personal}[0.6em]
-		\circleicon{\faInfo}     & \cvbirthday \\
-		\circleicon{\faEnvelope} & \cvaddress \\
-		\circleicon{\faPhone}    & \cvphone \\
-		\circleicon{\faGlobe}    & \cvsite \\
-		\circleicon{\faAt}       & \cvmail \\
-		\circleicon{\faKey}      & \cvkey
+		\personnaldata{}
 	\end{personal}
 }
 
