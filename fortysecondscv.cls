@@ -287,6 +287,11 @@
 	}%
 }
 
+% icon style for social network
+\newcommand*{\socialicon}[1]{%
+{\huge\textcolor{iconcolor}{#1}}
+}
+
 % make sure about me text stays in textbox frame
 \newcommand{\aboutme}[1]{\parbox[b]{\linewidth}{#1}}
 
@@ -323,6 +328,10 @@
 % \skill[<indent>]{<icon>}{<description>} creates in sidebar
 % | [indent] [icon]  some longer skill description  |
 \newcommand{\skill}[3][0em]{\hspace{#1} \cvicon{#2} ~ #3 \hfill \par}
+
+% Social Network (no line break)
+% | [indent] [icon] [url] |
+\newcommand{\social}[4][0em]{\socialicon{#2} & \vspace*{#1}\href{#3}{\small \texttt{#4}}\\}
 
 % label for wheel charts
 \newcommand{\chartlabel}[1]{%
