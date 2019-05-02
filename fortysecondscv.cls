@@ -110,8 +110,20 @@
 \RequirePackage{graphbox} 
 
 % pictures, icons and drawings
+\RequirePackage{ifluatex}
 \RequirePackage{ifxetex}
+\newif\ifxetexorluatex
 \ifxetex
+  \xetexorluatextrue
+\else
+  \ifluatex
+    \xetexorluatextrue
+  \else
+    \xetexorluatexfalse
+  \fi
+\fi
+
+\ifxetexorluatex
 	\RequirePackage{fontawesome5}
 \else
 	\RequirePackage{fontawesome}
