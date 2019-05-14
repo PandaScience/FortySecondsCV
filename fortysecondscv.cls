@@ -48,12 +48,14 @@
 \colorlet{sidecolor}{cvsidecolor}
 \colorlet{sectioncolor}{cvsectioncolor}
 \colorlet{subsectioncolor}{cvsubsectioncolor}
+\colorlet{itemtextcolor}{black!90}
 % colors for document body (right column)
 % let user define main color
 \DeclareOptionX{maincolor}{\colorlet{maincolor}{#1}}
 \DeclareOptionX{sidecolor}{\colorlet{sidecolor}{#1}}
 \DeclareOptionX{sectioncolor}{\colorlet{sectioncolor}{#1}}
 \DeclareOptionX{subsectioncolor}{\colorlet{subsectioncolor}{#1}}
+\DeclareOptionX{itemtextcolor}{\colorlet{itemtextcolor}{#1}}
 
 %	set page margins
 \newlength\sidebarwidth%
@@ -69,6 +71,10 @@
 \DeclareOptionX{topbottommargin}{\setlength{\topbottommargin}{#1}}
 \DeclareOptionX{leftrightmargin}{\setlength{\leftrightmargin}{#1}}
 
+% profile picture settings
+\newlength\profilepicsize%
+\setlength{\profilepicsize}{0.7\sidebarwidth}
+\DeclareOptionX{profilepicsize}{\setlength{\profilepicsize}{#1}}
 % show sidebar and page margins
 \DeclareOptionX{showframes}{
   \geometry{showframe}
@@ -169,6 +175,7 @@
 \newcommand*{\cvsection}[1]{\section*{#1}}
 \titleformat{\section}%
 	{\color{sectioncolor}\normalfont\bfseries\LARGE}{}{0pt}{}
+\titlespacing*{\section}{0pt}{1.5ex}{1ex}
 
 % grey subsection style for right column
 \titleformat{\subsection}%
@@ -193,7 +200,7 @@
 \newcommand*{\cvbirthday}[1]{\renewcommand{\cvbirthday}{#1}}
 \newcommand*{\cvaddress}[1]{\renewcommand{\cvaddress}{#1}}
 \newcommand*{\cvphone}[1]{\renewcommand{\cvphone}{#1}}
-\newcommand*{\cvsite}[1]{\renewcommand{\cvsite}{#1}}
+\newcommand*{\cvsite}[1]{\renewcommand{\cvsite}{\href{#1}{#1}}}
 \newcommand*{\cvmail}[1]{\renewcommand{\cvmail}{\href{mailto:#1}{#1}}}
 \newcommand*{\cvkey}[2]{\renewcommand{\cvkey}{%
 	\href{https://keyserver.ubuntu.com/pks/lookup?search=#2\&op=vindex\&fingerprint=on}{#1}%
@@ -211,7 +218,7 @@
 	\begin{figure}\centering
 		% see TikZ/pgf v3.1.1 manual §2.11 (clipping), §14.5 (rounded corners),
 		% §12 (scopes), §13.2 (coordinate systems)
-		\begin{tikzpicture}[x=0.8\sidebartextwidth, y=0.8\sidebartextwidth]
+		\begin{tikzpicture}[x=\profilepicsize, y=\profilepicsize]
 			\begin{scope}
 			\path[clip]
 				(0, 0) [sharp corners] -- 
@@ -219,7 +226,7 @@
 				(1, 1) [sharp corners] --
 				(1, 0) [rounded corners=0.15\sidebartextwidth] -- cycle;
 			\node[anchor=south west, inner sep=0pt] (profilepic) at (0, 0)
-				{\includegraphics[width=0.8\sidebartextwidth]{\cvprofilepic}};
+				{\includegraphics[width=\profilepicsize]{\cvprofilepic}};
 			\end{scope}
 			\begin{scope}
 			\draw	[line width=0.02\sidebartextwidth, color=iconcolor]
@@ -245,7 +252,7 @@
 % table with personal information on top sidebar on first page
 \newcommand{\personaltable}{%
 	\begin{personal}[0.6em]
-		\circleicon{\faInfo}     & \cvbirthday \\
+		\circleicon{\faUser}     & \cvbirthday \\
 		\circleicon{\faEnvelope} & \cvaddress \\
 		\circleicon{\faPhone}    & \cvphone \\
 		\circleicon{\faGlobe}    & \cvsite \\
@@ -505,6 +512,7 @@
   		\hfill {\footnotesize#3}%
 		\else%
 			\textbf{#2} \hfill {\footnotesize#3} \\ #4\vspace{\parsep}%
+			\textcolor{itemtextcolor}{#4}%\vspace{\parsep}%
 		\fi%
 	}\\
 }
