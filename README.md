@@ -26,7 +26,7 @@ When you should use the FortySecondsCV class:
 * You want to highly customize your CV using a great palette of colors and
   layout elements
 * You don't want to modify any definition in the class file
-* You prefer an easy to use user interface to almost all style elements
+* You prefer an easy-to-use user interface to almost all style elements
 * You need a cleanly written class file in case you decide to change low-level
   class definitions
 
@@ -59,6 +59,7 @@ Possible options that can be passed to FortySecondsCV are:
 * `maincolor=<color>` sets the color that is used for the entire sidebar incl.
   headings, icons and charts. Many colors are derived from it.
 * `sectioncolor=<color>` sets the color of section headings in the body text.
+* `itemtextcolor=<color>` sets the color of cvitem descriptions.
 * `subsectioncolor=<color>` same as sectioncolor for subsections.
 * `sidebarwidth=<length>` sets the total width of the sidebar, i.e. the width
   of the visible sidebar color. 
@@ -66,6 +67,7 @@ Possible options that can be passed to FortySecondsCV are:
   columns.
 * `leftrightmargin=<length>` sets the left and right page margin for both 
   columns as well as how much space will be between both columns.
+* `profilepicsize=<length>` sets the width of the profile picture.
 
 Note: 
 
@@ -126,6 +128,7 @@ LaTeX code. It is recommended to use `\newpage` immediately before
     \newcommand{\additional}{some more?}
   ```
   * The email address will be automatically linked with `mailto:email`.
+  * Your website will, of course, also be a hyperlink.
   * For the pgp key, the first argument defines the displayed text which is
   	linked to a keyserver searching for the ID in the second argument. For
   	safety, you should use your key's long ID or its fingerprint in the second
@@ -149,7 +152,8 @@ LaTeX code. It is recommended to use `\newpage` immediately before
   ```
   * You can use all predefined macros like `\cvphone` etc. but also define new
     ones as shown above and use them in your own table.
-  * The second argument sets the space between icons and corresponding text.
+  * The optional second argument sets the space between icons and corresponding
+  	text.
 
 ### Further Sidebar Style Elements
 
@@ -164,19 +168,25 @@ LaTeX code. It is recommended to use `\newpage` immediately before
   \skill[<indent>]{<icon>}{<text>}
   ```
 
-* Pointskill consisting of an icon, text and number of points with maximum 5.  
+* Pointskill consisting of an icon, text, the number of points and optionally
+  the maximum possible number (default: 5).
   Some examples:
   ```latex
   \pointskill{<icon>}{<text>}{<points>}
   ```
-  creates a skill using a Font Awesome icon with some text and a ranking of 3 
-  out of 5 points.
+  creates a skill using a Font Awesome icon with some text and a ranking of
+  `<points>` out of 5 points.
+  ```latex
+  \pointskill{<icon>}{<text>}{<points>}[<maxnum>]
+  ```
+  creates a skill using a Font Awesome icon with some text and a ranking of
+  `<points>` out of `<maxnum>` possible points.
   ```latex
   \pointskill{\flag{DE.png}}{German}{5}
   ```
   creates a language skill using a flag-icon, which has to be indicated using
   the `\flag` command in order to inform the class that the icon should not be
-  colored in the `\maincolor`.
+  colored using `\maincolor`.
 
 * Barskill consisting of an icon, text and percentage of how far the skillbar
   should be filled
@@ -190,7 +200,7 @@ LaTeX code. It is recommended to use `\newpage` immediately before
 
 * Rounded and colored label for e.g. charts and other graphics
   ```latex
-  \chartlabe{<text>}
+  \chartlabel{<text>}
   ```
 
 * Wheel chart
@@ -204,13 +214,16 @@ LaTeX code. It is recommended to use `\newpage` immediately before
 
 * Memberships
   ```latex
-  \begin{memberships}
-    \membership{<logo>}{<text>}
-    \membership{<logo>}{<text>}
-    \membership{<logo>}{<text>}
+  \begin{memberships}[<separation>=1em]
+    \membership[<iconwidth>=4em]{<logo>}{<text>}
+    \membership[<iconwidth>=4em]{<logo>}{<text>}
+    \membership[<iconwidth>=4em]{<logo>}{<text>}
   \end{memberships}
   ```
-
+  * `iconwidth` should be equal for all membership entries, otherwise maximum
+  	line length can be too long.
+  * BUG: when using separation > 1em, user has to take care of text overflow
+  	because maximum space for text cannot be calculated correctly as of now.
 
 ### Body
 The right column of the CV containing tables for sth. like "working experience"
@@ -225,7 +238,7 @@ has to be defined within the `document` environment.
 * CV items should be enclosed by `cvtable`, independent of the item type.
   Possible types are:
   ```latex
-  \begin{cvtable}
+  \begin{cvtable}[<arraystretch>=1]
     \cvitem{<dates>}{<title>}{<location>}{<description>}
     \cvitem{<dates>}{<title>}{<location>}{}
     \cvitemshort{<key>}{<description>}
@@ -233,20 +246,24 @@ has to be defined within the `document` environment.
   ```
   * `cvitem` including a description will make the title bold, left-align the
     date, right-align the location and put the description indented on the next
-    line
+    line. The description itself will be in `itemtextcolor` defined in the
+    [class options](#class-options).
   * `cvitem` missing a description will add a one-line item in the style of the
     former one but with a "normal" title instead of a bold one.
-  * `cvitemshort` left-aligns `<key>` followed by its description
+  * `cvitemshort` left-aligns `<key>` followed by its description.
+  * `<arraystretch>` modifies the spacing between items of `cvtable`. For 
+	tables of `cvitem`, you should use at least 1.5, for `cvitemshort` and
+	`cvitem` without description, the default value is sufficient.
 
 * Profile picture styles
   ```latex
   \profileroundedcorners
   ```
-  is the one visible in the example below
+  * is the one visible in the example below
   ```latex
   \profilecircle
   ```
-  clipped to a circle as in the original `twentysecondcv` class
+  * clips the picture to a circle as in the original `twentysecondcv` class
 
 * Name and jobtitle combination with proper spacing, font and color
   ```late
@@ -259,7 +276,7 @@ has to be defined within the `document` environment.
   \cvsignature
   ```
 
-### Misc
+### Font Configuration
 
 * Change font either by loading the corresponding package, e.g. for google noto
   font
