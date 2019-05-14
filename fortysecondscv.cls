@@ -14,7 +14,7 @@
 %                           CLASS NAME AND VERSION
 %-------------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fortysecondscv}[2019/03/17 CV class]
+\ProvidesClass{fortysecondscv}[2019/05/14 CV class]
 
 
 %-------------------------------------------------------------------------------
@@ -75,6 +75,7 @@
 \newlength\profilepicsize%
 \setlength{\profilepicsize}{0.7\sidebarwidth}
 \DeclareOptionX{profilepicsize}{\setlength{\profilepicsize}{#1}}
+
 % show sidebar and page margins
 \DeclareOptionX{showframes}{
   \geometry{showframe}
@@ -134,6 +135,9 @@
 % provides \ifnumgreater{<int expr.>}{<int expr.>}{<true>}{<false>} 
 % and \apptocmd{<command>}{<code>}{<success>}{<failure>}
 \RequirePackage{etoolbox}
+
+% enable multiple optional arguments in macros
+\RequirePackage{xparse}
 
 % enable links
 \RequirePackage[hidelinks]{hyperref}
@@ -283,12 +287,12 @@
 \newcommand{\cvicon}[1]{\makebox[1em]{\color{iconcolor} #1}}
 \newcommand{\flag}[1]{\includegraphics[align=c, width=1em]{#1}}
 
-% \pointskill[<indent>]{<icon>}{<description>}{<level>} creates 
+% \pointskill[<indent>]{<icon>}{<description>}{<points>}[<maxpoints>] creates 
 % | [indent] [icon]  description  \hfill  ● ● ● ○ ○ | 
 % -- inspired by arravc.cls by LianTze Lim: https://github.com/liantze/AltaCV
-\newcommand{\pointskill}[4][0em]{%
+\NewDocumentCommand{\pointskill}{ O{0em} m m m O{5} }{%
 	\hspace{#1} \cvicon{#2} ~ #3 \hfill%
-	\foreach \x in {1,...,5}{%
+	\foreach \x in {1,...,#5}{%
 		\space%
 		{\ifnumgreater{\x}{#4}{\color{skillbg}}{\color{iconcolor}}% from etoolbox
 		% don't use totalheight; see https://tex.stackexchange.com/a/41014
@@ -311,7 +315,9 @@
 
 % \skill[<indent>]{<icon>}{<description>} creates in sidebar
 % | [indent] [icon]  some longer skill description  |
-\newcommand{\skill}[3][0em]{\hspace{#1} \cvicon{#2} ~ #3 \hfill \par}
+\newcommand{\skill}[3][0em]{
+	\hspace{#1} \cvicon{#2} ~ \parbox{\linewidth-#1-2.5em}{#3} \hfill \par
+}
 
 % label for wheel charts
 \newcommand{\chartlabel}[1]{%
@@ -329,12 +335,15 @@
 	\end{tikzpicture}
 }
 
-\newenvironment{memberships}
-	{\begin{tabular*}{\textwidth}{l@{\hskip 2em}l}}
+\newenvironment{memberships}[1][1em]
+	{\begin{tabular*}{\textwidth}{l@{\hskip #1}l}}
 	{\end{tabular*}}
 
-\newcommand{\membership}[2]{
-	\includegraphics[align=c,width=4em]{#1}&\parbox[c]{\linewidth-6em}{#2}\\[3ex]
+% TODO find a way to access argument of memberships env. to calculate maximum
+% line length correctly. As of now, line can be too long... 
+\newcommand{\membership}[3][4em]{
+	\includegraphics[align=c,width=#1]{#2} 
+	& \parbox[c]{\linewidth - #1 - 1.3em}{#3} \\[3ex]
 }
 
 % adapted from https://tex.stackexchange.com/a/82729
@@ -490,9 +499,12 @@
 
 % cv list environment --> table, left aligned, width=textwidth
 % tabular starred version adds space to make table as wide as \textwidth here
-\newenvironment{cvtable}%
-	{\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}ll}}%
-	{\end{tabular*}}
+\newenvironment{cvtable}[1][1]{%
+	\renewcommand{\arraystretch}{#1}%
+	\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}ll}%
+}{%
+	\end{tabular*}
+}
 
 % | <keyword>      <one-line description>            |
 % use parbox if text needs to use multiple lines
@@ -508,10 +520,12 @@
 	\parbox[t]{0.17\textwidth}{\raggedright #1} &%
 	\parbox[t]{0.81\textwidth}{%
 		\if\relax\detokenize{#4}\relax%
-			\parbox[t]{\linewidth-\widthof{#3}-1em}{\raggedright #2}%
+			\parbox[t]{\linewidth-\widthof{\footnotesize #3}-1em}{\raggedright #2}%
   		\hfill {\footnotesize#3}%
 		\else%
-			\textbf{#2} \hfill {\footnotesize#3} \\ #4\vspace{\parsep}%
+			\parbox{\linewidth-\widthof{\footnotesize #3}-1em}{%
+				\raggedright \textbf{#2}%
+			} \hfill {\footnotesize#3} \\% 
 			\textcolor{itemtextcolor}{#4}%\vspace{\parsep}%
 		\fi%
 	}\\
