@@ -117,9 +117,22 @@
 \RequirePackage{graphbox} 
 
 % pictures, icons and drawings
+\RequirePackage{ifluatex}
 \RequirePackage{ifxetex}
+\newif\ifxetexorluatex
 \ifxetex
+  \xetexorluatextrue
+\else
+  \ifluatex
+    \xetexorluatextrue
+  \else
+    \xetexorluatexfalse
+  \fi
+\fi
+
+\ifxetexorluatex
 	\RequirePackage{fontawesome5}
+	\RequirePackage{academicons}
 \else
 	\RequirePackage{fontawesome}
 \fi
@@ -197,16 +210,26 @@
 %-------------------------------------------------------------------------------
 %                              SIDEBAR ELEMENTS
 %-------------------------------------------------------------------------------
-% save user definition for personal information as makro that can be used later
-\newcommand*{\cvprofilepic}[1]{\renewcommand{\cvprofilepic}{#1}}
+% Name and Job Title
 \newcommand*{\cvname}[1]{\renewcommand{\cvname}{#1}}
 \newcommand*{\cvjobtitle}[1]{\renewcommand{\cvjobtitle}{#1}}
-\newcommand*{\cvbirthday}[1]{\renewcommand{\cvbirthday}{#1}}
-\newcommand*{\cvaddress}[1]{\renewcommand{\cvaddress}{#1}}
-\newcommand*{\cvphone}[1]{\renewcommand{\cvphone}{#1}}
-\newcommand*{\cvsite}[1]{\renewcommand{\cvsite}{\href{#1}{#1}}}
-\newcommand*{\cvmail}[1]{\renewcommand{\cvmail}{\href{mailto:#1}{#1}}}
-\newcommand*{\cvkey}[2]{\renewcommand{\cvkey}{%
+
+% Profile picture
+\newcommand{\plotProfilePicture}{}
+\newcommand*{\cvprofilepic}[1]{\renewcommand{\cvprofilepic}{#1}\renewcommand{\plotProfilePicture}{\profileroundedcorners}}
+
+% Other personal information as macro that can be used later. Usage:
+% \cvcustomdata{Icon}{Text}
+% Icon can be taken from FontAwesome or Academicsicon for example
+\newcommand*{\personnaldata}{}
+\newcommand{\cvcustomdata}[2]{\apptocmd{\personnaldata}{\circleicon{#1} & #2\\}{}{}}
+% Old/Usefull subcommands/Shortcuts
+\newcommand*{\cvbirthday}[1]{\cvcustomdata{\faInfo}{#1}}
+\newcommand*{\cvaddress}[1]{\cvcustomdata{\faEnvelope}{#1}}
+\newcommand*{\cvphone}[1]{\cvcustomdata{\faPhone}{#1}}
+\newcommand*{\cvsite}[1]{\cvcustomdata{\faGlobe}{\url{#1}}}
+\newcommand*{\cvmail}[1]{\cvcustomdata{\faAt}{\href{mailto:#1}{#1}}}
+\newcommand*{\cvkey}[2]{\cvcustomdata{\faKey}{%
 	\href{https://keyserver.ubuntu.com/pks/lookup?search=#2\&op=vindex\&fingerprint=on}{#1}%
 }}
 
@@ -256,12 +279,7 @@
 % table with personal information on top sidebar on first page
 \newcommand{\personaltable}{%
 	\begin{personal}[0.6em]
-		\circleicon{\faUser}     & \cvbirthday \\
-		\circleicon{\faEnvelope} & \cvaddress \\
-		\circleicon{\faPhone}    & \cvphone \\
-		\circleicon{\faGlobe}    & \cvsite \\
-		\circleicon{\faAt}       & \cvmail \\
-		\circleicon{\faKey}      & \cvkey
+		\personnaldata{}
 	\end{personal}
 }
 
@@ -278,6 +296,11 @@
 			minimum size=1.7em%
 		] (char) {#1};%
 	}%
+}
+
+% icon style for social network
+\newcommand*{\socialicon}[1]{%
+{\huge\textcolor{iconcolor}{#1}}
 }
 
 % make sure about me text stays in textbox frame
@@ -318,6 +341,10 @@
 \newcommand{\skill}[3][0em]{
 	\hspace{#1} \cvicon{#2} ~ \parbox{\linewidth-#1-2.5em}{#3} \hfill \par
 }
+
+% Social Network (no line break)
+% | [indent] [icon] [url] |
+\newcommand{\social}[4][0em]{\socialicon{#2} & \vspace*{#1}\href{#3}{\small \texttt{#4}}\\}
 
 % label for wheel charts
 \newcommand{\chartlabel}[1]{%
@@ -462,7 +489,7 @@
 		\setlength{\parskip}{1ex}
 
 		% insert profile picture
-		\profileroundedcorners
+		\plotProfilePicture
 		\vspace{1ex}
 
 		% name and job
@@ -529,6 +556,13 @@
 			\textcolor{itemtextcolor}{#4}%\vspace{\parsep}%
 		\fi%
 	}\\
+}
+
+% Publication item
+% <title> <author> <journal> <year>
+\newcommand{\publiitem}[4]{%
+	\parbox[t]{0.17\textwidth}{\raggedright #4}&
+		\parbox[t]{0.81\textwidth}{\textbf{#1} \par {\textcolor{black}{\textit{#2}}}\par #3\vspace{\parsep}}\\
 }
 
 % EOF - fortysecondscv.cls

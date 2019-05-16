@@ -31,7 +31,7 @@
 \usepackage{ragged2e}
 
 % take care of proper font encoding
-\ifxetex
+\ifxetexorluatex
 	\usepackage{fontspec}
 	\defaultfontfeatures{Ligatures=TeX}
 % \newfontfamily\headingfont[Path = fonts/]{segoeuib.ttf} % local font
@@ -85,8 +85,8 @@
 \cvmail{panda@bamboo.cn}
 % pgp key
 \cvkey{4096R/FF00FF00}{0xAABBCCDDFF00FF00}
-% add additional information
-% \newcommand{\additional}{some more?}
+% Custom Data
+\cvcustomdata{\faFlag}{Chinese}
 
 
 %-------------------------------------------------------------------------------
@@ -238,11 +238,9 @@
 
 \cvsection{Publications}
 \begin{cvtable}
-	\cvitem{2010}{Cooking: 100 recipes for lazy Pandas}{Panda's
-	Culinary World}{}
-	\cvitem{2005}{Pandastasia}{Bamboo Books Assoc.}{}
-	\cvitem{2000}{The Panda Way - A guide for mastering everyday life as a Panda}
-		{Young Panda's Journal}{}
+	\publiitem{Cooking: 100 recipes for lazy Pandas}{Me and My Panda Friends}{Panda's Culinary World}{2010}
+	\publiitem{Pandastasia}{Still Me}{Bamboo Books Assoc.}{2005}
+	\publiitem{The Panda Way - A guide for mastering everyday life as a Panda}{Lazy Panda}{Young Panda's Journal}{2000}
 \end{cvtable}
 
 
