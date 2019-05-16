@@ -18,7 +18,7 @@
 
 
 %-------------------------------------------------------------------------------
-%                               PROCESS OPTIONS
+%                            PROCESS CLASS OPTIONS
 %-------------------------------------------------------------------------------
 %% load some required packages first
 % for easy color definitions; provides \definecolor; load before background pkg
@@ -27,6 +27,9 @@
 \RequirePackage[absolute,overlay]{textpos}
 % provides key-value class options via \DeclareOptionX
 \RequirePackage{xkeyval}
+% provides \ifnumgreater{<int expr.>}{<int expr.>}{<true>}{<false>},
+% \apptocmd{<command>}{<code>}{<success>}{<failure>} and \newtoggle{<name>}
+\RequirePackage{etoolbox}
 % enable simple math like +/- etc. on lengths
 \RequirePackage{calc}
 % change page margins
@@ -77,9 +80,14 @@
 \DeclareOptionX{profilepicsize}{\setlength{\profilepicsize}{#1}}
 
 % show sidebar and page margins
+\newtoggle{tshowframes}
+\togglefalse{tshowframes}
 \DeclareOptionX{showframes}{
   \geometry{showframe}
   \TPoptions{showboxes=true}
+  \toggletrue{tshowframes}
+  % adding \hline in \newenvironment directly doesn't work, so do it here...
+	\AtBeginDocument{\apptocmd{\personaldata}{\hline}{}{}}
 }
 
 % pass further options to base class and load it
@@ -116,6 +124,8 @@
 % loads graphicx, provides align=c option for vertical alignment w.r.t. text
 \RequirePackage{graphbox} 
 
+% provides X column type for automatic length calculations
+\RequirePackage{tabularx}
 
 % take care of compiler-specific packages
 \RequirePackage{ifluatex}
@@ -146,10 +156,6 @@
 
 % provides basic conditional expressions
 \RequirePackage{ifthen}
-
-% provides \ifnumgreater{<int expr.>}{<int expr.>}{<true>}{<false>} 
-% and \apptocmd{<command>}{<code>}{<success>}{<failure>}
-\RequirePackage{etoolbox}
 
 % enable multiple optional arguments in macros
 \RequirePackage{xparse}
@@ -233,6 +239,11 @@
 	\apptocmd{\personaldata}{\circleicon{#1} & #2\\}{}{}%
 }
 
+% social network item; \social{<icon>}{<url>}{<text>}
+\newcommand*{\social}[3]{%
+	\socialicon{#1} & \href{#2}{#3}\\%
+}
+
 % useful shortcuts
 % NOTE: we use href instead of url so user can decide textformatting since url
 % automatically uses \texttt{} as format for the url
@@ -278,16 +289,30 @@
 	\end{figure}
 }
 
-
+% https://tex.stackexchange.com/a/42331
 % use table with 2 columns, optional argument is space between columns
 \newenvironment{personal}[1][1em]%
 {%
 	\renewcommand{\arraystretch}{1.6}% increase linespacing in tables; default=1
-	\begin{tabular}{p{2em} @{\hskip #1} p{14em}}%
+	\iftoggle{tshowframes}{%
+		\tabularx{\sidebartextwidth}{|m{2em} | @{\hskip #1} | X|} \hline%
+	}{%
+		\tabularx{\sidebartextwidth}{m{2em} @{\hskip #1} X}%
+	}
 }{%
-	\end{tabular}%
+	\endtabularx%
 }
 
+% table like above, but optimized for larger social network icons
+\newenvironment{socialnetwork}[1][1em]%
+{%
+	\iftoggle{tshowframes}{%
+		\tabularx{\sidebartextwidth}{|m{2em} | @{\hskip #1} | X|} \hline%
+	}{%
+		\tabularx{\sidebartextwidth}{m{2em} @{\hskip #1} X}%
+	}
+}{%
+	\endtabularx%
 }
 
 % icon style for personal information
@@ -306,7 +331,10 @@
 }
 
 % icon style for social network
-\newcommand*{\socialicon}[1]{{\Huge\textcolor{iconcolor}{#1}}}
+\newcommand*{\socialicon}[1]{%
+	\resizebox{2em}{!}{\textcolor{iconcolor}{#1}}%
+}
+
 
 % make sure about me text stays in textbox frame
 \newcommand{\aboutme}[1]{\parbox[b]{\linewidth}{#1}}
@@ -347,10 +375,6 @@
 	\hspace{#1} \cvicon{#2} ~ \parbox{\linewidth-#1-2.5em}{#3} \hfill \par
 }
 
-% Social Network (no line break)
-% | [indent] [icon] [url] |
-\newcommand{\social}[4][0em]{\socialicon{#2} & \vspace*{#1}\href{#3}{\small \texttt{#4}}\\}
-
 % label for wheel charts
 \newcommand{\chartlabel}[1]{%
 	\begin{tikzpicture}
@@ -367,15 +391,21 @@
 	\end{tikzpicture}
 }
 
-\newenvironment{memberships}[1][1em]
-	{\begin{tabular*}{\textwidth}{l@{\hskip #1}l}}
-	{\end{tabular*}}
 
-% TODO find a way to access argument of memberships env. to calculate maximum
-% line length correctly. As of now, line can be too long... 
+\newenvironment{memberships}[1][1em]%
+{%
+	\iftoggle{tshowframes}{%
+		\tabularx{\sidebartextwidth}{|l | @{\hskip #1} | X|} \hline%
+	}{%
+		\tabularx{\sidebartextwidth}{l @{\hskip #1} X}%
+	}
+}{%
+	\endtabularx%
+}
+
+
 \newcommand{\membership}[3][4em]{
-	\includegraphics[align=c,width=#1]{#2} 
-	& \parbox[c]{\linewidth - #1 - 1.3em}{#3} \\[3ex]
+	\includegraphics[align=c,width=#1]{#2} & {#3} \\[3ex]
 }
 
 % adapted from https://tex.stackexchange.com/a/82729
