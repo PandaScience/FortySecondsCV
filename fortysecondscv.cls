@@ -116,7 +116,8 @@
 % loads graphicx, provides align=c option for vertical alignment w.r.t. text
 \RequirePackage{graphbox} 
 
-% pictures, icons and drawings
+
+% take care of compiler-specific packages
 \RequirePackage{ifluatex}
 \RequirePackage{ifxetex}
 \newif\ifxetexorluatex
@@ -130,6 +131,7 @@
   \fi
 \fi
 
+% pictures, icons and drawings
 \ifxetexorluatex
 	\RequirePackage{fontawesome5}
 	\RequirePackage{academicons}
@@ -167,7 +169,7 @@
 % color definitions for TikZ drawings
 \colorlet{wheelchartlabelcolor}{black}
 \colorlet{wheeltextcolor}{black!80!white}
-% color of unfilld skill points / bar / chart label
+% color of unfilled skill points / bar / chart label
 \colorlet{skillbg}{black!25}
 
 
@@ -195,6 +197,7 @@
 \titlespacing*{\section}{0pt}{1.5ex}{1ex}
 
 % grey subsection style for right column
+\newcommand*{\cvsubsection}[1]{\subsection*{#1}}
 \titleformat{\subsection}%
 	{\color{subsectioncolor}\normalfont\large}{}{0pt}{}
 
@@ -210,24 +213,33 @@
 %-------------------------------------------------------------------------------
 %                              SIDEBAR ELEMENTS
 %-------------------------------------------------------------------------------
-% Name and Job Title
+% mandatory personal information
 \newcommand*{\cvname}[1]{\renewcommand{\cvname}{#1}}
 \newcommand*{\cvjobtitle}[1]{\renewcommand{\cvjobtitle}{#1}}
 
-% Profile picture
-\newcommand{\plotProfilePicture}{}
-\newcommand*{\cvprofilepic}[1]{\renewcommand{\cvprofilepic}{#1}\renewcommand{\plotProfilePicture}{\profileroundedcorners}}
+% profile picture (optional)
+% TODO let user choose style via class settings
+\newcommand{\plotprofilepicture}{}
+\newcommand*{\cvprofilepic}[1]{
+	\renewcommand{\cvprofilepic}{#1}
+	\renewcommand{\plotprofilepicture}{\profileroundedcorners}
+}
 
-% Other personal information as macro that can be used later. Usage:
-% \cvcustomdata{Icon}{Text}
-% Icon can be taken from FontAwesome or Academicsicon for example
-\newcommand*{\personnaldata}{}
-\newcommand{\cvcustomdata}[2]{\apptocmd{\personnaldata}{\circleicon{#1} & #2\\}{}{}}
-% Old/Usefull subcommands/Shortcuts
-\newcommand*{\cvbirthday}[1]{\cvcustomdata{\faInfo}{#1}}
+% other personal information as macro that can be used later. Usage:
+% \cvcustomdata{<Icon>}{<Text>}
+% icon can be taken from FontAwesome or Academicon for example
+\newcommand{\personaldata}{}
+\newcommand*{\cvcustomdata}[2]{%
+	\apptocmd{\personaldata}{\circleicon{#1} & #2\\}{}{}%
+}
+
+% useful shortcuts
+% NOTE: we use href instead of url so user can decide textformatting since url
+% automatically uses \texttt{} as format for the url
+\newcommand*{\cvbirthday}[1]{\cvcustomdata{\faUser}{#1}}
 \newcommand*{\cvaddress}[1]{\cvcustomdata{\faEnvelope}{#1}}
 \newcommand*{\cvphone}[1]{\cvcustomdata{\faPhone}{#1}}
-\newcommand*{\cvsite}[1]{\cvcustomdata{\faGlobe}{\url{#1}}}
+\newcommand*{\cvsite}[1]{\cvcustomdata{\faGlobe}{\href{#1}{#1}}}
 \newcommand*{\cvmail}[1]{\cvcustomdata{\faAt}{\href{mailto:#1}{#1}}}
 \newcommand*{\cvkey}[2]{\cvcustomdata{\faKey}{%
 	\href{https://keyserver.ubuntu.com/pks/lookup?search=#2\&op=vindex\&fingerprint=on}{#1}%
@@ -276,11 +288,6 @@
 	\end{tabular}%
 }
 
-% table with personal information on top sidebar on first page
-\newcommand{\personaltable}{%
-	\begin{personal}[0.6em]
-		\personnaldata{}
-	\end{personal}
 }
 
 % icon style for personal information
@@ -299,9 +306,7 @@
 }
 
 % icon style for social network
-\newcommand*{\socialicon}[1]{%
-{\huge\textcolor{iconcolor}{#1}}
-}
+\newcommand*{\socialicon}[1]{{\Huge\textcolor{iconcolor}{#1}}}
 
 % make sure about me text stays in textbox frame
 \newcommand{\aboutme}[1]{\parbox[b]{\linewidth}{#1}}
@@ -489,7 +494,7 @@
 		\setlength{\parskip}{1ex}
 
 		% insert profile picture
-		\plotProfilePicture
+		\plotprofilepicture
 		\vspace{1ex}
 
 		% name and job
@@ -497,7 +502,9 @@
 
 		% personal information
 		\vspace*{0.5em}
-		\personaltable
+		\begin{personal}[0.6em]
+			\personaldata
+		\end{personal}
 
 		% user definitions
 		\frontsidebar
@@ -558,11 +565,16 @@
 	}\\
 }
 
-% Publication item
-% <title> <author> <journal> <year>
-\newcommand{\publiitem}[4]{%
-	\parbox[t]{0.17\textwidth}{\raggedright #4}&
-		\parbox[t]{0.81\textwidth}{\textbf{#1} \par {\textcolor{black}{\textit{#2}}}\par #3\vspace{\parsep}}\\
+% publication item
+% \cvpubitem{<title>}{<author>}{<journal>}{<year>} will produce 
+% | <year>         <bold title>                      |
+% |                <italic author>                   |
+% |                <journal>                         |
+\newcommand{\cvpubitem}[4]{%
+	\parbox[t]{0.17\textwidth}{\raggedright #4} &
+	\parbox[t]{0.81\textwidth}{%
+		\textbf{#1} \par \textit{#2} \par #3 \vspace{\parsep}%
+	}\\
 }
 
 % EOF - fortysecondscv.cls
