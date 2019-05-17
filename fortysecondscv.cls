@@ -14,11 +14,11 @@
 %                           CLASS NAME AND VERSION
 %-------------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fortysecondscv}[2019/05/14 CV class]
+\ProvidesClass{fortysecondscv}[2019/05/17 CV class]
 
 
 %-------------------------------------------------------------------------------
-%                               PROCESS OPTIONS
+%                            PROCESS CLASS OPTIONS
 %-------------------------------------------------------------------------------
 %% load some required packages first
 % for easy color definitions; provides \definecolor; load before background pkg
@@ -27,6 +27,9 @@
 \RequirePackage[absolute,overlay]{textpos}
 % provides key-value class options via \DeclareOptionX
 \RequirePackage{xkeyval}
+% provides \ifnumgreater{<int expr.>}{<int expr.>}{<true>}{<false>},
+% \apptocmd{<command>}{<code>}{<success>}{<failure>} and \newtoggle{<name>}
+\RequirePackage{etoolbox}
 % enable simple math like +/- etc. on lengths
 \RequirePackage{calc}
 % change page margins
@@ -77,9 +80,25 @@
 \DeclareOptionX{profilepicsize}{\setlength{\profilepicsize}{#1}}
 
 % show sidebar and page margins
+\newtoggle{tshowframes}
+\togglefalse{tshowframes}
 \DeclareOptionX{showframes}{
   \geometry{showframe}
   \TPoptions{showboxes=true}
+  \toggletrue{tshowframes}
+  % adding \hline in \newenvironment directly doesn't work, so do it here...
+	\AtBeginDocument{\apptocmd{\personaldata}{\hline}{}{}}
+}
+
+% draw vertical guideline
+\newcommand{\plotvline}{}
+\DeclareOptionX{vline}{%
+	% must be defined here as macro, b/c tikz won't expand absolute length in
+	% \backgroundsetup -- BUG?
+	\renewcommand{\plotvline}{%
+		\draw [thick, red, opacity=0.7] 
+		(\leftrightmargin + #1, 0) -- (\leftrightmargin + #1, -\paperheight);
+	}
 }
 
 % pass further options to base class and load it
@@ -92,7 +111,7 @@
 \setlength{\sidebartextwidth}{\sidebarwidth - 2\leftrightmargin}
 
 % let geometry package perform the changes;
-% must come after loading the base class prevent overwriting
+% must come after loading the base class to prevent overwriting
 \geometry{
 	top=\topbottommargin,
 	bottom=\topbottommargin,
@@ -116,10 +135,27 @@
 % loads graphicx, provides align=c option for vertical alignment w.r.t. text
 \RequirePackage{graphbox} 
 
-% pictures, icons and drawings
+% provides X column type for automatic length calculations
+\RequirePackage{tabularx}
+
+% take care of compiler-specific packages
+\RequirePackage{ifluatex}
 \RequirePackage{ifxetex}
+\newif\ifxetexorluatex
 \ifxetex
+  \xetexorluatextrue
+\else
+  \ifluatex
+    \xetexorluatextrue
+  \else
+    \xetexorluatexfalse
+  \fi
+\fi
+
+% pictures, icons and drawings
+\ifxetexorluatex
 	\RequirePackage{fontawesome5}
+	\RequirePackage{academicons}
 \else
 	\RequirePackage{fontawesome}
 \fi
@@ -131,10 +167,6 @@
 
 % provides basic conditional expressions
 \RequirePackage{ifthen}
-
-% provides \ifnumgreater{<int expr.>}{<int expr.>}{<true>}{<false>} 
-% and \apptocmd{<command>}{<code>}{<success>}{<failure>}
-\RequirePackage{etoolbox}
 
 % enable multiple optional arguments in macros
 \RequirePackage{xparse}
@@ -154,7 +186,7 @@
 % color definitions for TikZ drawings
 \colorlet{wheelchartlabelcolor}{black}
 \colorlet{wheeltextcolor}{black!80!white}
-% color of unfilld skill points / bar / chart label
+% color of unfilled skill points / bar / chart label
 \colorlet{skillbg}{black!25}
 
 
@@ -182,6 +214,7 @@
 \titlespacing*{\section}{0pt}{1.5ex}{1ex}
 
 % grey subsection style for right column
+\newcommand*{\cvsubsection}[1]{\subsection*{#1}}
 \titleformat{\subsection}%
 	{\color{subsectioncolor}\normalfont\large}{}{0pt}{}
 
@@ -197,16 +230,45 @@
 %-------------------------------------------------------------------------------
 %                              SIDEBAR ELEMENTS
 %-------------------------------------------------------------------------------
-% save user definition for personal information as makro that can be used later
-\newcommand*{\cvprofilepic}[1]{\renewcommand{\cvprofilepic}{#1}}
+% mandatory personal information
 \newcommand*{\cvname}[1]{\renewcommand{\cvname}{#1}}
 \newcommand*{\cvjobtitle}[1]{\renewcommand{\cvjobtitle}{#1}}
-\newcommand*{\cvbirthday}[1]{\renewcommand{\cvbirthday}{#1}}
-\newcommand*{\cvaddress}[1]{\renewcommand{\cvaddress}{#1}}
-\newcommand*{\cvphone}[1]{\renewcommand{\cvphone}{#1}}
-\newcommand*{\cvsite}[1]{\renewcommand{\cvsite}{\href{#1}{#1}}}
-\newcommand*{\cvmail}[1]{\renewcommand{\cvmail}{\href{mailto:#1}{#1}}}
-\newcommand*{\cvkey}[2]{\renewcommand{\cvkey}{%
+
+% profile picture (optional)
+% TODO let user choose style via class settings
+\newcommand{\plotprofilepicture}{}
+\newcommand*{\cvprofilepic}[1]{
+	\renewcommand{\cvprofilepic}{#1}
+	\renewcommand{\plotprofilepicture}{\profileroundedcorners}
+}
+
+% social network item; \social{<icon>}{<url>}{<text>}
+\newcommand*{\social}[3]{%
+	\socialicon{#1} & \href{#2}{#3}\\%
+}
+
+% personal information item; \personal{<icon>}{<text>}
+\newcommand*{\personal}[2]{%
+	\circleicon{#1} & {#2}\\%
+}
+
+% other personal information as macro that can be used later. Usage:
+% \cvcustomdata{<Icon>}{<Text>}
+% icon can be taken from FontAwesome or Academicon for example
+\newcommand{\personaldata}{}
+\newcommand*{\cvcustomdata}[2]{%
+	\apptocmd{\personaldata}{\personal{#1}{#2}}{}{}%
+}
+
+% useful shortcuts
+% NOTE: we use href instead of url so user can decide textformatting since url
+% automatically uses \texttt{} as format for the url
+\newcommand*{\cvbirthday}[1]{\cvcustomdata{\faUser}{#1}}
+\newcommand*{\cvaddress}[1]{\cvcustomdata{\faEnvelope}{#1}}
+\newcommand*{\cvphone}[1]{\cvcustomdata{\faPhone}{#1}}
+\newcommand*{\cvsite}[1]{\cvcustomdata{\faGlobe}{\href{#1}{#1}}}
+\newcommand*{\cvmail}[1]{\cvcustomdata{\faAt}{\href{mailto:#1}{#1}}}
+\newcommand*{\cvkey}[2]{\cvcustomdata{\faKey}{%
 	\href{https://keyserver.ubuntu.com/pks/lookup?search=#2\&op=vindex\&fingerprint=on}{#1}%
 }}
 
@@ -243,26 +305,19 @@
 	\end{figure}
 }
 
-
-% use table with 2 columns, optional argument is space between columns
-\newenvironment{personal}[1][1em]%
+% table with 2 columns for icons and text
+% \icontable{<width 1st column>}{<space between columns>}{<arraystretch>}
+\newenvironment{icontable}[3][1]%
 {%
-	\renewcommand{\arraystretch}{1.6}% increase linespacing in tables; default=1
-	\begin{tabular}{p{2em} @{\hskip #1} p{14em}}%
+	\renewcommand{\arraystretch}{#1}% increase linespacing in tables; default=1
+	\iftoggle{tshowframes}{%
+		% https://tex.stackexchange.com/a/42331
+		\tabularx{\sidebartextwidth}{|m{#2} | @{\hskip #3} | X|} \hline%
+	}{%
+		\tabularx{\sidebartextwidth}{m{#2} @{\hskip #3} X}%
+	}
 }{%
-	\end{tabular}%
-}
-
-% table with personal information on top sidebar on first page
-\newcommand{\personaltable}{%
-	\begin{personal}[0.6em]
-		\circleicon{\faUser}     & \cvbirthday \\
-		\circleicon{\faEnvelope} & \cvaddress \\
-		\circleicon{\faPhone}    & \cvphone \\
-		\circleicon{\faGlobe}    & \cvsite \\
-		\circleicon{\faAt}       & \cvmail \\
-		\circleicon{\faKey}      & \cvkey
-	\end{personal}
+	\endtabularx%
 }
 
 % icon style for personal information
@@ -275,15 +330,21 @@
 			fill=iconcolor,%
 			maincolor,%
 			text=white,%
-			minimum size=1.7em%
+			minimum size=\hsize%
 		] (char) {#1};%
 	}%
 }
 
+% icon style for social network
+\newcommand*{\socialicon}[1]{%
+	\resizebox{\hsize}{!}{\textcolor{iconcolor}{#1}}%
+}
+
+
 % make sure about me text stays in textbox frame
 \newcommand{\aboutme}[1]{\parbox[b]{\linewidth}{#1}}
 
-% uniform icon style for all cvskill icons, e.g. flags or fontawesome icons
+% uniform icon style for all skill icons, e.g. flags or fontawesome icons
 \newcommand{\cvicon}[1]{\makebox[1em]{\color{iconcolor} #1}}
 \newcommand{\flag}[1]{\includegraphics[align=c, width=1em]{#1}}
 
@@ -335,15 +396,21 @@
 	\end{tikzpicture}
 }
 
-\newenvironment{memberships}[1][1em]
-	{\begin{tabular*}{\textwidth}{l@{\hskip #1}l}}
-	{\end{tabular*}}
 
-% TODO find a way to access argument of memberships env. to calculate maximum
-% line length correctly. As of now, line can be too long... 
+\newenvironment{memberships}[1][1em]%
+{%
+	\iftoggle{tshowframes}{%
+		\tabularx{\sidebartextwidth}{|l | @{\hskip #1} | X|} \hline%
+	}{%
+		\tabularx{\sidebartextwidth}{l @{\hskip #1} X}%
+	}
+}{%
+	\endtabularx%
+}
+
+
 \newcommand{\membership}[3][4em]{
-	\includegraphics[align=c,width=#1]{#2} 
-	& \parbox[c]{\linewidth - #1 - 1.3em}{#3} \\[3ex]
+	\includegraphics[align=c,width=#1]{#2} & {#3} \\[3ex]
 }
 
 % adapted from https://tex.stackexchange.com/a/82729
@@ -437,6 +504,8 @@
    			minimum width=\sidebarwidth,
    			minimum height=\paperheight,
 			]{};% (frontsidebar) at (current page.north west){};
+			% plot vertical red guideline
+			\plotvline
 		\end{tikzpicture}
 	}
 }
@@ -462,7 +531,7 @@
 		\setlength{\parskip}{1ex}
 
 		% insert profile picture
-		\profileroundedcorners
+		\plotprofilepicture
 		\vspace{1ex}
 
 		% name and job
@@ -470,7 +539,9 @@
 
 		% personal information
 		\vspace*{0.5em}
-		\personaltable
+		\begin{icontable}[1.6]{1.7em}{0.4em}
+			\personaldata
+		\end{icontable}
 
 		% user definitions
 		\frontsidebar
@@ -528,6 +599,18 @@
 			} \hfill {\footnotesize#3} \\% 
 			\textcolor{itemtextcolor}{#4}%\vspace{\parsep}%
 		\fi%
+	}\\
+}
+
+% publication item
+% \cvpubitem{<title>}{<author>}{<journal>}{<year>} will produce 
+% | <year>         <bold title>                      |
+% |                <italic author>                   |
+% |                <journal>                         |
+\newcommand{\cvpubitem}[4]{%
+	\parbox[t]{0.17\textwidth}{\raggedright #4} &
+	\parbox[t]{0.81\textwidth}{%
+		\textbf{#1} \par \textit{#2} \par #3 \vspace{\parsep}%
 	}\\
 }
 

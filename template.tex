@@ -16,6 +16,7 @@
 \documentclass[
   a4paper, 
 %   showframes,
+%   vline=2.2em,
 %   maincolor=cvgreen,
 %   sectioncolor=red,
 %   subsectioncolor=orange,
@@ -31,7 +32,7 @@
 \usepackage{ragged2e}
 
 % take care of proper font encoding
-\ifxetex
+\ifxetexorluatex
 	\usepackage{fontspec}
 	\defaultfontfeatures{Ligatures=TeX}
 % \newfontfamily\headingfont[Path = fonts/]{segoeuib.ttf} % local font
@@ -67,14 +68,19 @@
 %-------------------------------------------------------------------------------
 %                            PERSONAL INFORMATION
 %-------------------------------------------------------------------------------
-% profile picture
-\cvprofilepic{pics/profile.png}
+%% mandatory information
 % your name
 \cvname{Panda Bear}
 % job title/career
 \cvjobtitle{Panda Scientist,\\[0.2em] Panda of the Year}
+
+%% optional information
+% profile picture
+\cvprofilepic{pics/profile.png}
+
+% NOTE: ordering in sidebar will mimic the following order
 % date of birth
-\cvbirthday{Mar 7, 2019}
+\cvbirthday{\today}
 % short address/location, use \newline if more than 1 line is required
 \cvaddress{Park Ave.~1, 555 555 B-Woods}
 % phone number
@@ -85,32 +91,28 @@
 \cvmail{panda@bamboo.cn}
 % pgp key
 \cvkey{4096R/FF00FF00}{0xAABBCCDDFF00FF00}
-% add additional information
-% \newcommand{\additional}{some more?}
-
+% any other custom entry
+\cvcustomdata{\faFlag}{Chinese}
 
 %-------------------------------------------------------------------------------
 %                              SIDEBAR 1st PAGE
 %-------------------------------------------------------------------------------
-% overwrite default icons and order of personal information
-% \renewcommand{\personaltable}{%
-% 	\begin{personal}[0.8em]
-% 		\circleicon{\faKey}      & \cvkey  \\
-% 		\circleicon{\faAt}       & \cvmail \\
-% 		\circleicon{\faGlobe}    & \cvsite \\
-% 		\circleicon{\faPhone}    & \cvphone \\
-% 		\circleicon{\faEnvelope} & \cvaddress \\
-% 		\circleicon{\faInfo}     & \cvbirthday \\
-% 		% add another line
-% 		\circleicon{\faQuestion} & \additional
-% 	\end{personal}
-% }
-
 % add more profile sections to sidebar on first page
 \addtofrontsidebar{
 	% include gosquare national flags from https://github.com/gosquared/flags;
 	% naming according to ISO 3166-1 alpha-2 country codes
 	\graphicspath{{pics/flags/shiny/}}
+
+	% social network accounts incl. proper hyperlinks
+	\profilesection{Social Network}
+		\begin{icontable}{2.5em}{1em}
+			\social{\aiOverleafSquare}
+				{https://de.overleaf.com/latex/templates/forty-seconds-cv/pztcktmyngsk}
+				{Overleaf Template Link}
+			\social{\faGithub}
+				{https://github.com/PandaScience/FortySecondsCV}
+				{Github Project Page Link}
+		\end{icontable}
 
 	\profilesection{Languages}
 		\pointskill{\flag{CN.png}}{Chinese}{5}
@@ -126,15 +128,9 @@
 	\profilesection{Soft Skills}
 		\pointskill{\faHome}{Looking Cute}{4}[4]
  			\skill[1.8em]{\faCompress}{No need to specify further}
-		\pointskill{\faTasks}{Being Black \& White}{4}[4]
- 			\skill[1.8em]{\faCompress}{Having white parts}
- 			\skill[1.8em]{\faCompress}{Having black parts}
 		\pointskill{\faChild}{Chillin' hard}{3}[4]
  			\skill[1.8em]{\faCompress}{On a tree}
  			\skill[1.8em]{\faCompress}{On the grass}
-		\pointskill{\faComment}{Being an Idol}{2}[4]
- 			\skill[1.8em]{\faCompress}{Kung Fu Panda 1-3}
- 			\skill[1.8em]{\faCompress}{WoW: Mists of Pandaria}
 }
 
 
@@ -184,7 +180,6 @@
 			only one line}
 		\membership[4em]{pics/logo.png}{\rule{\linewidth}{1pt}}
 	\end{memberships}
-
 }
 
 
@@ -198,9 +193,8 @@
 \cvsection{Working Experience}
 \begin{cvtable}[3]
 	\cvitem{currently}{CEO The Panda Way}{Start Up}{Chief executive officer, Head
-	developer and yoga ambassador of 'The Panda Way' - A company for pandas from
-	pandas that invents, advertises and distributes panda-related content all
-	over the world.}
+		developer and yoga ambassador of 'The Panda Way' - A company from pandas
+		for pandas.}
 	\cvitem{2015 -- 2018}{Panda Scientist}{Bamboo University}{
 		Reasearching the impact of adequate bamboo nutrition compared to
 		conventional feeding methods.}
@@ -210,7 +204,7 @@
 
 
 \cvsection{Education}
-\subsection{Postgraduate Training}
+\cvsubsection{Postgraduate Training}
 \begin{cvtable}[1.5]
 	\cvitem{2009 -- 2010}{Post-Doc Panda Studies}{Panda Academy}
 		{In-depth studies on the impact of bamboo nutrition for young pandas and
@@ -222,7 +216,7 @@
 \end{cvtable}
 
 
-\subsection{Study}
+\cvsubsection{Study}
 \begin{cvtable}[1.5]
 	\cvitem{2006 -- 2008}{Master Studies Panda Science}{Panda Academy}
 		{Focus: Advanced rice hat studies and nouveau rain-reflecting cover
@@ -238,11 +232,9 @@
 
 \cvsection{Publications}
 \begin{cvtable}
-	\cvitem{2010}{Cooking: 100 recipes for lazy Pandas}{Panda's
-	Culinary World}{}
-	\cvitem{2005}{Pandastasia}{Bamboo Books Assoc.}{}
-	\cvitem{2000}{The Panda Way - A guide for mastering everyday life as a Panda}
-		{Young Panda's Journal}{}
+	\cvpubitem{Cooking: 100 recipes for lazy Pandas}{Me and My Panda Friends}
+		{Panda's Culinary World}{2010}
+	\cvpubitem{Pandastasia}{Still Me}{Bamboo Books Assoc.}{2005}
 \end{cvtable}
 
 
@@ -267,13 +259,13 @@
 
 
 \cvsection{section}
-\subsection{Subsection}
+\cvsubsection{Subsection}
 \begin{cvtable}
 	\cvitem{<dates>}{<cv-item title>}{<location>}{<optional: description>}
 \end{cvtable}
 
 \cvsection{cvitem}
-\subsection{Multi-line with longer description}
+\cvsubsection{Multi-line with longer description}
 \begin{cvtable}
 	\cvitem{date}{Description}{location}{Some longer and more detailed 
 		description, that takes two lines	of space instead of only one.}
@@ -283,7 +275,7 @@
 		description, that takes two lines	of space instead of only one.}
 \end{cvtable}
 
-\subsection{One-line without description}
+\cvsubsection{One-line without description}
 \begin{cvtable}
 	\cvitem{Award}{One-line description}{Sponsor}{}
 	\cvitem{Award}{One-line description}{Sponsor}{}
@@ -291,14 +283,14 @@
 \end{cvtable}
 
 \cvsection{cvitemshort}
-\subsection{One-line}
+\cvsubsection{One-line}
 \begin{cvtable}
 	\cvitemshort{Key}{Some further description}
 	\cvitemshort{Key}{Some further description}
 	\cvitemshort{Key}{Some further description}
 \end{cvtable}
 
-\subsection{Multi-line with longer description}
+\cvsubsection{Multi-line with longer description}
 \begin{cvtable}
 	\cvitemshort{Key}{Some further description. Can fill even more than
 		only one single line while still keeping the correct indendation level.}
@@ -306,6 +298,14 @@
 		only one single line while still keeping the correct indendation level.}
 	\cvitemshort{Key}{Some further description. Can fill even more than
 		only one single line while still keeping the correct indendation level.}
+\end{cvtable}
+
+\cvsection{cvpubitem}
+\begin{cvtable}
+	\cvpubitem{Publication title}{Authors}{Journal}{Year}
+	\cvpubitem{Publication title}{Authors}{Journal}{Year}
+	\cvpubitem{Publication title that is spanning over multiple lines and still
+		does not look too bad}{Authors}{Journal}{Year}
 \end{cvtable}
 
 \cvsignature

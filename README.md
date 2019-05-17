@@ -41,11 +41,17 @@ When you should use the FortySecondsCV class:
 
 ## Requirements
 
-* You need to compile your document with XeLaTeX in order to have the latest
-  Font Awesome icons (`fontawesome5`). If you still want to compile with
-  pdfLaTeX for whatever reason, FortySecondsCV will fall back to the older icon
-  package (`fontawesome`), where some icons look different and some others are
-  not even included.
+You need to compile your document with XeLaTeX or LuaLaTeX in order to have
+the latest Font Awesome icons (`fontawesome5`) and Academicons. If you still
+want to compile with pdfLaTeX for whatever reason, FortySecondsCV will fall
+back to the older icon package (`fontawesome`), where some icons look
+different and some others are not even included and Academicons won't be
+available at all.
+
+## License
+
+Forty Seconds CV is distributed under the BSD 3-Clause license. See LICENSE
+file for more information.
 
 ## User Interface
 
@@ -53,9 +59,13 @@ When you should use the FortySecondsCV class:
 
 Possible options that can be passed to FortySecondsCV are:
 
-* all valid options for the standard article class like e.g. `a4paper`
+* all valid options for the standard article class like e.g. `a4paper` or 
+  `11pt`.
 * `showframes` will show frames around the sidebar and body texts that help to
-  adjust margins correctly.
+  adjust margins correctly. Note, that this will move content of tables
+  slightly since tabular lines also take some space.
+* `vline=<length>` plots a red vertical line at x-position `<length>` to help
+  adjust sidebar content.
 * `maincolor=<color>` sets the color that is used for the entire sidebar incl.
   headings, icons and charts. Many colors are derived from it.
 * `sectioncolor=<color>` sets the color of section headings in the body text.
@@ -85,75 +95,97 @@ Sidebars on front and back of the CV are generated using the commands
 LaTeX code. It is recommended to use `\newpage` immediately before
 `\makebacksidebar`.
 
-* Layout elements in front and back sidebar can be added either by using
-  ```latex
-  \addtofrontsidebar{}
-  \addtobacksidebar{}
-  ```
-  where some pre-defined elements like profile picture, name and jobtitle are
-  already set, or completely redefine them using
-  ```latex
-  \renewcommand{\makefrontsidebar}{%
-    \begin{sidebar}
-      <your code>
-    \end{sidebar}
-  }
-  ```
-  * The `sidebar` environment makes sure that all elements will be positioned
-    correctly within the left column (sidebar) of each page.
-  * Using the `sidebar` environment, you can also add more sidebar definitions 
-    for additional pages easily.
+Layout elements in front and back sidebar can be added either by using
+```latex
+\addtofrontsidebar{}
+\addtobacksidebar{}
+```
+where some pre-defined elements like profile picture, name and jobtitle are
+already set, or completely redefine them using
+```latex
+\renewcommand{\makefrontsidebar}{%
+  \begin{sidebar}
+    <your code>
+  \end{sidebar}
+}
+```
+* The `sidebar` environment makes sure that all elements will be positioned
+  correctly within the left column (sidebar) of each page.
+* Using the `sidebar` environment, you can also add more sidebar definitions 
+  for additional pages easily.
 
-* Set personal information via
-  ```latex
-    % profile picture
-    \cvprofilepic{pics/profile.png}
-    % your name
-    \cvname{Panda Bear}
-    % job title/career
-    \cvjobtitle{Panda Scientist,\\[0.2em] Panda of the Year}
-    % date of birth
-    \cvbirthday{Mar 7, 2019}
-    % short address/location, use \newline if more than 1 line is required
-    \cvaddress{Park Ave.~1, 555 555 B-Woods}
-    % phone number
-    \cvphone{+86 555 555 555}
-    % personal website
-    \cvsite{https://pandascience.net}
-    % email address
-    \cvmail{panda@bamboo.cn}
-    % pgp key
-    \cvkey{4096R/FF00FF00}{0xAABBCCDDFF00FF00}
-    % add additional information
-    \newcommand{\additional}{some more?}
-  ```
-  * The email address will be automatically linked with `mailto:email`.
-  * Your website will, of course, also be a hyperlink.
-  * For the pgp key, the first argument defines the displayed text which is
-  	linked to a keyserver searching for the ID in the second argument. For
-  	safety, you should use your key's long ID or its fingerprint in the second
-  	argument.
-  * The `\additional` macro shows how to define new lines.
 
-* The personal information table can also be reconfigured completely via 
-  ```latex
-  \renewcommand{\personaltable}{%
-    \begin{personal}[0.8em]
-      \circleicon{\faKey}      & \cvkey  \\
-      \circleicon{\faAt}       & \cvmail \\
-      \circleicon{\faGlobe}    & \cvsite \\
-      \circleicon{\faPhone}    & \cvphone \\
-      \circleicon{\faEnvelope} & \cvaddress \\
-      \circleicon{\faInfo}     & \cvbirthday \\
-      % add another line
-      \circleicon{\faQuestion} & \additional
-    \end{personal}
-  }
-  ```
-  * You can use all predefined macros like `\cvphone` etc. but also define new
-    ones as shown above and use them in your own table.
-  * The optional second argument sets the space between icons and corresponding
-  	text.
+### Personal Information 
+
+Set personal information via convenience commands
+```latex
+  % profile picture
+  \cvprofilepic{pics/profile.png}
+  % your name
+  \cvname{Panda Bear}
+  % job title/career
+  \cvjobtitle{Panda Scientist,\\[0.2em] Panda of the Year}
+  % date of birth
+  \cvbirthday{Mar 7, 2019}
+  % short address/location, use \newline if more than 1 line is required
+  \cvaddress{Park Ave.~1, 555 555 B-Woods}
+  % phone number
+  \cvphone{+86 555 555 555}
+  % personal website
+  \cvsite{https://pandascience.net}
+  % email address
+  \cvmail{panda@bamboo.cn}
+  % pgp key
+  \cvkey{4096R/FF00FF00}{0xAABBCCDDFF00FF00}
+  % any other custom entry
+  \cvcustomdata{\faFlag}{Chinese}
+```
+* Only `\cvname` and `\cvjobtitle` are mandatory.
+* If you want any (optional) entry not to show up in your CV, simply don't use
+  it. If you don't use any of these convenience commands, the personal
+  information table will not appear at all.
+* The email address will be automatically linked with `mailto:email`.
+* Your website will be hyperlinked as well.
+* For the pgp key, the first argument defines the displayed text which is
+  linked to a keyserver searching for the ID in the second argument.  
+  Note: For safety, you should use your key's long ID or its fingerprint in the
+  second argument.
+* The `\cvcustom{<icon>}{<text>}` macro shows how to define new lines using an icon as first
+  and some text as second argument. Behind the scenes, this command is actually
+  used to define the other convenience commands in the above example.
+
+If you don't like the default style of the "personal information table", you
+can define your own via
+```latex
+\begin{icontable}[<arraystretch=1>]{<width 1st column>}{<space between columns>}
+  \personal{<icon>}{<text>}
+  \social{<icon>}{<url>}{<text>}
+\end{icontable}
+```
+where the width of the 1st column will also determine the size of all icons in
+this column, since icons are scaled to maximum width of their cell. For visual
+purposes, you can fine-tune the space between icons and corresponding text with
+the 2nd mandatory argument. The optional argument determines the spacing
+between table lines, which is only important for small icon heights (i.e. small
+1st columns). 
+
+* `\personal` takes an icon and a text. The icon is passed to
+  `\circleicon{<icon>}`, which draws a circle filled with `maincolor` around
+  the icon symbol. The symbol itself appears white.
+* `\social` takes an icon and url + text. `Text` will be hyperlinked to `url`. 
+  In case `url` is empty, your LaTeX compiler will throw a harmless warning
+  about "Suppressing link with empty target" and text will not be hyperlinked.
+  The icon itself is passed to `\socialicon{<icon>}`, which simply resizes
+  the icon symbol and draws it in `maincolor`. This version is the preferred
+  one for social network icons (see example).
+
+The default "personal information table" uses
+```latex
+\begin{icontable}[1.6]{1.7em}{0.4em}
+  \personal{<icon>}{<text>}
+\end{icontable}
+```
+
 
 ### Further Sidebar Style Elements
 
@@ -174,13 +206,14 @@ LaTeX code. It is recommended to use `\newpage` immediately before
   ```latex
   \pointskill{<icon>}{<text>}{<points>}
   ```
-  creates a skill using a Font Awesome icon with some text and a ranking of
+  creates a skill using a Font Awesome or Academicons icon with some text and a
+  ranking of
   `<points>` out of 5 points.
   ```latex
   \pointskill{<icon>}{<text>}{<points>}[<maxnum>]
   ```
-  creates a skill using a Font Awesome icon with some text and a ranking of
-  `<points>` out of `<maxnum>` possible points.
+  creates a skill using a Font Awesome or Academicons icon with some text and a
+  ranking of `<points>` out of `<maxnum>` possible points.
   ```latex
   \pointskill{\flag{DE.png}}{German}{5}
   ```
@@ -210,7 +243,7 @@ LaTeX code. It is recommended to use `\newpage` immediately before
     <percentage>/<spacing>/<color>/<text>
   }
   ```
-  * percentages should add up to 100
+  * Percentages should add up to 100
 
 * Memberships
   ```latex
@@ -220,10 +253,21 @@ LaTeX code. It is recommended to use `\newpage` immediately before
     \membership[<iconwidth>=4em]{<logo>}{<text>}
   \end{memberships}
   ```
-  * `iconwidth` should be equal for all membership entries, otherwise maximum
-  	line length can be too long.
-  * BUG: when using separation > 1em, user has to take care of text overflow
-  	because maximum space for text cannot be calculated correctly as of now.
+  * Width of the 1st column containing the icons is equal to the width of the
+  	largest icon such that all text entries in the 2nd column are aligned.
+
+* Social Networks
+  ```latex
+  \begin{socialnetwork}[<separation>=1em]
+  	\social{<icon>}{<url>}{<text>}
+  	\social{<icon>}{<url>}{<text>}
+  	\social{<icon>}{<url>}{<text>}
+  \end{socialnetwork}
+  ```
+  * Another icon style that could be used for e.g. social network icons from
+  	Academicons, but is working for FontAwesome icons as well.
+  * `text` will be hyperlinked to `url`.
+  * `text` may be formatted as preferred like usual via e.g. `\texttt{}` etc.
 
 ### Body
 The right column of the CV containing tables for sth. like "working experience"
@@ -232,7 +276,7 @@ has to be defined within the `document` environment.
 * Section and subsection headings
   ```latex
   \cvsection
-  \subsection
+  \cvsubsection
   ```
 
 * CV items should be enclosed by `cvtable`, independent of the item type.
@@ -242,6 +286,7 @@ has to be defined within the `document` environment.
     \cvitem{<dates>}{<title>}{<location>}{<description>}
     \cvitem{<dates>}{<title>}{<location>}{}
     \cvitemshort{<key>}{<description>}
+    \cvpubitem{<title>}{<author>}{<journal>}{<year>}
   \end{cvtable}
   ```
   * `cvitem` including a description will make the title bold, left-align the
@@ -251,9 +296,16 @@ has to be defined within the `document` environment.
   * `cvitem` missing a description will add a one-line item in the style of the
     former one but with a "normal" title instead of a bold one.
   * `cvitemshort` left-aligns `<key>` followed by its description.
+  * `cvpubitem` adds an entry with left-aligned year/date, bold title on same
+  	line followed by italic author and normal text journal, each on its own 
+  	line.
   * `<arraystretch>` modifies the spacing between items of `cvtable`. For 
 	tables of `cvitem`, you should use at least 1.5, for `cvitemshort` and
 	`cvitem` without description, the default value is sufficient.
+
+* Coloring
+  `cvsection`, `cvsubsection` and description text colors can be defined as
+  described in [class options](#class-options).
 
 * Profile picture styles
   ```latex
