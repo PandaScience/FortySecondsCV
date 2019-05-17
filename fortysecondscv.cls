@@ -14,7 +14,7 @@
 %                           CLASS NAME AND VERSION
 %-------------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fortysecondscv}[2019/05/14 CV class]
+\ProvidesClass{fortysecondscv}[2019/05/17 CV class]
 
 
 %-------------------------------------------------------------------------------
@@ -90,6 +90,17 @@
 	\AtBeginDocument{\apptocmd{\personaldata}{\hline}{}{}}
 }
 
+% draw vertical guideline
+\newcommand{\plotvline}{}
+\DeclareOptionX{vline}{%
+	% must be defined here as macro, b/c tikz won't expand absolute length in
+	% \backgroundsetup -- BUG?
+	\renewcommand{\plotvline}{%
+		\draw [thick, red, opacity=0.7] 
+		(\leftrightmargin + #1, 0) -- (\leftrightmargin + #1, -\paperheight);
+	}
+}
+
 % pass further options to base class and load it
 \DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptionsX\relax
@@ -100,7 +111,7 @@
 \setlength{\sidebartextwidth}{\sidebarwidth - 2\leftrightmargin}
 
 % let geometry package perform the changes;
-% must come after loading the base class prevent overwriting
+% must come after loading the base class to prevent overwriting
 \geometry{
 	top=\topbottommargin,
 	bottom=\topbottommargin,
@@ -339,7 +350,7 @@
 % make sure about me text stays in textbox frame
 \newcommand{\aboutme}[1]{\parbox[b]{\linewidth}{#1}}
 
-% uniform icon style for all cvskill icons, e.g. flags or fontawesome icons
+% uniform icon style for all skill icons, e.g. flags or fontawesome icons
 \newcommand{\cvicon}[1]{\makebox[1em]{\color{iconcolor} #1}}
 \newcommand{\flag}[1]{\includegraphics[align=c, width=1em]{#1}}
 
@@ -499,6 +510,8 @@
    			minimum width=\sidebarwidth,
    			minimum height=\paperheight,
 			]{};% (frontsidebar) at (current page.north west){};
+			% plot vertical red guideline
+			\plotvline
 		\end{tikzpicture}
 	}
 }
