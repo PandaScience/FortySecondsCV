@@ -242,17 +242,22 @@
 	\renewcommand{\plotprofilepicture}{\profileroundedcorners}
 }
 
+% social network item; \social{<icon>}{<url>}{<text>}
+\newcommand*{\social}[3]{%
+	\socialicon{#1} & \href{#2}{#3}\\%
+}
+
+% personal information item; \personal{<icon>}{<text>}
+\newcommand*{\personal}[2]{%
+	\circleicon{#1} & {#2}\\%
+}
+
 % other personal information as macro that can be used later. Usage:
 % \cvcustomdata{<Icon>}{<Text>}
 % icon can be taken from FontAwesome or Academicon for example
 \newcommand{\personaldata}{}
 \newcommand*{\cvcustomdata}[2]{%
-	\apptocmd{\personaldata}{\circleicon{#1} & #2\\}{}{}%
-}
-
-% social network item; \social{<icon>}{<url>}{<text>}
-\newcommand*{\social}[3]{%
-	\socialicon{#1} & \href{#2}{#3}\\%
+	\apptocmd{\personaldata}{\personal{#1}{#2}}{}{}%
 }
 
 % useful shortcuts
@@ -300,27 +305,16 @@
 	\end{figure}
 }
 
-% https://tex.stackexchange.com/a/42331
-% use table with 2 columns, optional argument is space between columns
-\newenvironment{personal}[1][1em]%
+% table with 2 columns for icons and text
+% \icontable{<width 1st column>}{<space between columns>}{<arraystretch>}
+\newenvironment{icontable}[3][1]%
 {%
-	\renewcommand{\arraystretch}{1.6}% increase linespacing in tables; default=1
+	\renewcommand{\arraystretch}{#1}% increase linespacing in tables; default=1
 	\iftoggle{tshowframes}{%
-		\tabularx{\sidebartextwidth}{|m{2em} | @{\hskip #1} | X|} \hline%
+		% https://tex.stackexchange.com/a/42331
+		\tabularx{\sidebartextwidth}{|m{#2} | @{\hskip #3} | X|} \hline%
 	}{%
-		\tabularx{\sidebartextwidth}{m{2em} @{\hskip #1} X}%
-	}
-}{%
-	\endtabularx%
-}
-
-% table like above, but optimized for larger social network icons
-\newenvironment{socialnetwork}[1][1em]%
-{%
-	\iftoggle{tshowframes}{%
-		\tabularx{\sidebartextwidth}{|m{2em} | @{\hskip #1} | X|} \hline%
-	}{%
-		\tabularx{\sidebartextwidth}{m{2em} @{\hskip #1} X}%
+		\tabularx{\sidebartextwidth}{m{#2} @{\hskip #3} X}%
 	}
 }{%
 	\endtabularx%
@@ -336,14 +330,14 @@
 			fill=iconcolor,%
 			maincolor,%
 			text=white,%
-			minimum size=1.7em%
+			minimum size=\hsize%
 		] (char) {#1};%
 	}%
 }
 
 % icon style for social network
 \newcommand*{\socialicon}[1]{%
-	\resizebox{2em}{!}{\textcolor{iconcolor}{#1}}%
+	\resizebox{\hsize}{!}{\textcolor{iconcolor}{#1}}%
 }
 
 
@@ -545,9 +539,9 @@
 
 		% personal information
 		\vspace*{0.5em}
-		\begin{personal}[0.6em]
+		\begin{icontable}[1.6]{1.7em}{0.4em}
 			\personaldata
-		\end{personal}
+		\end{icontable}
 
 		% user definitions
 		\frontsidebar
