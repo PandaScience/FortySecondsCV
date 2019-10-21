@@ -80,6 +80,9 @@
 \DeclareOptionX{profilepicsize}{\setlength{\profilepicsize}{#1}}
 \newcommand*{\profilepicstyle}{}
 \DeclareOptionX{profilepicstyle}{\renewcommand{\profilepicstyle}{#1}}
+\newcommand*{\profilepiczoom}{}
+\DeclareOptionX{profilepiczoom}{\renewcommand{\profilepiczoom}{#1}}
+
 
 
 % show sidebar and page margins
@@ -299,7 +302,7 @@
 				(1, 1) [sharp corners] --
 				(1, 0) [rounded corners=0.15\sidebartextwidth] -- cycle;
 			\node[anchor=south west, inner sep=0pt] (profilepic) at (0, 0)
-				{\includegraphics[width=\profilepicsize]{\cvprofilepic}};
+				{\includegraphics[width=\profilepiczoom\profilepicsize]{\cvprofilepic}};
 			\end{scope}
 			\begin{scope}
 			\draw	[line width=0.02\sidebartextwidth, color=iconcolor]
@@ -318,7 +321,7 @@
 			\begin{scope}
 				\clip (0, 0) circle (0.5);
 				\node[anchor=center, inner sep=0pt, outer sep=0pt] (profilepic) at (0,0) {
-				\includegraphics[width=\profilepicsize]{\cvprofilepic}};
+				\includegraphics[width=\profilepiczoom\profilepicsize]{\cvprofilepic}};
 			\end{scope}
 			\begin{scope}
 			\draw	[line width=0.02\sidebartextwidth, color=iconcolor]
