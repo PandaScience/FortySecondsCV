@@ -78,7 +78,13 @@ Possible options that can be passed to FortySecondsCV are:
 * `leftrightmargin=<length>` sets the left and right page margin for both 
   columns as well as how much space will be between both columns.
 * `profilepicsize=<length>` sets the width of the profile picture.
-* `profilepicstyle=profilecircle` clips the profile picture to a circle as in the original `twentysecondcv` class. 
+* `profilepicstyle=profilecircle` clips the profile picture to a circle as in
+  the original `twentysecondcv` class.
+* `profilepiczoom=<float>` sets the zoom factor for the profile picture.
+  Together with the two options below, this allows you to use your favorite
+  profile picture directly without modification and crop it here.
+* `profilepicxshift=<length>` sets the xshift for the profile picture.
+* `profilepicyshift=<length>` sets the yshift for the profile picture.
 
 Note: 
 
