@@ -307,8 +307,10 @@
 				(0, 1) [rounded corners=0.15\sidebartextwidth] -- 
 				(1, 1) [sharp corners] --
 				(1, 0) [rounded corners=0.15\sidebartextwidth] -- cycle;
-			\node[anchor=south west, inner sep=0pt, xshift=\profilepicxshift, yshift=\profilepicyshift] (profilepic) at (0, 0)
-				{\includegraphics[width=\profilepiczoom\profilepicsize]{\cvprofilepic}};
+			\node[anchor=center, inner sep=0pt, xshift=\profilepicxshift,
+					yshift=\profilepicyshift] (profilepic) at (0.5, 0.5)
+				{\includegraphics[width=\profilepiczoom\profilepicsize]
+					{\cvprofilepic}};
 			\end{scope}
 			\begin{scope}
 			\draw	[line width=0.02\sidebartextwidth, color=iconcolor]
@@ -326,8 +328,11 @@
 		\begin{tikzpicture}[x=\profilepicsize, y=\profilepicsize]
 			\begin{scope}
 				\clip (0, 0) circle (0.5);
-				\node[anchor=center, inner sep=0pt, outer sep=0pt, xshift=\profilepicxshift, yshift=\profilepicyshift] (profilepic) at (0,0) {
-				\includegraphics[width=\profilepiczoom\profilepicsize]{\cvprofilepic}};
+				\node[anchor=center, inner sep=0pt, outer sep=0pt,
+						xshift=\profilepicxshift, yshift=\profilepicyshift]
+					(profilepic) at (0,0) {
+				\includegraphics[width=\profilepiczoom\profilepicsize]
+					{\cvprofilepic}};
 			\end{scope}
 			\begin{scope}
 			\draw	[line width=0.02\sidebartextwidth, color=iconcolor]
