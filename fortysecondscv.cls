@@ -78,6 +78,9 @@
 \newlength\profilepicsize%
 \setlength{\profilepicsize}{0.7\sidebarwidth}
 \DeclareOptionX{profilepicsize}{\setlength{\profilepicsize}{#1}}
+\newcommand*{\profilepicstyle}{}
+\DeclareOptionX{profilepicstyle}{\renewcommand{\profilepicstyle}{#1}}
+
 
 % show sidebar and page margins
 \newtoggle{tshowframes}
@@ -239,6 +242,10 @@
 \newcommand{\plotprofilepicture}{}
 \newcommand*{\cvprofilepic}[1]{
 	\renewcommand{\cvprofilepic}{#1}
+}
+\ifthenelse{\equal{\profilepicstyle}{profilecircle}}{
+	\renewcommand{\plotprofilepicture}{\profilecircle}
+}{
 	\renewcommand{\plotprofilepicture}{\profileroundedcorners}
 }
 
@@ -300,6 +307,22 @@
 				(0, 1) [rounded corners=0.15\sidebartextwidth] -- 
 				(1, 1) [sharp corners] --
 				(1, 0) [rounded corners=0.15\sidebartextwidth] -- cycle;
+			\end{scope}
+		\end{tikzpicture}
+	\end{figure}
+}
+
+\newcommand{\profilecircle}{%
+	\begin{figure}\centering
+		\begin{tikzpicture}[x=\profilepicsize, y=\profilepicsize]
+			\begin{scope}
+				\clip (0, 0) circle (0.5);
+				\node[anchor=center, inner sep=0pt, outer sep=0pt] (profilepic) at (0,0) {
+				\includegraphics[width=\profilepicsize]{\cvprofilepic}};
+			\end{scope}
+			\begin{scope}
+			\draw	[line width=0.02\sidebartextwidth, color=iconcolor]
+				(0, 0) circle (0.5\profilepicsize);
 			\end{scope}
 		\end{tikzpicture}
 	\end{figure}

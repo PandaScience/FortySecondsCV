@@ -78,6 +78,7 @@ Possible options that can be passed to FortySecondsCV are:
 * `leftrightmargin=<length>` sets the left and right page margin for both 
   columns as well as how much space will be between both columns.
 * `profilepicsize=<length>` sets the width of the profile picture.
+* `profilepicstyle=profilecircle` clips the profile picture to a circle as in the original `twentysecondcv` class. 
 
 Note: 
 
@@ -306,16 +307,6 @@ has to be defined within the `document` environment.
 * Coloring
   `cvsection`, `cvsubsection` and description text colors can be defined as
   described in [class options](#class-options).
-
-* Profile picture styles
-  ```latex
-  \profileroundedcorners
-  ```
-  * is the one visible in the example below
-  ```latex
-  \profilecircle
-  ```
-  * clips the picture to a circle as in the original `twentysecondcv` class
 
 * Name and jobtitle combination with proper spacing, font and color
   ```late
