@@ -4,7 +4,7 @@
 %
 % Attributions
 % ------------
-% * fortysecondscv is based on the twentysecondcv class by Carmine Spagnuolo 
+% * fortysecondscv is based on the twentysecondcv class by Carmine Spagnuolo
 %   (cspagnuolo@unisa.it), released under the MIT license and available under
 %   https://github.com/spagnuolocarmine/TwentySecondsCurriculumVitae-LaTex
 % * further attributions are indicated immediately before corresponding code
@@ -14,21 +14,21 @@
 %                             ADDITIONAL PACKAGES
 %-------------------------------------------------------------------------------
 \documentclass[
-  a4paper, 
-%   showframes,
-%   vline=2.2em,
-%   maincolor=cvgreen,
-%   sectioncolor=red,
-%   subsectioncolor=orange,
-%   itemtextcolor=black!80,
-%   sidebarwidth=0.4\paperwidth,
-%   topbottommargin=0.03\paperheight,
-%   leftrightmargin=20pt,
-%   profilepicsize=4.5cm,
-%   profilepicstyle=profilecircle,
-%   profilepiczoom=1.0,
-%   profilepicxshift=0mm,
-%   profilepicyshift=0mm,
+	a4paper,
+%	showframes,
+%	vline=2.2em,
+%	maincolor=cvgreen,
+%	sectioncolor=red,
+%	subsectioncolor=orange,
+%	itemtextcolor=black!80,
+%	sidebarwidth=0.4\paperwidth,
+%	topbottommargin=0.03\paperheight,
+%	leftrightmargin=20pt,
+%	profilepicsize=4.5cm,
+%	profilepicstyle=profilecircle,
+%	profilepiczoom=1.0,
+%	profilepicxshift=0mm,
+%	profilepicyshift=0mm,
 ]{fortysecondscv}
 
 % improve word spacing and hyphenation
@@ -39,11 +39,11 @@
 \ifxetexorluatex
 	\usepackage{fontspec}
 	\defaultfontfeatures{Ligatures=TeX}
-% \newfontfamily\headingfont[Path = fonts/]{segoeuib.ttf} % local font
+%	\newfontfamily\headingfont[Path = fonts/]{segoeuib.ttf} % local font
 \else
 	\usepackage[utf8]{inputenc}
 	\usepackage[T1]{fontenc}
-% \usepackage[sfdefault]{noto} % use noto google font
+%	\usepackage[sfdefault]{noto} % use noto google font
 \fi
 
 % enable mathematical syntax for some symbols like \varnothing
@@ -52,20 +52,20 @@
 % bubble diagram configuration
 \usepackage{smartdiagram}
 \smartdiagramset{
-  % defaut font size is \large, so adjust to harmonize with sidebar layout
-  bubble center node font = \footnotesize,
-  bubble node font = \footnotesize,
-  % default: 4cm/2.5cm; make minimum diameter relative to sidebar size
-  bubble center node size = 0.4\sidebartextwidth,
-  bubble node size = 0.25\sidebartextwidth,
-  distance center/other bubbles = 1.5em,
-  % set center bubble color
-  bubble center node color = maincolor!70,
-  % define the list of colors usable in the diagram
-  set color list = {maincolor!10, maincolor!40,
-  maincolor!20, maincolor!60, maincolor!35},
-  % sets the opacity at which the bubbles are shown
-  bubble fill opacity = 0.8,
+	% default font size is \large, so adjust to harmonize with sidebar layout
+	bubble center node font = \footnotesize,
+	bubble node font = \footnotesize,
+	% default: 4cm/2.5cm; make minimum diameter relative to sidebar size
+	bubble center node size = 0.4\sidebartextwidth,
+	bubble node size = 0.25\sidebartextwidth,
+	distance center/other bubbles = 1.5em,
+	% set center bubble color
+	bubble center node color = maincolor!70,
+	% define the list of colors usable in the diagram
+	set color list = {maincolor!10, maincolor!40,
+	maincolor!20, maincolor!60, maincolor!35},
+	% sets the opacity at which the bubbles are shown
+	bubble fill opacity = 0.8,
 }
 
 
@@ -121,8 +121,8 @@
 	\profilesection{Languages}
 		\pointskill{\flag{CN.png}}{Chinese}{5}
 		\pointskill{\flag{DE.png}}{German}{3}
-  	\pointskill{\flag{GB.png}}{English}{3}
-  	\pointskill{\flag{FR.png}}{French}{3}
+	\pointskill{\flag{GB.png}}{English}{3}
+	\pointskill{\flag{FR.png}}{French}{3}
 
 	\profilesection{Hard Skills}
 		\skill{\faBalanceScale}{Sleeping almost all day}
@@ -131,10 +131,10 @@
 
 	\profilesection{Soft Skills}
 		\pointskill{\faHome}{Looking Cute}{4}[4]
- 			\skill[1.8em]{\faCompress}{No need to specify further}
+			\skill[1.8em]{\faCompress}{No need to specify further}
 		\pointskill{\faChild}{Chillin' hard}{3}[4]
- 			\skill[1.8em]{\faCompress}{On a tree}
- 			\skill[1.8em]{\faCompress}{On the grass}
+			\skill[1.8em]{\faCompress}{On a tree}
+			\skill[1.8em]{\faCompress}{On the grass}
 }
 
 
@@ -153,8 +153,8 @@
 	\chartlabel{Bubble Diagram}
 	\begin{figure}\centering
 		\smartdiagram[bubble diagram]{
-			\textcolor{white}{\textbf{Being a}} \\ 
-			\textcolor{white}{\textbf{Panda}}, % center bubble	
+			\textcolor{white}{\textbf{Being a}} \\
+			\textcolor{white}{\textbf{Panda}}, % center bubble
 			\textcolor{black!90}{Eating},
 			\textcolor{black!90}{Sleeping},
 			\textcolor{black!90}{Rolling},
@@ -166,10 +166,10 @@
 	\chartlabel{Wheel Chart}
 
 	\wheelchart{4em}{2em}{%
-  	20/3em/maincolor!50/Chill,
-  	15/3em/maincolor!15/Play,
-  	30/4em/maincolor!40/Sleep,
-  	20/3em/maincolor!20/Eat
+	20/3em/maincolor!50/Chill,
+	15/3em/maincolor!15/Play,
+	30/4em/maincolor!40/Sleep,
+	20/3em/maincolor!20/Eat
 	}
 
 	\profilesection{Barskills}
@@ -202,7 +202,7 @@
 	\cvitem{2015 -- 2018}{Panda Scientist}{Bamboo University}{
 		Reasearching the impact of adequate bamboo nutrition compared to
 		conventional feeding methods.}
-	\cvitem{2010 -- 2015}{Bamboo Broker}{Stock Exchange}{Continuously achieving 
+	\cvitem{2010 -- 2015}{Bamboo Broker}{Stock Exchange}{Continuously achieving
 		better bamboo bangs for the buck.}
 \end{cvtable}
 
@@ -271,12 +271,12 @@
 \cvsection{cvitem}
 \cvsubsection{Multi-line with longer description}
 \begin{cvtable}
-	\cvitem{date}{Description}{location}{Some longer and more detailed 
-		description, that takes two lines	of space instead of only one.}
-	\cvitem{date}{Description}{location}{Some longer and more detailed 
-		description, that takes two lines	of space instead of only one.}
-	\cvitem{date}{Description}{location}{Some longer and more detailed 
-		description, that takes two lines	of space instead of only one.}
+	\cvitem{date}{Description}{location}{Some longer and more detailed
+		description, that takes two lines of space instead of only one.}
+	\cvitem{date}{Description}{location}{Some longer and more detailed
+		description, that takes two lines of space instead of only one.}
+	\cvitem{date}{Description}{location}{Some longer and more detailed
+		description, that takes two lines of space instead of only one.}
 \end{cvtable}
 
 \cvsubsection{One-line without description}
@@ -314,4 +314,4 @@
 
 \cvsignature
 
-\end{document} 
+\end{document}

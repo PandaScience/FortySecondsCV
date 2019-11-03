@@ -1,10 +1,10 @@
-% FortySecondsCV LaTeX class 
+% FortySecondsCV LaTeX class
 % Copyright © 2019 René Wirnata <rene.wirnata@pandascience.net>
 % Licensed under the 3-Clause BSD License. See LICENSE file for details.
 %
 % Attributions
 % ------------
-% * fortysecondscv is based on the twentysecondcv class by Carmine Spagnuolo 
+% * fortysecondscv is based on the twentysecondcv class by Carmine Spagnuolo
 %   (cspagnuolo@unisa.it), released under the MIT license and available under
 %   https://github.com/spagnuolocarmine/TwentySecondsCurriculumVitae-LaTex
 % * further attributions are indicated immediately before corresponding code
@@ -95,10 +95,10 @@
 \newtoggle{tshowframes}
 \togglefalse{tshowframes}
 \DeclareOptionX{showframes}{
-  \geometry{showframe}
-  \TPoptions{showboxes=true}
-  \toggletrue{tshowframes}
-  % adding \hline in \newenvironment directly doesn't work, so do it here...
+	\geometry{showframe}
+	\TPoptions{showboxes=true}
+	\toggletrue{tshowframes}
+	% adding \hline in \newenvironment directly doesn't work, so do it here...
 	\AtBeginDocument{\apptocmd{\personaldata}{\hline}{}{}}
 }
 
@@ -108,7 +108,7 @@
 	% must be defined here as macro, b/c tikz won't expand absolute length in
 	% \backgroundsetup -- BUG?
 	\renewcommand{\plotvline}{%
-		\draw [thick, red, opacity=0.7] 
+		\draw [thick, red, opacity=0.7]
 		(\leftrightmargin + #1, 0) -- (\leftrightmargin + #1, -\paperheight);
 	}
 }
@@ -145,7 +145,7 @@
 \RequirePackage{titlesec}
 
 % loads graphicx, provides align=c option for vertical alignment w.r.t. text
-\RequirePackage{graphbox} 
+\RequirePackage{graphbox}
 
 % provides X column type for automatic length calculations
 \RequirePackage{tabularx}
@@ -155,13 +155,13 @@
 \RequirePackage{ifxetex}
 \newif\ifxetexorluatex
 \ifxetex
-  \xetexorluatextrue
+	\xetexorluatextrue
 \else
-  \ifluatex
-    \xetexorluatextrue
-  \else
-    \xetexorluatexfalse
-  \fi
+	\ifluatex
+		\xetexorluatextrue
+	\else
+		\xetexorluatexfalse
+	\fi
 \fi
 
 % pictures, icons and drawings
@@ -216,7 +216,7 @@
 
 % creates a rule after some text using remaining line width
 % usage: \xrfill[<raise>]{<width>}
-\newcommand*{\sectionline}[1]{#1~\xrfill[.5ex]{1pt}[pseccolor]} 
+\newcommand*{\sectionline}[1]{#1~\xrfill[.5ex]{1pt}[pseccolor]}
 
 % section style for cv table headings in right column
 % \titleformat{<command>}[<shape>]{<format>}{<label>}{<sep>}{<before>}[<after>]
@@ -303,8 +303,8 @@
 		\begin{tikzpicture}[x=\profilepicsize, y=\profilepicsize]
 			\begin{scope}
 			\path[clip]
-				(0, 0) [sharp corners] -- 
-				(0, 1) [rounded corners=0.15\sidebartextwidth] -- 
+				(0, 0) [sharp corners] --
+				(0, 1) [rounded corners=0.15\sidebartextwidth] --
 				(1, 1) [sharp corners] --
 				(1, 0) [rounded corners=0.15\sidebartextwidth] -- cycle;
 			\node[anchor=center, inner sep=0pt, xshift=\profilepicxshift,
@@ -314,8 +314,8 @@
 			\end{scope}
 			\begin{scope}
 			\draw	[line width=0.02\sidebartextwidth, color=iconcolor]
-				(0, 0) [sharp corners] -- 
-				(0, 1) [rounded corners=0.15\sidebartextwidth] -- 
+				(0, 0) [sharp corners] --
+				(0, 1) [rounded corners=0.15\sidebartextwidth] --
 				(1, 1) [sharp corners] --
 				(1, 0) [rounded corners=0.15\sidebartextwidth] -- cycle;
 			\end{scope}
@@ -385,8 +385,8 @@
 \newcommand{\cvicon}[1]{\makebox[1em]{\color{iconcolor} #1}}
 \newcommand{\flag}[1]{\includegraphics[align=c, width=1em]{#1}}
 
-% \pointskill[<indent>]{<icon>}{<description>}{<points>}[<maxpoints>] creates 
-% | [indent] [icon]  description  \hfill  ● ● ● ○ ○ | 
+% \pointskill[<indent>]{<icon>}{<description>}{<points>}[<maxpoints>] creates
+% | [indent] [icon]  description  \hfill  ● ● ● ○ ○ |
 % -- inspired by arravc.cls by LianTze Lim: https://github.com/liantze/AltaCV
 \NewDocumentCommand{\pointskill}{ O{0em} m m m O{5} }{%
 	\hspace{#1} \cvicon{#2} ~ #3 \hfill%
@@ -399,12 +399,12 @@
 	}\par%
 }
 
-\newcommand{\barskill}[3]{ 
+\newcommand{\barskill}[3]{
 	% remove 1pt in width to prevent overfull box warnings
 	\begin{tikzpicture}[x=\sidebartextwidth-1pt, y=2ex]
-			\draw[fill, skillbg, rounded corners=0.5em] 
+			\draw[fill, skillbg, rounded corners=0.5em]
 				(0, 0) rectangle (1, 1);
-			\draw[fill, iconcolor!70, rounded corners=0.5em] 
+			\draw[fill, iconcolor!70, rounded corners=0.5em]
 				(0, 0) rectangle (#3/100, 1);
 			\node[above right] at (0, 1) {\cvicon{#1} ~ #2};
 	\end{tikzpicture}
@@ -420,16 +420,16 @@
 % label for wheel charts
 \newcommand{\chartlabel}[1]{%
 	\begin{tikzpicture}
-  	\node[
-	  	fill=skillbg!25, % interior color
-	  	anchor=base,
-	  	draw=skillbg, % line color
-	  	rounded corners,
-	  	inner xsep=1ex, % distance from left/right border to text
-	  	inner ysep=0.75ex, % distance top/bottom border to text
-	  	text height=1.5ex, % align text vertically in box (at least as resulting
-	  	text depth=.25ex   % effect)
-  	]{#1};%
+	\node[
+		fill=skillbg!25, % interior color
+		anchor=base,
+		draw=skillbg, % line color
+		rounded corners,
+		inner xsep=1ex, % distance from left/right border to text
+		inner ysep=0.75ex, % distance top/bottom border to text
+		text height=1.5ex, % align text vertically in box (at least as resulting
+		text depth=.25ex   % effect)
+	]{#1};%
 	\end{tikzpicture}
 }
 
@@ -452,69 +452,69 @@
 
 % adapted from https://tex.stackexchange.com/a/82729
 \newcommand{\wheelchart}[4][-90]{%
-    \def\outerradius{#2}%
-    \def\innerradius{#3}%
-    % Calculate total
-    \pgfmathsetmacro{\totalnum}{0}%
-    \foreach\value/\colour/\name in {#4} {%
-        \pgfmathparse{\value+\totalnum}%
-        \global\let\totalnum=\pgfmathresult%
-    }%
-    \begin{tikzpicture}
+	\def\outerradius{#2}%
+	\def\innerradius{#3}%
+	% Calculate total
+	\pgfmathsetmacro{\totalnum}{0}%
+	\foreach\value/\colour/\name in {#4} {%
+		\pgfmathparse{\value+\totalnum}%
+		\global\let\totalnum=\pgfmathresult%
+	}%
+	\begin{tikzpicture}
 
-      % Calculate the thickness and the middle line of the wheel
-      \pgfmathsetmacro{\wheelwidth}{\outerradius-\innerradius}
-      \pgfmathsetmacro{\midradius}{(\outerradius+\innerradius)/2}
+		% Calculate the thickness and the middle line of the wheel
+		\pgfmathsetmacro{\wheelwidth}{\outerradius-\innerradius}
+		\pgfmathsetmacro{\midradius}{(\outerradius+\innerradius)/2}
 
-      % Rotate so we start from the top
-      \begin{scope}[rotate=#1, on background layer]
-      % Loop through each value set. \cumnum keeps track of where we are in the
-      % wheel                
-      \pgfmathsetmacro{\cumnum}{0}
-      \foreach \value/\width/\colour/\name in {#4} {
-            \pgfmathsetmacro{\newcumnum}{\cumnum + \value/\totalnum*360}
+		% Rotate so we start from the top
+		\begin{scope}[rotate=#1, on background layer]
+		% Loop through each value set. \cumnum keeps track of where we are in the
+		% wheel
+		\pgfmathsetmacro{\cumnum}{0}
+		\foreach \value/\width/\colour/\name in {#4} {
+			\pgfmathsetmacro{\newcumnum}{\cumnum + \value/\totalnum*360}
 
-            % Calculate the percent value
-            \pgfmathsetmacro{\percentage}{\value/\totalnum*100}
-            % Calculate the mid angle of the colour segments to place the labels
-            \pgfmathsetmacro{\midangle}{-(\cumnum+\newcumnum)/2}
+			% Calculate the percent value
+			\pgfmathsetmacro{\percentage}{\value/\totalnum*100}
+			% Calculate the mid angle of the colour segments to place the labels
+			\pgfmathsetmacro{\midangle}{-(\cumnum+\newcumnum)/2}
 
-            % This is necessary for the labels to align nicely
-            \pgfmathparse{
-               (-\midangle>180?"west":"east")
-            } \edef\textanchor{\pgfmathresult}
-            \pgfmathparse{
-               (-\midangle>180?"flush left":"flush right")
-            } \edef\textalign{\pgfmathresult}
-            \pgfmathsetmacro\labelshiftdir{1-2*(-\midangle<180)}
+			% This is necessary for the labels to align nicely
+			\pgfmathparse{
+				(-\midangle>180?"west":"east")
+			} \edef\textanchor{\pgfmathresult}
+			\pgfmathparse{
+				(-\midangle>180?"flush left":"flush right")
+			} \edef\textalign{\pgfmathresult}
+			\pgfmathsetmacro\labelshiftdir{1-2*(-\midangle<180)}
 
-            % Draw the color segments. Somehow, the \midrow units got lost, so
-            % we add 'pt' at the end. Not nice...
-            \filldraw[draw=white,fill=\colour] 
-	            (-\cumnum:\outerradius) 
-	            arc (-\cumnum:-(\newcumnum):\outerradius) 
-	            -- (-\newcumnum:\innerradius) 
-	            arc (-\newcumnum:-(\cumnum):\innerradius) 
-	            -- cycle;
+			% Draw the color segments. Somehow, the \midrow units got lost, so
+			% we add 'pt' at the end. Not nice...
+			\filldraw[draw=white,fill=\colour]
+				(-\cumnum:\outerradius)
+				arc (-\cumnum:-(\newcumnum):\outerradius)
+				-- (-\newcumnum:\innerradius)
+				arc (-\newcumnum:-(\cumnum):\innerradius)
+				-- cycle;
 
-            % Draw the data labels
-            \draw [*-,thin,wheelchartlabelcolor] node [append after command={
-		          (\midangle:\midradius pt) -- 
- 	  	        (\midangle:\outerradius + 1ex) -- 
-		          (\tikzlastnode)}] at (\midangle:\outerradius + 1ex) [
-		          xshift=\labelshiftdir*0.5cm,inner sep=1ex, 
-		          outer sep=0pt, 
-		          text width=\width,
-		          anchor=\textanchor,
-		          align=\textalign,
-		          font=\small,
-		          text=wheeltextcolor
-	          ]{\name};
-            % Set the old cumulated angle to the new value
-            \global\let\cumnum=\newcumnum
-        }
-      \end{scope}
-    \end{tikzpicture}\par
+			% Draw the data labels
+			\draw [*-,thin,wheelchartlabelcolor] node [append after command={
+				(\midangle:\midradius pt) --
+				(\midangle:\outerradius + 1ex) --
+				(\tikzlastnode)}] at (\midangle:\outerradius + 1ex) [
+				xshift=\labelshiftdir*0.5cm,inner sep=1ex,
+				outer sep=0pt,
+				text width=\width,
+				anchor=\textanchor,
+				align=\textalign,
+				font=\small,
+				text=wheeltextcolor
+			]{\name};
+			% Set the old cumulated angle to the new value
+			\global\let\cumnum=\newcumnum
+		}
+		\end{scope}
+	\end{tikzpicture}\par
 }
 
 \newcommand{\cvsignature}{
@@ -528,18 +528,18 @@
 %-------------------------------------------------------------------------------
 % draw sidebar background on every page
 \backgroundsetup{
-	opacity=1, 
-	scale=1, 
-	angle=0, 
+	opacity=1,
+	scale=1,
+	angle=0,
 	position=current page.north west,
 	contents={%
 		\begin{tikzpicture}[remember picture, overlay]
-   		\node[
-   			rectangle,
-   			fill=sidecolor,
-   			anchor=north west,
-   			minimum width=\sidebarwidth,
-   			minimum height=\paperheight,
+			\node[
+				rectangle,
+				fill=sidecolor,
+				anchor=north west,
+				minimum width=\sidebarwidth,
+				minimum height=\paperheight,
 			]{};% (frontsidebar) at (current page.north west){};
 			% plot vertical red guideline
 			\plotvline
@@ -549,7 +549,7 @@
 
 % use textpos to position textblock within TikZ background; we have to use
 % the starred version for absolute values here, b/c we use \pagewidth directly
-% instead of \setlength{\TPHorizModule}{<dimen>}, which seems to be "absolute" 
+% instead of \setlength{\TPHorizModule}{<dimen>}, which seems to be "absolute"
 % as opposed to "relative" - strange but true.
 \newenvironment{sidebar}%
 	{\begin{textblock*}{\sidebartextwidth}(\leftrightmargin, \topbottommargin)}%
@@ -589,7 +589,7 @@
  	\begin{sidebar}
 		% begin with name instead of picture
 		\nameandjob
-		
+
 		% make sure there is no space at top, but after cvjob
 		\setlength{\parskip}{1ex}
 
@@ -629,18 +629,18 @@
 	\parbox[t]{0.81\textwidth}{%
 		\if\relax\detokenize{#4}\relax%
 			\parbox[t]{\linewidth-\widthof{\footnotesize #3}-1em}{\raggedright #2}%
-  		\hfill {\footnotesize#3}%
+		\hfill {\footnotesize#3}%
 		\else%
 			\parbox{\linewidth-\widthof{\footnotesize #3}-1em}{%
 				\raggedright \textbf{#2}%
-			} \hfill {\footnotesize#3} \\% 
+			} \hfill {\footnotesize#3} \\%
 			\textcolor{itemtextcolor}{#4}%\vspace{\parsep}%
 		\fi%
 	}\\
 }
 
 % publication item
-% \cvpubitem{<title>}{<author>}{<journal>}{<year>} will produce 
+% \cvpubitem{<title>}{<author>}{<journal>}{<year>} will produce
 % | <year>         <bold title>                      |
 % |                <italic author>                   |
 % |                <journal>                         |
