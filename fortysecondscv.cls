@@ -78,6 +78,9 @@
 \newlength\profilepicsize%
 \setlength{\profilepicsize}{0.7\sidebarwidth}
 \DeclareOptionX{profilepicsize}{\setlength{\profilepicsize}{#1}}
+\newlength\profilepicborderwidth%
+\setlength{\profilepicborderwidth}{3.5pt}
+\DeclareOptionX{profilepicborderwidth}{\setlength{\profilepicborderwidth}{#1}}
 \newcommand*{\profilepicstyle}{}
 \DeclareOptionX{profilepicstyle}{\renewcommand{\profilepicstyle}{#1}}
 \newcommand*{\profilepiczoom}{}
@@ -302,23 +305,25 @@
 		% §12 (scopes), §13.2 (coordinate systems)
 		\begin{tikzpicture}[x=\profilepicsize, y=\profilepicsize]
 			\begin{scope}
-			\path[clip]
-				(0, 0) [sharp corners] --
-				(0, 1) [rounded corners=0.15\sidebartextwidth] --
-				(1, 1) [sharp corners] --
-				(1, 0) [rounded corners=0.15\sidebartextwidth] -- cycle;
-			\node[anchor=center, inner sep=0pt, xshift=\profilepicxshift,
-					yshift=\profilepicyshift] (profilepic) at (0.5, 0.5)
-				{\includegraphics[width=\profilepiczoom\profilepicsize]
-					{\cvprofilepic}};
+				\path[clip]
+					(0, 0) [sharp corners] --
+					(0, 1) [rounded corners=0.15\sidebartextwidth] --
+					(1, 1) [sharp corners] --
+					(1, 0) [rounded corners=0.15\sidebartextwidth] -- cycle;
+				\node[anchor=center, inner sep=0pt, xshift=\profilepicxshift,
+						yshift=\profilepicyshift] (profilepic) at (0.5, 0.5)
+					{\includegraphics[width=\profilepiczoom\profilepicsize]
+						{\cvprofilepic}};
 			\end{scope}
-			\begin{scope}
-			\draw	[line width=0.02\sidebartextwidth, color=iconcolor]
-				(0, 0) [sharp corners] --
-				(0, 1) [rounded corners=0.15\sidebartextwidth] --
-				(1, 1) [sharp corners] --
-				(1, 0) [rounded corners=0.15\sidebartextwidth] -- cycle;
-			\end{scope}
+			\ifdim \profilepicborderwidth > 0pt
+				\begin{scope}
+					\draw	[line width=\profilepicborderwidth, color=iconcolor]
+					(0, 0) [sharp corners] --
+					(0, 1) [rounded corners=0.15\sidebartextwidth] --
+					(1, 1) [sharp corners] --
+					(1, 0) [rounded corners=0.15\sidebartextwidth] -- cycle;
+				\end{scope}
+			\fi
 		\end{tikzpicture}
 	\end{figure}
 }
@@ -334,10 +339,12 @@
 				\includegraphics[width=\profilepiczoom\profilepicsize]
 					{\cvprofilepic}};
 			\end{scope}
-			\begin{scope}
-			\draw	[line width=0.02\sidebartextwidth, color=iconcolor]
-				(0, 0) circle (0.5\profilepicsize);
-			\end{scope}
+			\ifdim \profilepicborderwidth > 0pt
+				\begin{scope}
+					\draw	[line width=\profilepicborderwidth, color=iconcolor]
+						(0, 0) circle (0.5\profilepicsize);
+				\end{scope}
+			\fi
 		\end{tikzpicture}
 	\end{figure}
 }
