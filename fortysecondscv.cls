@@ -91,6 +91,9 @@
 \newlength\profilepicyshift
 \setlength{\profilepicyshift}{0mm}
 \DeclareOptionX{profilepicyshift}{\setlength{\profilepicyshift}{#1}}
+\newlength\profilepicrounding
+\setlength{\profilepicrounding}{0.15\sidebarwidth}
+\DeclareOptionX{profilepicrounding}{\setlength{\profilepicrounding}{#1}}
 
 
 
@@ -307,9 +310,9 @@
 			\begin{scope}
 				\path[clip]
 					(0, 0) [sharp corners] --
-					(0, 1) [rounded corners=0.15\sidebartextwidth] --
+					(0, 1) [rounded corners=\profilepicrounding] --
 					(1, 1) [sharp corners] --
-					(1, 0) [rounded corners=0.15\sidebartextwidth] -- cycle;
+					(1, 0) [rounded corners=\profilepicrounding] -- cycle;
 				\node[anchor=center, inner sep=0pt, xshift=\profilepicxshift,
 						yshift=\profilepicyshift] (profilepic) at (0.5, 0.5)
 					{\includegraphics[width=\profilepiczoom\profilepicsize]
@@ -319,9 +322,9 @@
 				\begin{scope}
 					\draw	[line width=\profilepicborderwidth, color=iconcolor]
 					(0, 0) [sharp corners] --
-					(0, 1) [rounded corners=0.15\sidebartextwidth] --
+					(0, 1) [rounded corners=\profilepicrounding] --
 					(1, 1) [sharp corners] --
-					(1, 0) [rounded corners=0.15\sidebartextwidth] -- cycle;
+					(1, 0) [rounded corners=\profilepicrounding] -- cycle;
 				\end{scope}
 			\fi
 		\end{tikzpicture}

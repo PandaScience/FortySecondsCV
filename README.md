@@ -87,6 +87,8 @@ Possible options that can be passed to FortySecondsCV are:
   profile picture directly without modification and crop it here.
 * `profilepicxshift=<length>` sets the xshift for the profile picture.
 * `profilepicyshift=<length>` sets the yshift for the profile picture.
+* `profilepicrounding=<length>` sets the rounding radius for the top right and
+  bottom left corner in the default rounded profile picture style.
 
 Note: 
 
