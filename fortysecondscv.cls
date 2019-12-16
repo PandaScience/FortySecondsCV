@@ -2,6 +2,11 @@
 % Copyright © 2019 René Wirnata <rene.wirnata@pandascience.net>
 % Licensed under the 3-Clause BSD License. See LICENSE file for details.
 %
+% Contributors
+% ------------
+% * ifokkema
+% * Bertbk
+%
 % Attributions
 % ------------
 % * fortysecondscv is based on the twentysecondcv class by Carmine Spagnuolo
@@ -14,7 +19,7 @@
 %                           CLASS NAME AND VERSION
 %-------------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fortysecondscv}[2019/05/17 CV class]
+\ProvidesClass{fortysecondscv}[2019/12/16 CV class]
 
 
 %-------------------------------------------------------------------------------
@@ -145,7 +150,7 @@
 
 % use as workaround for spacing problem when TikZ picture is not in paragraph;
 % details: https://tex.stackexchange.com/a/435790
-\RequirePackage{background}
+\RequirePackage[texcoord]{eso-pic}
 
 % for easy section style definitions
 \RequirePackage{titlesec}
@@ -537,24 +542,18 @@
 %                               SIDEBAR LAYOUT
 %-------------------------------------------------------------------------------
 % draw sidebar background on every page
-\backgroundsetup{
-	opacity=1,
-	scale=1,
-	angle=0,
-	position=current page.north west,
-	contents={%
-		\begin{tikzpicture}[remember picture, overlay]
-			\node[
-				rectangle,
-				fill=sidecolor,
-				anchor=north west,
-				minimum width=\sidebarwidth,
-				minimum height=\paperheight,
-			]{};% (frontsidebar) at (current page.north west){};
-			% plot vertical red guideline
-			\plotvline
-		\end{tikzpicture}
-	}
+\AddToShipoutPictureBG{%
+	\begin{tikzpicture}[remember picture, overlay]
+		\node[
+			rectangle,
+			fill=sidecolor,
+			anchor=north west,
+			minimum width=\sidebarwidth,
+			minimum height=\paperheight,
+		]{};%
+		% plot vertical red guideline
+		\plotvline%
+	\end{tikzpicture}%
 }
 
 % use textpos to position textblock within TikZ background; we have to use
