@@ -160,6 +160,8 @@ to return to the default layout on subsequent pages, simply call
 
 Set personal information via convenience commands
 ```latex
+  % logo picture
+  \cvlogopic[0.8\linewidth]{pics/logo.png}
   % profile picture
   \cvprofilepic{pics/profile.png}
   % your name
