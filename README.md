@@ -8,7 +8,7 @@ Just another CV class for LaTeX - but this time highly customizable!
 This project can be regarded as a major rewrite of the original twentysecondcv
 class. It does not aim to provide a new CV style that you can't find anywhere
 else, but rather takes a very well established one and adds a straightforward
-user interface to almost all layout elements and thus creates a highly 
+user interface to almost all layout elements and thus creates a highly
 customizable framework-class: FortySecondsCV.
 
 Just try it yourself starting from `template.tex`!
@@ -33,9 +33,9 @@ When you should use the FortySecondsCV class:
 
 ## Attributions
 
-* This LaTeX CV class is based on the style ideas of the 
+* This LaTeX CV class is based on the style ideas of the
   [twentysecondscv class](https://github.com/spagnuolocarmine/TwentySecondsCurriculumVitae-LaTex)
-  by Carmine Spagnuolo 
+  by Carmine Spagnuolo
 * Language icons in the template are taken from [gosquared's repository](https://github.com/gosquared/flags)
 
 
@@ -59,7 +59,7 @@ file for more information.
 
 Possible options that can be passed to FortySecondsCV are:
 
-* all valid options for the standard article class like e.g. `a4paper` or 
+* all valid options for the standard article class like e.g. `a4paper` or
   `11pt`.
 * `showframes` will show frames around the sidebar and body texts that help to
   adjust margins correctly. Note, that this will move content of tables
@@ -72,10 +72,10 @@ Possible options that can be passed to FortySecondsCV are:
 * `itemtextcolor=<color>` sets the color of cvitem descriptions.
 * `subsectioncolor=<color>` same as sectioncolor for subsections.
 * `sidebarwidth=<length>` sets the total width of the sidebar, i.e. the width
-  of the visible sidebar color. 
+  of the visible sidebar color.
 * `topbottommargin=<length>` sets the top and bottom page margin for both
   columns.
-* `leftrightmargin=<length>` sets the left and right page margin for both 
+* `leftrightmargin=<length>` sets the left and right page margin for both
   columns as well as how much space will be between both columns.
 * `profilepicsize=<length>` sets the width of the profile picture.
 * `profilepicborderwidth=<length>` sets the width of the profile picture's
@@ -90,13 +90,13 @@ Possible options that can be passed to FortySecondsCV are:
 * `profilepicrounding=<length>` sets the rounding radius for the top right and
   bottom left corner in the default rounded profile picture style.
 
-Note: 
+Note:
 
-* Lengths can be specified in any absolute length unit, e.g. `em` for widths, 
+* Lengths can be specified in any absolute length unit, e.g. `em` for widths,
   `ex` for heights or relative ones like `0.5\paperheight` or `0.3\linewidth`.
-* Colors can be picked from the entire catalogue provided by the `dvipsnames`, 
+* Colors can be picked from the entire catalogue provided by the `dvipsnames`,
   `svgnames` and `x11names` options of the `xcolor` package. See 
-  [xcolor package documentation](http://mirrors.ctan.org/macros/latex/contrib/xcolor/xcolor.pdf) 
+  [xcolor package documentation](http://mirrors.ctan.org/macros/latex/contrib/xcolor/xcolor.pdf)
   for details and color tables.
 
 ### Sidebar
@@ -126,7 +126,7 @@ already set, or completely redefine them using
   for additional pages easily.
 
 
-### Personal Information 
+### Personal Information
 
 Set personal information via convenience commands
 ```latex
@@ -178,12 +178,12 @@ this column, since icons are scaled to maximum width of their cell. For visual
 purposes, you can fine-tune the space between icons and corresponding text with
 the 2nd mandatory argument. The optional argument determines the spacing
 between table lines, which is only important for small icon heights (i.e. small
-1st columns). 
+1st columns).
 
 * `\personal` takes an icon and a text. The icon is passed to
   `\circleicon{<icon>}`, which draws a circle filled with `maincolor` around
   the icon symbol. The symbol itself appears white.
-* `\social` takes an icon and url + text. `Text` will be hyperlinked to `url`. 
+* `\social` takes an icon and url + text. `Text` will be hyperlinked to `url`.
   In case `url` is empty, your LaTeX compiler will throw a harmless warning
   about "Suppressing link with empty target" and text will not be hyperlinked.
   The icon itself is passed to `\socialicon{<icon>}`, which simply resizes
@@ -235,7 +235,7 @@ The default "personal information table" uses
 * Barskill consisting of an icon, text and percentage of how far the skillbar
   should be filled
   ```latex
-  \barskill{<icon>}{<text>}{<percentage>} 
+  \barskill{<icon>}{<text>}{<percentage>}
   ```
 * "About me" text
   ```latex
@@ -308,9 +308,9 @@ has to be defined within the `document` environment.
     former one but with a "normal" title instead of a bold one.
   * `cvitemshort` left-aligns `<key>` followed by its description.
   * `cvpubitem` adds an entry with left-aligned year/date, bold title on same
-  	line followed by italic author and normal text journal, each on its own 
+  	line followed by italic author and normal text journal, each on its own
   	line.
-  * `<arraystretch>` modifies the spacing between items of `cvtable`. For 
+  * `<arraystretch>` modifies the spacing between items of `cvtable`. For
 	tables of `cvitem`, you should use at least 1.5, for `cvitemshort` and
 	`cvitem` without description, the default value is sufficient.
 
@@ -324,7 +324,7 @@ has to be defined within the `document` environment.
   ```
 
 * Finalizing the CV with a place, date and signature as common practice in e.g.
-  Germany is done via 
+  Germany is done via
   ```latex
   \cvsignature
   ```
