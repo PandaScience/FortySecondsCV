@@ -449,6 +449,11 @@
 }
 
 
+\newenvironment{sidebarminipage}%
+	{\begin{minipage}{\sidebartextwidth}}%
+	{\end{minipage}}
+
+
 \newenvironment{memberships}[1][1em]%
 {%
 	\iftoggle{tshowframes}{%

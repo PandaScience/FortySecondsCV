@@ -120,10 +120,23 @@ already set, or completely redefine them using
   \end{sidebar}
 }
 ```
-* The `sidebar` environment makes sure that all elements will be positioned
-  correctly within the left column (sidebar) of each page.
-* Using the `sidebar` environment, you can also add more sidebar definitions 
-  for additional pages easily.
+The `sidebar` environment makes sure that at least all text will be positioned
+correctly within the left column (sidebar) of each page. If you need something
+more restrictive, e.g. to prevent overflow when using multiple chartlabels, you
+can enclose parts of the sidebar content in a `sidebarminipage`:
+```latex
+\begin{sidebarminipage}
+	\chartlabel{Bubble Diagram}
+	\chartlabel{with}
+	\chartlabel{proper}
+	\chartlabel{overflow}
+	\chartlabel{protection}
+	\chartlabel{for}
+	\chartlabel{labels}
+\end{sidebarminipage}
+```
+Using the `sidebar` environment, you can also add more sidebar definitions for
+additional pages easily.
 
 
 ### Personal Information
