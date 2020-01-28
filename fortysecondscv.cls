@@ -258,15 +258,15 @@
 \newcommand*{\cvjobtitle}[1]{\renewcommand{\cvjobtitle}{#1}}
 
 % profile picture (optional)
-% TODO let user choose style via class settings
 \newcommand{\plotprofilepicture}{}
 \newcommand*{\cvprofilepic}[1]{
 	\renewcommand{\cvprofilepic}{#1}
-}
-\ifthenelse{\equal{\profilepicstyle}{profilecircle}}{
-	\renewcommand{\plotprofilepicture}{\profilecircle}
-}{
-	\renewcommand{\plotprofilepicture}{\profileroundedcorners}
+
+	\ifthenelse{\equal{\profilepicstyle}{profilecircle}}{
+		\renewcommand{\plotprofilepicture}{\profilecircle}
+	}{
+		\renewcommand{\plotprofilepicture}{\profileroundedcorners}
+	}
 }
 
 % social network item; \social{<icon>}{<url>}{<text>}
