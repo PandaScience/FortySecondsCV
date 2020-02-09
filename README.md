@@ -66,8 +66,9 @@ Possible options that can be passed to FortySecondsCV are:
   slightly since tabular lines also take some space.
 * `vline=<length>` plots a red vertical line at x-position `<length>` to help
   adjust sidebar content.
-* `maincolor=<color>` sets the color that is used for the entire sidebar incl.
+* `maincolor=<color>` sets the theme color used for the entire sidebar incl.
   headings, icons and charts. Many colors are derived from it.
+* `sidecolor=<color>` sets the background color of the sidebar.
 * `sectioncolor=<color>` sets the color of section headings in the body text.
 * `itemtextcolor=<color>` sets the color of cvitem descriptions.
 * `subsectioncolor=<color>` same as sectioncolor for subsections.
@@ -98,6 +99,7 @@ Note:
   `svgnames` and `x11names` options of the `xcolor` package. See 
   [xcolor package documentation](http://mirrors.ctan.org/macros/latex/contrib/xcolor/xcolor.pdf)
   for details and color tables.
+* Colors can also be redefined within the document body using e.g. `\definecolor{sidecolor}{HTML}{000000}`.
 
 ### Sidebar
 
@@ -111,7 +113,7 @@ Layout elements in front and back sidebar can be added either by using
 \addtofrontsidebar{}
 \addtobacksidebar{}
 ```
-where some pre-defined elements like profile picture, name and jobtitle are
+where some pre-defined elements like profile picture, name and job title are
 already set, or completely redefine them using
 ```latex
 \renewcommand{\makefrontsidebar}{%
@@ -122,8 +124,8 @@ already set, or completely redefine them using
 ```
 The `sidebar` environment makes sure that at least all text will be positioned
 correctly within the left column (sidebar) of each page. If you need something
-more restrictive, e.g. to prevent overflow when using multiple chartlabels, you
-can enclose parts of the sidebar content in a `sidebarminipage`:
+more restrictive, e.g. to prevent overflow when using multiple chart labels,
+you can enclose parts of the sidebar content in a `sidebarminipage`:
 ```latex
 \begin{sidebarminipage}
 	\chartlabel{Bubble Diagram}
@@ -331,7 +333,7 @@ has to be defined within the `document` environment.
   `cvsection`, `cvsubsection` and description text colors can be defined as
   described in [class options](#class-options).
 
-* Name and jobtitle combination with proper spacing, font and color
+* Name and job title combination with proper spacing, font and color
   ```late
   \nameandjob
   ```
