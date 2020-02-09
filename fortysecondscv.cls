@@ -631,7 +631,7 @@
 	\renewcommand{\arraystretch}{#1}%
 	\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}ll}%
 }{%
-	\end{tabular*}
+	\end{tabular*}%
 }
 
 % | <keyword>      <one-line description>            |
