@@ -140,6 +140,21 @@ you can enclose parts of the sidebar content in a `sidebarminipage`:
 Using the `sidebar` environment, you can also add more sidebar definitions for
 additional pages easily.
 
+If you want to remove the sidebar entirely on a single page, just don't call
+any of the sidebar constructors. Then you may set your preferred margins using
+```latex
+\newpage
+% no \makebacksidebar etc.
+\newgeometry{
+	top=<length>,
+	bottom=<length>,
+	left=<length>,
+	right=<length>
+}
+```
+The defaults are `\leftrightmargin` and `\topbottommargin`. In case you want
+to return to the default layout on subsequent pages, simply call
+`\restoregeometry` after the next `\newpage`.
 
 ### Personal Information
 

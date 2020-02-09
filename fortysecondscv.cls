@@ -1,11 +1,12 @@
 % FortySecondsCV LaTeX class
-% Copyright © 2019 René Wirnata <rene.wirnata@pandascience.net>
+% Copyright © 2019-2020 René Wirnata <rene.wirnata@pandascience.net>
 % Licensed under the 3-Clause BSD License. See LICENSE file for details.
 %
 % Contributors
 % ------------
 % * ifokkema
 % * Bertbk
+% * Hespe
 %
 % Attributions
 % ------------
@@ -19,7 +20,7 @@
 %                           CLASS NAME AND VERSION
 %-------------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fortysecondscv}[2019/12/16 CV class]
+\ProvidesClass{fortysecondscv}[2020/02/09 CV class]
 
 
 %-------------------------------------------------------------------------------
@@ -65,7 +66,7 @@
 \DeclareOptionX{subsectioncolor}{\colorlet{subsectioncolor}{#1}}
 \DeclareOptionX{itemtextcolor}{\colorlet{itemtextcolor}{#1}}
 
-%	set page margins
+% set page margins
 \newlength\sidebarwidth%
 \newlength\topbottommargin%
 \newlength\leftrightmargin%
@@ -546,19 +547,21 @@
 %-------------------------------------------------------------------------------
 %                               SIDEBAR LAYOUT
 %-------------------------------------------------------------------------------
-% draw sidebar background on every page
-\AddToShipoutPictureBG{%
-	\begin{tikzpicture}[remember picture, overlay]
-		\node[
-			rectangle,
-			fill=sidecolor,
-			anchor=north west,
-			minimum width=\sidebarwidth,
-			minimum height=\paperheight,
-		]{};%
-		% plot vertical red guideline
-		\plotvline%
-	\end{tikzpicture}%
+% draw sidebar background on current page
+\newcommand{\drawSidebarBG}{%
+	\AddToShipoutPictureBG*{%
+		\begin{tikzpicture}[remember picture, overlay]
+			\node[
+				rectangle,
+				fill=sidecolor,
+				anchor=north west,
+				minimum width=\sidebarwidth,
+				minimum height=\paperheight,
+			]{};%
+			% plot vertical red guideline
+			\plotvline%
+		\end{tikzpicture}%
+	}%
 }
 
 % use textpos to position textblock within TikZ background; we have to use
@@ -566,8 +569,12 @@
 % instead of \setlength{\TPHorizModule}{<dimen>}, which seems to be "absolute"
 % as opposed to "relative" - strange but true.
 \newenvironment{sidebar}%
-	{\begin{textblock*}{\sidebartextwidth}(\leftrightmargin, \topbottommargin)}%
-	{\end{textblock*}}
+	{%
+		\drawSidebarBG%
+		\begin{textblock*}{\sidebartextwidth}(\leftrightmargin, \topbottommargin)
+	}{%
+		\end{textblock*}%
+	}
 
 % provide user interface for easily adding new sections in side bars
 % default: empty sidebar
@@ -600,7 +607,7 @@
 }
 
 \newcommand{\makebacksidebar}{%
- 	\begin{sidebar}
+	\begin{sidebar}
 		% begin with name instead of picture
 		\nameandjob
 
