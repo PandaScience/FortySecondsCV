@@ -326,7 +326,7 @@
 			\end{scope}
 			\ifdim \profilepicborderwidth > 0pt
 				\begin{scope}
-					\draw	[line width=\profilepicborderwidth, color=iconcolor]
+					\draw[line width=\profilepicborderwidth, color=iconcolor]
 					(0, 0) [sharp corners] --
 					(0, 1) [rounded corners=\profilepicrounding] --
 					(1, 1) [sharp corners] --
@@ -350,7 +350,7 @@
 			\end{scope}
 			\ifdim \profilepicborderwidth > 0pt
 				\begin{scope}
-					\draw	[line width=\profilepicborderwidth, color=iconcolor]
+					\draw[line width=\profilepicborderwidth, color=iconcolor]
 						(0, 0) circle (0.5\profilepicsize);
 				\end{scope}
 			\fi
@@ -452,7 +452,7 @@
 
 \newenvironment{sidebarminipage}%
 	{\begin{minipage}{\sidebartextwidth}}%
-	{\end{minipage}}
+	{\end{minipage}}%
 
 
 \newenvironment{memberships}[1][1em]%
@@ -464,7 +464,7 @@
 	}
 }{%
 	\endtabularx%
-}
+}%
 
 
 \newcommand{\membership}[3][4em]{
@@ -568,13 +568,12 @@
 % the starred version for absolute values here, b/c we use \pagewidth directly
 % instead of \setlength{\TPHorizModule}{<dimen>}, which seems to be "absolute"
 % as opposed to "relative" - strange but true.
-\newenvironment{sidebar}%
-	{%
-		\drawSidebarBG%
-		\begin{textblock*}{\sidebartextwidth}(\leftrightmargin, \topbottommargin)
-	}{%
-		\end{textblock*}%
-	}
+\newenvironment{sidebar}{%
+	\drawSidebarBG%
+	\begin{textblock*}{\sidebartextwidth}(\leftrightmargin, \topbottommargin)
+}{%
+	\end{textblock*}%
+}
 
 % provide user interface for easily adding new sections in side bars
 % default: empty sidebar
@@ -639,7 +638,7 @@
 % use parbox if text needs to use multiple lines
 \newcommand{\cvitemshort}[2]{%
 	\parbox[t]{0.17\textwidth}{\raggedright #1}
-  & \parbox[t]{0.81\textwidth}{#2} \\}
+	& \parbox[t]{0.81\textwidth}{#2} \\}
 
 % | <date>         <bold-title>  \hfill  <location>  |
 % |                <longer description>              |
