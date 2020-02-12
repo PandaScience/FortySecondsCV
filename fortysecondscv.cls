@@ -11,6 +11,7 @@
 % * ifokkema
 % * Bertbk
 % * Hespe
+% * esben
 %
 % Attributions
 % ------------
@@ -273,6 +274,14 @@
 		\renewcommand{\plotprofilepicture}{\profileroundedcorners}
 	}
 }
+
+\newcommand{\plotlogopicture}{}
+\newcommand*{\cvlogopic}[2][\linewidth]{\renewcommand{\plotlogopicture}{
+	\begin{figure}\centering
+		\includegraphics[width=#1]{#2}
+	\end{figure}
+	\vspace{1em}
+}}
 
 % social network item; \social{<icon>}{<url>}{<text>}
 \newcommand*{\social}[3]{%
@@ -590,6 +599,9 @@
 	\begin{sidebar}
 		% most sidebar commands end with \par; increase space between them
 		\setlength{\parskip}{1ex}
+
+		% insert logo picture
+		\plotlogopicture
 
 		% insert profile picture
 		\plotprofilepicture
