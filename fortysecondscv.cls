@@ -106,7 +106,14 @@
 \setlength{\profilepicrounding}{0.15\sidebarwidth}
 \DeclareOptionX{profilepicrounding}{\setlength{\profilepicrounding}{#1}}
 
-
+% logo settings
+\newlength\logowidth%
+\setlength{\logowidth}{\profilepicsize}
+\DeclareOptionX{logowidth}{\setlength{\logowidth}{#1}}
+\newlength\logospace%
+\DeclareOptionX{logospace}{\setlength{\logospace}{#1}}
+\newcommand*{\logoposition}{}
+\DeclareOptionX{logoposition}{\renewcommand{\logoposition}{#1}}
 
 % show sidebar and page margins
 \newtoggle{tshowframes}
@@ -275,13 +282,27 @@
 	}
 }
 
-\newcommand{\plotlogopicture}{}
-\newcommand*{\cvlogopic}[2][\linewidth]{\renewcommand{\plotlogopicture}{
-	\begin{figure}\centering
-		\includegraphics[width=#1]{#2}
-	\end{figure}
-	\vspace{1em}
-}}
+% additional logo (optional)
+\newcommand{\plotlogobefore}{}
+\newcommand{\plotlogoafter}{}
+\newcommand*{\cvlogopic}[1]{%
+	% default = before; if any other (incl. 'after') --> after
+	\ifthenelse{\equal{\logoposition}{before}}{%
+		\renewcommand{\plotlogobefore}{%
+			\begin{figure}\centering%
+				\includegraphics[align=c, width=\logowidth]{#1}%
+			\end{figure}
+			\vspace*{\logospace}%
+		}%
+	}{%
+		\renewcommand{\plotlogoafter}{%
+			\vspace*{\logospace}%
+			\begin{figure}\centering%
+				\includegraphics[align=c, width=\logowidth]{#1}%
+			\end{figure}
+		}%
+	}
+}
 
 % social network item; \social{<icon>}{<url>}{<text>}
 \newcommand*{\social}[3]{%
@@ -600,11 +621,15 @@
 		% most sidebar commands end with \par; increase space between them
 		\setlength{\parskip}{1ex}
 
-		% insert logo picture
-		\plotlogopicture
+		% optionally insert logo picture before profile
+		\plotlogobefore
 
-		% insert profile picture
+		% optionally insert profile picture
 		\plotprofilepicture
+
+		% optionally insert logo picture after profile
+		\plotlogoafter
+
 		\vspace{1ex}
 
 		% name and job
