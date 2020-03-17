@@ -690,9 +690,9 @@
 	\parbox[t]{0.81\textwidth}{%
 		\if\relax\detokenize{#4}\relax%
 			\parbox[t]{\linewidth-\widthof{\footnotesize #3}-1em}{\raggedright #2}%
-		\hfill {\footnotesize#3}%
+			\hfill {\footnotesize#3}%
 		\else%
-			\parbox{\linewidth-\widthof{\footnotesize #3}-1em}{%
+			\parbox[t]{\linewidth-\widthof{\footnotesize #3}-1em}{%
 				\raggedright \textbf{#2}%
 			} \hfill {\footnotesize#3} \\%
 			\textcolor{itemtextcolor}{#4}%\vspace{\parsep}%
