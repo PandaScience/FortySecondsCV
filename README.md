@@ -377,6 +377,11 @@ has to be defined within the `document` environment.
   \newfontfamily\headingfont[Path = fonts/]{segoeuib.ttf}
   ```
 
+* If you are looking for a specific icon, say LinkedIn, you should first search
+  the [FontAwesome gallery](https://fontawesome.com/icons?d=gallery) for its
+  name, e.g. `linkedin-in` and then find the corresponding LaTeX code in the
+  [fontawesome5 package](https://ftp.gwdg.de/pub/ctan/fonts/fontawesome5/doc/fontawesome5.pdf),
+  which is in this case `\faLinkedinIn`.
 
 ## Example
 
