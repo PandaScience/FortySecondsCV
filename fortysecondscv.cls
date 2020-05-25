@@ -31,7 +31,7 @@
 %-------------------------------------------------------------------------------
 %                            PROCESS CLASS OPTIONS
 %-------------------------------------------------------------------------------
-%% load some required packages first
+%% first load all packages absolutely required to parse class options
 % for easy color definitions; provides \definecolor; load before background pkg
 \RequirePackage[dvipsnames, svgnames, x11names]{xcolor}
 % for positioning text within the side column | use showboxes for visible frame
@@ -41,6 +41,8 @@
 % provides \ifnumgreater{<int expr.>}{<int expr.>}{<true>}{<false>},
 % \apptocmd{<command>}{<code>}{<success>}{<failure>} and \newtoggle{<name>}
 \RequirePackage{etoolbox}
+% provides basic conditional expressions
+\RequirePackage{ifthen}
 % enable simple math like +/- etc. on lengths
 \RequirePackage{calc}
 % change page margins
@@ -106,6 +108,10 @@
 \setlength{\profilepicrounding}{0.15\sidebarwidth}
 \DeclareOptionX{profilepicrounding}{\setlength{\profilepicrounding}{#1}}
 
+% sidebar settings
+\newcommand*{\sidebarplacement}{}
+\DeclareOptionX{sidebarplacement}{\renewcommand{\sidebarplacement}{#1}}
+
 % logo settings
 \newlength\logowidth%
 \setlength{\logowidth}{\profilepicsize}
@@ -148,11 +154,20 @@
 
 % let geometry package perform the changes;
 % must come after loading the base class to prevent overwriting
-\geometry{
-	top=\topbottommargin,
-	bottom=\topbottommargin,
-	left=\sidebarwidth + \leftrightmargin,
-	right=\leftrightmargin,
+\ifthenelse{\equal{\sidebarplacement}{right}}{%
+	\geometry{
+		top=\topbottommargin,
+		bottom=\topbottommargin,
+		right=\sidebarwidth + \leftrightmargin,
+		left=\leftrightmargin,
+	}
+}{% else
+	\geometry{
+		top=\topbottommargin,
+		bottom=\topbottommargin,
+		left=\sidebarwidth + \leftrightmargin,
+		right=\leftrightmargin,
+	}
 }
 
 %-------------------------------------------------------------------------------
@@ -200,9 +215,6 @@
 
 % provides \xrfill for horizontal rules
 \RequirePackage{xhfill}
-
-% provides basic conditional expressions
-\RequirePackage{ifthen}
 
 % enable multiple optional arguments in macros
 \RequirePackage{xparse}
@@ -584,19 +596,33 @@
 % draw sidebar background on current page
 \newcommand{\drawSidebarBG}{%
 	\AddToShipoutPictureBG*{%
-		\begin{tikzpicture}[remember picture, overlay]
-			\node[
-				rectangle,
-				fill=sidecolor,
-				anchor=north west,
-				minimum width=\sidebarwidth,
-				minimum height=\paperheight,
-			]{};%
-			% plot vertical red guideline
-			\plotvline%
-		\end{tikzpicture}%
+		\ifthenelse{\equal{\sidebarplacement}{right}}{%
+			\begin{tikzpicture}[remember picture, overlay]
+				\node at (current page.north east)[
+					rectangle,
+					fill=sidecolor,
+					anchor=north east,
+					minimum width=\sidebarwidth,
+					minimum height=\paperheight,
+				]{};%
+				% plot vertical red guideline
+				\plotvline%
+			\end{tikzpicture}%
+		}{% else
+			\begin{tikzpicture}[remember picture, overlay]
+				\node[
+					rectangle,
+					fill=sidecolor,
+					anchor=north west,
+					minimum width=\sidebarwidth,
+					minimum height=\paperheight,
+				]{};%
+				% plot vertical red guideline
+				\plotvline%
+			\end{tikzpicture}%
+		}%
 	}%
-}
+}%
 
 % use textpos to position textblock within TikZ background; we have to use
 % the starred version for absolute values here, b/c we use \pagewidth directly
@@ -604,7 +630,12 @@
 % as opposed to "relative" - strange but true.
 \newenvironment{sidebar}{%
 	\drawSidebarBG%
-	\begin{textblock*}{\sidebartextwidth}(\leftrightmargin, \topbottommargin)
+	\ifthenelse{\equal{\sidebarplacement}{right}}{%
+		\begin{textblock*}{\sidebartextwidth}%
+			(\paperwidth - \sidebarwidth + \leftrightmargin, \topbottommargin)
+	}{% else
+		\begin{textblock*}{\sidebartextwidth}(\leftrightmargin, \topbottommargin)
+	}%
 }{%
 	\end{textblock*}%
 }

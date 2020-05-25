@@ -90,13 +90,15 @@ Possible options that can be passed to FortySecondsCV are:
 * `profilepicyshift=<length>` sets the yshift for the profile picture.
 * `profilepicrounding=<length>` sets the rounding radius for the top right and
   bottom left corner in the default rounded profile picture style.
+* `sidebarplacement=right` puts the sidebar to the right of the body instead of
+  to the left
 
 Note:
 
 * Lengths can be specified in any absolute length unit, e.g. `em` for widths,
   `ex` for heights or relative ones like `0.5\paperheight` or `0.3\linewidth`.
 * Colors can be picked from the entire catalogue provided by the `dvipsnames`,
-  `svgnames` and `x11names` options of the `xcolor` package. See 
+  `svgnames` and `x11names` options of the `xcolor` package. See
   [xcolor package documentation](http://mirrors.ctan.org/macros/latex/contrib/xcolor/xcolor.pdf)
   for details and color tables.
 * Colors can also be redefined within the document body using e.g. `\definecolor{sidecolor}{HTML}{000000}`.
@@ -138,7 +140,8 @@ you can enclose parts of the sidebar content in a `sidebarminipage`:
 \end{sidebarminipage}
 ```
 Using the `sidebar` environment, you can also add more sidebar definitions for
-additional pages easily.
+additional pages easily. If you want the sidebar to appear on the right instead
+of the left side of the body, use the class option `sidebarplacement=right`.
 
 If you want to remove the sidebar entirely on a single page, just don't call
 any of the sidebar constructors. Then you may set your preferred margins using
@@ -190,7 +193,7 @@ Set personal information via convenience commands
 * The email address will be automatically linked with `mailto:email`.
 * Your website will be hyperlinked as well.
 * For the pgp key, the first argument defines the displayed text which is
-  linked to a keyserver searching for the ID in the second argument.  
+  linked to a keyserver searching for the ID in the second argument.<br>
   Note: For safety, you should use your key's long ID or its fingerprint in the
   second argument.
 * The `\cvcustom{<icon>}{<text>}` macro shows how to define new lines using an icon as first
