@@ -60,12 +60,26 @@
 \ifxetexorluatex
 	\usepackage{fontspec}
 	\defaultfontfeatures{Ligatures=TeX}
-%	\newfontfamily\headingfont[Path = fonts/]{segoeuib.ttf} % local font
+	% \newfontfamily\headingfont[Path=fonts/]{segoeuib.ttf} % use local font
 \else
 	\usepackage[utf8]{inputenc}
 	\usepackage[T1]{fontenc}
-%	\usepackage[sfdefault]{noto} % use noto google font
 \fi
+
+% use a sans serif font as default
+\usepackage[sfdefault]{ClearSans}
+% \usepackage[sfdefault]{noto}
+
+% multi-language CV XeLaTeX and polyglossia (should also work with LuaLaTeX)
+% NOTE: breaks \pointskill, \membership and some spacings
+% \ifxetexorluatex
+% 	\usepackage{polyglossia}
+% 	\newfontfamily\arabicfontsf[Script=Arabic,Scale=1.5]{Amiri}
+% 	\newfontfamily\englishfontsf{Clear Sans}
+% 	\setmainfont{Amiri}
+% 	\setdefaultlanguage{arabic}
+% 	\setotherlanguage{english}
+% \fi
 
 % enable mathematical syntax for some symbols like \varnothing
 \usepackage{amssymb}

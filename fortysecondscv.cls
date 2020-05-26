@@ -173,9 +173,6 @@
 %-------------------------------------------------------------------------------
 %                              REQUIRED PACKAGES
 %-------------------------------------------------------------------------------
-% font configuration
-\RequirePackage[sfdefault]{ClearSans}
-
 % use as workaround for spacing problem when TikZ picture is not in paragraph;
 % details: https://tex.stackexchange.com/a/435790
 \RequirePackage[texcoord]{eso-pic}

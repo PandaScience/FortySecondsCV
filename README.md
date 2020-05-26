@@ -366,16 +366,59 @@ has to be defined within the `document` environment.
 
 ### Font Configuration
 
-* Change font either by loading the corresponding package, e.g. for google noto
-  font
+* Change the default font either by loading the corresponding package, e.g. for
+  google noto
   ```latex
-  \RequirePackage[sfdefault]{noto} % use noto google font
+  \usepackage[sfdefault]{noto} % use noto google font
   ```
   or by using XeLaTeX's option to load local fonts directly via fontspec
   ```latex
-  \RequirePackage[quiet]{fontspec}
+  \usepackage[quiet]{fontspec}
   \newfontfamily\headingfont[Path = fonts/]{segoeuib.ttf}
   ```
+
+* When working on multi-language documents, I highly advise against the usage
+  of pdfLaTeX. Since I have only little experience with LuaLaTeX (but will
+  probably will switch to the latter soon), I can only provide instructions for
+  XeLaTeX for now. There you first need to load the `polyglossia` package and
+  set fonts for each language separately.  For latin-based documents with e.g.
+  some arabic text snippets then use
+  ```latex
+  \usepackage{polyglossia}
+  \newfontfamily\arabicfont[Script=Arabic]{Amiri}
+  \setdefaultlanguage{english}
+  \setotherlanguage{arabic}
+  % typeset arabic snippets in body text with either of
+  \textarabic{...}
+  \begin{Arabic}...\end{Arabic}
+  ```
+  whereas for non-latin-based documents you can use something like
+  ```latex
+  \usepackage{polyglossia}
+  \setmainfont{Amiri}
+  \newfontfamily\englishfont{Clear Sans}
+  \setdefaultlanguage{arabic}
+  \setotherlanguage{english}
+  % typeset english snippets in body text with either of
+  \textenglish{...}
+  \begin{english}...\end{english}
+  ```
+  Depending on what font style is your default, you need to use `\arabicfontfs`
+  (sans serif) or `\arabicfonttt` (monospace) instead of `\arabicfont`.
+
+  NOTE: Setting a RTL-font as main font will also flip other parts of the
+  CV automatically. While this seems to be no problem for most parts as far as
+  I can tell (I'm not used to RTL at all), it does break some of the skill
+  commands, notably `\pointskill` and `\membership` and leads to some spacing
+  issues. Anyways, for RTL you probably want to use the
+  `sidebarplacement=right` feature as well.
+
+* TODO: LuaLaTeX + babel settings
+
+* You need to install fonts like Amiri and Clear Sans manually when
+  loading them via fontspec. This is not necessary for mono-language documents
+  where you can simply switch fonts like shown in the first example by using
+  the respective LaTeX packages directly.
 
 * If you are looking for a specific icon, say LinkedIn, you should first search
   the [FontAwesome gallery](https://fontawesome.com/icons?d=gallery) for its
