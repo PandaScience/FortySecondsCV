@@ -403,6 +403,11 @@ has to be defined within the `document` environment.
   \textenglish{...}
   \begin{english}...\end{english}
   ```
+  For persian languages (farsi), the following should work according to
+  [this answer](https://tex.stackexchange.com/a/238245):
+  ```latex
+  \newfontfamily\farsifont[Script=Arabic,Scale=10,Contextuals=Swash]{IranNastaliq}
+  ```
   Depending on what font style is your default, you need to use `\arabicfontfs`
   (sans serif) or `\arabicfonttt` (monospace) instead of `\arabicfont`.
 
