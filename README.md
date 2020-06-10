@@ -130,13 +130,13 @@ more restrictive, e.g. to prevent overflow when using multiple chart labels,
 you can enclose parts of the sidebar content in a `sidebarminipage`:
 ```latex
 \begin{sidebarminipage}
-	\chartlabel{Bubble Diagram}
-	\chartlabel{with}
-	\chartlabel{proper}
-	\chartlabel{overflow}
-	\chartlabel{protection}
-	\chartlabel{for}
-	\chartlabel{labels}
+  \chartlabel{Bubble Diagram}
+  \chartlabel{with}
+  \chartlabel{proper}
+  \chartlabel{overflow}
+  \chartlabel{protection}
+  \chartlabel{for}
+  \chartlabel{labels}
 \end{sidebarminipage}
 ```
 Using the `sidebar` environment, you can also add more sidebar definitions for
@@ -149,10 +149,10 @@ any of the sidebar constructors. Then you may set your preferred margins using
 \newpage
 % no \makebacksidebar etc.
 \newgeometry{
-	top=<length>,
-	bottom=<length>,
-	left=<length>,
-	right=<length>
+  top=<length>,
+  bottom=<length>,
+  left=<length>,
+  right=<length>
 }
 ```
 The defaults are `\leftrightmargin` and `\topbottommargin`. In case you want
@@ -300,18 +300,18 @@ The default "personal information table" uses
   \end{memberships}
   ```
   * Width of the 1st column containing the icons is equal to the width of the
-  	largest icon such that all text entries in the 2nd column are aligned.
+    largest icon such that all text entries in the 2nd column are aligned.
 
 * Social Networks
   ```latex
   \begin{socialnetwork}[<separation>=1em]
-  	\social{<icon>}{<url>}{<text>}
-  	\social{<icon>}{<url>}{<text>}
-  	\social{<icon>}{<url>}{<text>}
+    \social{<icon>}{<url>}{<text>}
+    \social{<icon>}{<url>}{<text>}
+    \social{<icon>}{<url>}{<text>}
   \end{socialnetwork}
   ```
   * Another icon style that could be used for e.g. social network icons from
-  	Academicons, but is working for FontAwesome icons as well.
+    Academicons, but is working for FontAwesome icons as well.
   * `text` will be hyperlinked to `url`.
   * `text` may be formatted as preferred like usual via e.g. `\texttt{}` etc.
 
@@ -343,11 +343,11 @@ has to be defined within the `document` environment.
     former one but with a "normal" title instead of a bold one.
   * `cvitemshort` left-aligns `<key>` followed by its description.
   * `cvpubitem` adds an entry with left-aligned year/date, bold title on same
-  	line followed by italic author and normal text journal, each on its own
-  	line.
+    line followed by italic author and normal text journal, each on its own
+    line.
   * `<arraystretch>` modifies the spacing between items of `cvtable`. For
-	tables of `cvitem`, you should use at least 1.5, for `cvitemshort` and
-	`cvitem` without description, the default value is sufficient.
+     tables of `cvitem`, you should use at least 1.5, for `cvitemshort` and
+     `cvitem` without description, the default value is sufficient.
 
 * Coloring
   `cvsection`, `cvsubsection` and description text colors can be defined as
@@ -430,6 +430,14 @@ has to be defined within the `document` environment.
   name, e.g. `linkedin-in` and then find the corresponding LaTeX code in the
   [fontawesome5 package](https://ftp.gwdg.de/pub/ctan/fonts/fontawesome5/doc/fontawesome5.pdf),
   which is in this case `\faLinkedinIn`.
+
+* If you want to increase the line spacing globally, use
+  ```latex
+  \usepackage{setspace}
+  \setstretch{1.1}
+  ```
+  instead of the `arraystretch` modifier. Note, that this will also affect the
+  sidebar content.
 
 ## Example
 
