@@ -336,7 +336,7 @@
 % automatically uses \texttt{} as format for the url
 \newcommand*{\cvbirthday}[1]{\cvcustomdata{\faUser}{#1}}
 \newcommand*{\cvaddress}[1]{\cvcustomdata{\faEnvelope}{#1}}
-\newcommand*{\cvphone}[1]{\cvcustomdata{\faPhone}{#1}}
+\newcommand*{\cvphone}[1]{\cvcustomdata{\faPhone}{\href{tell:#1}{#1}}}
 \newcommand*{\cvsite}[1]{\cvcustomdata{\faGlobe}{\href{#1}{#1}}}
 \newcommand*{\cvmail}[1]{\cvcustomdata{\faAt}{\href{mailto:#1}{#1}}}
 \newcommand*{\cvkey}[2]{\cvcustomdata{\faKey}{%
