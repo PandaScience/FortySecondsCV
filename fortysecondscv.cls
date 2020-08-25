@@ -202,11 +202,9 @@
 
 % pictures, icons and drawings
 \ifxetexorluatex
-	\RequirePackage{fontawesome5}
 	\RequirePackage{academicons}
-\else
-	\RequirePackage{fontawesome}
 \fi
+\RequirePackage{fontawesome5}
 \RequirePackage{tikz}
 \usetikzlibrary{arrows, backgrounds}
 

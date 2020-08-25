@@ -43,10 +43,10 @@ When you should use the FortySecondsCV class:
 
 You need to compile your document with XeLaTeX or LuaLaTeX in order to have
 the latest Font Awesome icons (`fontawesome5`) and Academicons. If you still
-want to compile with pdfLaTeX for whatever reason, FortySecondsCV will fall
+want to compile with pdfLaTeX for whatever reason, ~~FortySecondsCV will fall
 back to the older icon package (`fontawesome`), where some icons look
-different and some others are not even included and Academicons won't be
-available at all.
+different and some others are not even included~~ Academicons won't be
+available.
 
 ## License
 
