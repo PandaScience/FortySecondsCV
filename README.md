@@ -69,6 +69,7 @@ Possible options that can be passed to FortySecondsCV are:
 * `maincolor=<color>` sets the theme color used for the entire sidebar incl.
   headings, icons and charts. Many colors are derived from it.
 * `sidecolor=<color>` sets the background color of the sidebar.
+* `sidetextcolor=<color>` sets the color of text located in the sidebar.
 * `sectioncolor=<color>` sets the color of section headings in the body text.
 * `itemtextcolor=<color>` sets the color of cvitem descriptions.
 * `subsectioncolor=<color>` same as sectioncolor for subsections.
@@ -158,6 +159,13 @@ any of the sidebar constructors. Then you may set your preferred margins using
 The defaults are `\leftrightmargin` and `\topbottommargin`. In case you want
 to return to the default layout on subsequent pages, simply call
 `\restoregeometry` after the next `\newpage`.
+
+The text color of sidebar elements can be adapted via the class option
+`sidetextcolor`. For heavier style changes you can also redefine the
+`\sidetext` command to your needs. For example:
+```latex
+  \renewcommand{\sidetext}[1]{\textcolor{red}{\texttt{#1}}}
+```
 
 ### Personal Information
 

@@ -62,6 +62,7 @@
 % set default values
 \colorlet{maincolor}{cvblue}
 \colorlet{sidecolor}{cvsidecolor}
+\colorlet{sidetextcolor}{black}
 \colorlet{sectioncolor}{cvsectioncolor}
 \colorlet{subsectioncolor}{cvsubsectioncolor}
 \colorlet{itemtextcolor}{black!90}
@@ -69,6 +70,7 @@
 % let user define main color
 \DeclareOptionX{maincolor}{\colorlet{maincolor}{#1}}
 \DeclareOptionX{sidecolor}{\colorlet{sidecolor}{#1}}
+\DeclareOptionX{sidetextcolor}{\colorlet{sidetextcolor}{#1}}
 \DeclareOptionX{sectioncolor}{\colorlet{sectioncolor}{#1}}
 \DeclareOptionX{subsectioncolor}{\colorlet{subsectioncolor}{#1}}
 \DeclareOptionX{itemtextcolor}{\colorlet{itemtextcolor}{#1}}
@@ -273,6 +275,9 @@
 %-------------------------------------------------------------------------------
 %                              SIDEBAR ELEMENTS
 %-------------------------------------------------------------------------------
+% text in user-specific color
+\newcommand{\sidetext}[1]{\textcolor{sidetextcolor}{#1}}
+
 % mandatory personal information
 \newcommand*{\cvname}[1]{\renewcommand{\cvname}{#1}}
 \newcommand*{\cvjobtitle}[1]{\renewcommand{\cvjobtitle}{#1}}
@@ -313,12 +318,12 @@
 
 % social network item; \social{<icon>}{<url>}{<text>}
 \newcommand*{\social}[3]{%
-	\socialicon{#1} & \href{#2}{#3}\\%
+	\socialicon{#1} & \href{#2}{\sidetext{#3}}\\%
 }
 
 % personal information item; \personal{<icon>}{<text>}
 \newcommand*{\personal}[2]{%
-	\circleicon{#1} & {#2}\\%
+	\circleicon{#1} & {\sidetext{#2}}\\%
 }
 
 % other personal information as macro that can be used later. Usage:
@@ -434,9 +439,8 @@
 	\resizebox{\hsize}{!}{\textcolor{iconcolor}{#1}}%
 }
 
-
 % make sure about me text stays in textbox frame
-\newcommand{\aboutme}[1]{\parbox[b]{\linewidth}{#1}}
+\newcommand{\aboutme}[1]{\parbox[b]{\linewidth}{\sidetext{#1}}}
 
 % uniform icon style for all skill icons, e.g. flags or fontawesome icons
 \newcommand{\cvicon}[1]{\makebox[1em]{\color{iconcolor} #1}}
@@ -446,7 +450,7 @@
 % | [indent] [icon]  description  \hfill  ● ● ● ○ ○ |
 % -- inspired by arravc.cls by LianTze Lim: https://github.com/liantze/AltaCV
 \NewDocumentCommand{\pointskill}{ O{0em} m m m O{5} }{%
-	\hspace{#1} \cvicon{#2} ~ #3 \hfill%
+	\hspace{#1} \cvicon{#2} ~ \sidetext{#3} \hfill%
 	\foreach \x in {1,...,#5}{%
 		\space%
 		{\ifnumgreater{\x}{#4}{\color{skillbg}}{\color{iconcolor}}% from etoolbox
@@ -463,7 +467,7 @@
 				(0, 0) rectangle (1, 1);
 			\draw[fill, iconcolor!70, rounded corners=0.5em]
 				(0, 0) rectangle (#3/100, 1);
-			\node[above right] at (0, 1) {\cvicon{#1} ~ #2};
+			\node[above right] at (0, 1) {\cvicon{#1} ~ \sidetext{#2}};
 	\end{tikzpicture}
 	\par
 }
@@ -471,7 +475,8 @@
 % \skill[<indent>]{<icon>}{<description>} creates in sidebar
 % | [indent] [icon]  some longer skill description  |
 \newcommand{\skill}[3][0em]{
-	\hspace{#1} \cvicon{#2} ~ \parbox{\linewidth-#1-2.5em}{#3} \hfill \par
+	\hspace{#1} \cvicon{#2} ~ \parbox{\linewidth-#1-2.5em}{\sidetext{#3}}%
+	\hfill \par%
 }
 
 % label for wheel charts
@@ -486,7 +491,7 @@
 		inner ysep=0.75ex, % distance top/bottom border to text
 		text height=1.5ex, % align text vertically in box (at least as resulting
 		text depth=.25ex   % effect)
-	]{#1};%
+	]{\sidetext{#1}};%
 	\end{tikzpicture}
 }
 
@@ -509,7 +514,7 @@
 
 
 \newcommand{\membership}[3][4em]{
-	\includegraphics[align=c,width=#1]{#2} & {#3} \\[3ex]
+	\includegraphics[align=c,width=#1]{#2} & \sidetext{#3} \\[3ex]
 }
 
 % adapted from https://tex.stackexchange.com/a/82729
