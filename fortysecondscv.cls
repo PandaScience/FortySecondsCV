@@ -263,11 +263,14 @@
 \titleformat{\subsection}%
 	{\color{subsectioncolor}\normalfont\large}{}{0pt}{}
 
-% abuse subsubsection as profilesection in left column
+% for compatibility with older versions
 \newcommand*{\profilesection}[1]{\subsubsection*{#1}}
-\titleformat{\subsubsection}
-	{\color{pseccolor}\normalfont\huge}{}{0pt}{\color{pseccolor}\sectionline}
-% set spaces before and after profilesections: <left><before><after>
+% abuse subsubsection as sidesection in left column
+\newcommand*{\sidesection}[1]{\subsubsection*{#1}}
+\titleformat{\subsubsection}%
+	{\color{pseccolor}\normalfont\huge}{}{0pt}%
+	{\color{pseccolor}\sectionline}%
+% set spaces before and after sidesections: <left><before><after>
 % "starred version kills the indentation of the paragraph following the title"
 \titlespacing*{\subsubsection}{0pt}{1ex}{1ex}
 
