@@ -113,6 +113,11 @@
 % sidebar settings
 \newcommand*{\sidebarplacement}{}
 \DeclareOptionX{sidebarplacement}{\renewcommand{\sidebarplacement}{#1}}
+\newcommand*{\sidesectionsize}{\huge}
+\DeclareOptionX{sidesectionsize}{%
+	\expandafter\renewcommand{\sidesectionsize}{\csname #1\endcsname}%
+}
+% \DeclareOptionX{sidesectionsize}{\renewcommand{\sidesectionsize}{\small}}
 
 % logo settings
 \newlength\logowidth%
@@ -268,7 +273,7 @@
 % abuse subsubsection as sidesection in left column
 \newcommand*{\sidesection}[1]{\subsubsection*{#1}}
 \titleformat{\subsubsection}%
-	{\color{pseccolor}\normalfont\huge}{}{0pt}%
+	{\color{pseccolor}\normalfont\sidesectionsize}{}{0pt}%
 	{\color{pseccolor}\sectionline}%
 % set spaces before and after sidesections: <left><before><after>
 % "starred version kills the indentation of the paragraph following the title"

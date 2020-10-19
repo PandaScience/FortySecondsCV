@@ -61,6 +61,8 @@ Possible options that can be passed to FortySecondsCV are:
 
 * all valid options for the standard article class like e.g. `a4paper` or
   `11pt`.
+* `sidesectionsize` sets the font size of sidebar section titles to `\large`,
+  `\huge`, etc. when assigned to `large`, `huge`, etc. (i.e. w/o leading slash)
 * `showframes` will show frames around the sidebar and body texts that help to
   adjust margins correctly. Note, that this will move content of tables
   slightly since tabular lines also take some space.
@@ -125,6 +127,12 @@ already set, or completely redefine them using
   \end{sidebar}
 }
 ```
+You can use all previously defined macros like `\cvname` and `\cvjobtitle` or
+other elements like the icontable introduced [here](#personal-information).
+See [#22][i22] for a more detailed example.
+
+[i22]: https://github.com/PandaScience/FortySecondsCV/issues/22
+
 The `sidebar` environment makes sure that at least all text will be positioned
 correctly within the left column (sidebar) of each page. If you need something
 more restrictive, e.g. to prevent overflow when using multiple chart labels,
@@ -446,6 +454,12 @@ has to be defined within the `document` environment.
   ```
   instead of the `arraystretch` modifier. Note, that this will also affect the
   sidebar content.
+
+* If you want to change the base font size, use the 'article' class options
+  like `12pt` for all body elements and the paragraphs in the sidebar. Sidebar
+  section titles can be changed via the [class option](#class-options)
+  `sidesectionsize`. For name and job title font sizes you have to
+  redefine the respective commands as explained [here](#sidebar).
 
 ## Example
 
