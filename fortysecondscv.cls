@@ -6,12 +6,8 @@
 % recent version! For bugs or feature requests, please open a new issue on
 % github.
 %
-% Contributors
-% ------------
-% * ifokkema
-% * Bertbk
-% * Hespe
-% * esben
+% Contributors:
+% https://github.com/PandaScience/FortySecondsCV/graphs/contributors
 %
 % Attributions
 % ------------
@@ -25,7 +21,7 @@
 %                           CLASS NAME AND VERSION
 %-------------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fortysecondscv}[2020/02/09 CV class]
+\ProvidesClass{fortysecondscv}[2020/10/19 CV class]
 
 
 %-------------------------------------------------------------------------------
