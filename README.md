@@ -1,6 +1,8 @@
 Forty Seconds CV
 ================
 
+[中文](Readme-zh-CN.md)
+
 ## Description
 
 Just another CV class for LaTeX - but this time highly customizable!
