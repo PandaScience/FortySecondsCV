@@ -1,7 +1,7 @@
 Forty Seconds CV
 ================
 
-[中文](Readme-zh-CN.md)
+[中文](README-zh-CN.md)
 
 ## Description
 
