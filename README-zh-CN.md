@@ -1,7 +1,7 @@
 四十秒简历 Forty Seconds CV
 ================
 
-[English](Readme.md)
+[English](README.md)
 
 ## 简介 Description
 
