@@ -1,7 +1,7 @@
 四十秒简历 Forty Seconds CV
 ================
 
-[English](README.md)
+[English](README.md) | [Nederlands](README-nl-NL.md)
 
 ## 简介 Description
 
@@ -281,7 +281,7 @@ Note: For safety, you should use your key's long ID or its fingerprint in the se
 * `cvsection`， `cvsubsection` 和描述文本的颜色可以按照 [类选项](#类选项-class-options) 中的说明定义。
 
 * 名称和职称组合，并具有适当的间距，字体和颜色
-  ```late
+  ```latex
   \nameandjob
   ```
 

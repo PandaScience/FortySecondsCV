@@ -1,7 +1,7 @@
 Forty Seconds CV
 ================
 
-[中文](README-zh-CN.md)
+[中文](README-zh-CN.md) | [Nederlands](README-nl-NL.md)
 
 ## Description
 
@@ -71,7 +71,7 @@ Possible options that can be passed to FortySecondsCV are:
 * `vline=<length>` plots a red vertical line at x-position `<length>` to help
   adjust sidebar content.
 * `maincolor=<color>` sets the theme color used for the entire sidebar incl.
-  headings, icons and charts. Many colors are derived from it.
+  headings, icons, and charts. Many colors are derived from it.
 * `sidecolor=<color>` sets the background color of the sidebar.
 * `sidetextcolor=<color>` sets the color of text located in the sidebar.
 * `sectioncolor=<color>` sets the color of section headings in the body text.
@@ -96,17 +96,18 @@ Possible options that can be passed to FortySecondsCV are:
 * `profilepicrounding=<length>` sets the rounding radius for the top right and
   bottom left corner in the default rounded profile picture style.
 * `sidebarplacement=right` puts the sidebar to the right of the body instead of
-  to the left
+  to the left.
 
 Note:
 
 * Lengths can be specified in any absolute length unit, e.g. `em` for widths,
-  `ex` for heights or relative ones like `0.5\paperheight` or `0.3\linewidth`.
+  `ex` for heights, or relative ones like `0.5\paperheight` or `0.3\linewidth`.
 * Colors can be picked from the entire catalogue provided by the `dvipsnames`,
-  `svgnames` and `x11names` options of the `xcolor` package. See
+  `svgnames`, and `x11names` options of the `xcolor` package. See
   [xcolor package documentation](http://mirrors.ctan.org/macros/latex/contrib/xcolor/xcolor.pdf)
   for details and color tables.
-* Colors can also be redefined within the document body using e.g. `\definecolor{sidecolor}{HTML}{000000}`.
+* Colors can also be redefined within the document body using e.g.
+  `\definecolor{sidecolor}{HTML}{000000}`.
 
 ### Sidebar
 
@@ -214,9 +215,10 @@ Set personal information via convenience commands
   linked to a keyserver searching for the ID in the second argument.<br>
   Note: For safety, you should use your key's long ID or its fingerprint in the
   second argument.
-* The `\cvcustom{<icon>}{<text>}` macro shows how to define new lines using an icon as first
-  and some text as second argument. Behind the scenes, this command is actually
-  used to define the other convenience commands in the above example.
+* The `\cvcustom{<icon>}{<text>}` macro shows how to define new lines using an
+  icon as first and some text as second argument. Behind the scenes, this
+  command is actually used to define the other convenience commands in the above
+  example.
 
 If you don't like the default style of the "personal information table", you
 can define your own via
@@ -290,6 +292,7 @@ The default "personal information table" uses
   ```latex
   \barskill{<icon>}{<text>}{<percentage>}
   ```
+
 * "About me" text
   ```latex
   \aboutme{<text spanning multiple lines>}
@@ -334,6 +337,7 @@ The default "personal information table" uses
   * `text` may be formatted as preferred like usual via e.g. `\texttt{}` etc.
 
 ### Body
+
 The right column of the CV containing tables for sth. like "working experience"
 has to be defined within the `document` environment.
 
@@ -372,7 +376,7 @@ has to be defined within the `document` environment.
   described in [class options](#class-options).
 
 * Name and job title combination with proper spacing, font and color
-  ```late
+  ```latex
   \nameandjob
   ```
 
@@ -397,7 +401,7 @@ has to be defined within the `document` environment.
 
 * When working on multi-language documents, I highly advise against the usage
   of pdfLaTeX. Since I have only little experience with LuaLaTeX (but will
-  probably will switch to the latter soon), I can only provide instructions for
+  probably switch to the latter soon), I can only provide instructions for
   XeLaTeX for now. There you first need to load the `polyglossia` package and
   set fonts for each language separately.  For latin-based documents with e.g.
   some arabic text snippets then use
@@ -462,6 +466,7 @@ has to be defined within the `document` environment.
   section titles can be changed via the [class option](#class-options)
   `sidesectionsize`. For name and job title font sizes you have to
   redefine the respective commands as explained [here](#sidebar).
+
 
 ## Example
 
