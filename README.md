@@ -287,10 +287,10 @@ The default "personal information table" uses
   the `\flag` command in order to inform the class that the icon should not be
   colored using `\maincolor`.
 
-* Barskill consisting of an icon, text and percentage of how far the skillbar
-  should be filled
+* Barskill consisting of an optional height argument as well as a mandatory
+  icon, text and percentage of how far the skillbar should be filled
   ```latex
-  \barskill{<icon>}{<text>}{<percentage>}
+  \barskill[<height>]{<icon>}{<text>}{<percentage>}
   ```
 
 * "About me" text

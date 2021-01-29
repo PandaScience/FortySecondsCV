@@ -464,14 +464,14 @@
 	}\par%
 }
 
-\newcommand{\barskill}[3]{
+\newcommand{\barskill}[4][1ex]{
 	% remove 1pt in width to prevent overfull box warnings
-	\begin{tikzpicture}[x=\sidebartextwidth-1pt, y=1ex]
+	\begin{tikzpicture}[x=\sidebartextwidth-1pt, y=#1]
 			\draw[fill, skillbg, rounded corners=0.25em]
 				(0, 0) rectangle (1, 1);
 			\draw[fill, iconcolor!70, rounded corners=0.25em]
-				(0, 0) rectangle (#3/100, 1);
-			\node[above right] at (0, 1) {\cvicon{#1} ~ \sidetext{#2}};
+				(0, 0) rectangle (#4/100, 1);
+			\node[above right] at (0, 1) {\cvicon{#2} ~ \sidetext{#3}};
 	\end{tikzpicture}
 	\par
 }
