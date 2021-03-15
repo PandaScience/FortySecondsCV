@@ -98,7 +98,7 @@ Possible options that can be passed to FortySecondsCV are:
 * `sidebarplacement=right` puts the sidebar to the right of the body instead of
   to the left.
 
-Note:
+Notes:
 
 * Lengths can be specified in any absolute length unit, e.g. `em` for widths,
   `ex` for heights, or relative ones like `0.5\paperheight` or `0.3\linewidth`.
@@ -108,6 +108,10 @@ Note:
   for details and color tables.
 * Colors can also be redefined within the document body using e.g.
   `\definecolor{sidecolor}{HTML}{000000}`.
+* Redefining `maincolor` is a bit tricky. See [#34][i34] for more details.
+
+[i34]: https://github.com/PandaScience/FortySecondsCV/issues/34
+
 
 ### Sidebar
 
