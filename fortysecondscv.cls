@@ -484,18 +484,18 @@
 }
 
 % label for wheel charts
-\newcommand{\chartlabel}[1]{%
+\newcommand{\chartlabel}[2][skillbg]{%
 	\begin{tikzpicture}
 	\node[
-		fill=skillbg!25, % interior color
+		fill=#1!25, % interior color
 		anchor=base,
-		draw=skillbg, % line color
+		draw=#1, % line color
 		rounded corners,
 		inner xsep=1ex, % distance from left/right border to text
 		inner ysep=0.75ex, % distance top/bottom border to text
 		text height=1.5ex, % align text vertically in box (at least as resulting
 		text depth=.25ex   % effect)
-	]{\sidetext{#1}};%
+	]{\sidetext{#2}};%
 	\end{tikzpicture}
 }
 
