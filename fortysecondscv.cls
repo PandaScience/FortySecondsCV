@@ -727,9 +727,26 @@
 			\parbox[t]{\linewidth-\widthof{\footnotesize #3}-1em}{\raggedright #2}%
 			\hfill {\footnotesize#3}%
 		\else%
-			\parbox[t]{\linewidth-\widthof{\footnotesize #3}-1em}{%
-				\raggedright \textbf{#2}%
-			} \hfill {\footnotesize#3} \\%
+			\parbox[t]{\linewidth-\widthof{\footnotesize #3}-1em}{\raggedright \textbf{#2}}%
+			\hfill {\footnotesize#3} \\%
+			\textcolor{itemtextcolor}{#4}%\vspace{\parsep}%
+		\fi%
+	}\\
+}
+
+% | <date>         <bold-title>  \par\hfill  <location>  |
+% |                <longer description>              |
+% or, if description is empty:
+% | <date>         <title>       \par\hfill  <location>  |
+\newcommand{\cvitempar}[4]{%
+	\parbox[t]{0.17\textwidth}{\raggedright #1} &%
+	\parbox[t]{0.81\textwidth}{%
+		\if\relax\detokenize{#4}\relax%
+			\parbox[t]{\textwidth}{\raggedright #2}%
+			\par\hfill {\footnotesize#3}%
+		\else%
+			\parbox[t]{\textwidth}{\raggedright \textbf{#2}}%
+			\par\hfill {\footnotesize#3} \\%
 			\textcolor{itemtextcolor}{#4}%\vspace{\parsep}%
 		\fi%
 	}\\
