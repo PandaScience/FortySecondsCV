@@ -752,6 +752,22 @@
 	}\\
 }
 
+% advanced cvitem where last five fields are width ratios for
+% date, title, location, pre-desc-spacer, and description respectively.
+% | <date>          <bold-title>    \hfill  <location>  |
+% | <spacer>    <longer description>                    |
+\newcommand{\cvitemadv}[9]{
+	\parbox{#5\textwidth}{\flushleft #1}
+	\parbox{#6\textwidth}{\flushleft \textbf{#2}}
+	\parbox{#7\textwidth}{\flushright \footnotesize #3}
+    \\
+   	% empty spacer of given ratio. ASCII for space so that parbox not empty
+   	\parbox[t]{#8\textwidth}{\char32}
+   	% rest of the space
+   	\parbox[t]{#9\textwidth}{\textcolor{itemtextcolor} #4}
+	\\
+}
+
 % publication item
 % \cvpubitem{<title>}{<author>}{<journal>}{<year>} will produce
 % | <year>         <bold title>                      |
