@@ -714,9 +714,19 @@
 	% remove additional spacing before and after longtables
 	\setlength{\LTpre}{0pt}
 	\setlength{\LTpost}{0pt}
-	\begin{longtabu} to \textwidth {@{\extracolsep{\fill}}ll}%
+	\iftoggle{tshowframes}{%
+		\begin{longtabu} to \textwidth {@{\extracolsep{\fill}}|l|l|}%
+		\hline%
+	}{%
+		\begin{longtabu} to \textwidth {@{\extracolsep{\fill}}ll}%
+	}
 }{%
-	\end{longtabu}%
+	\iftoggle{tshowframes}{%
+		\hline%
+		\end{longtabu}%
+	}{%
+		\end{longtabu}%
+	}
 }
 
 % | <keyword>      <one-line description>            |
