@@ -193,6 +193,7 @@
 
 % provides X column type for automatic length calculations
 \RequirePackage{tabularx}
+\RequirePackage{longtable, tabu}
 
 % take care of compiler-specific packages
 \RequirePackage{ifluatex}
@@ -710,9 +711,12 @@
 % tabular starred version adds space to make table as wide as \textwidth here
 \newenvironment{cvtable}[1][1]{%
 	\renewcommand{\arraystretch}{#1}%
-	\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}ll}%
+	% remove additional spacing before and after longtables
+	\setlength{\LTpre}{0pt}
+	\setlength{\LTpost}{0pt}
+	\begin{longtabu} to \textwidth {@{\extracolsep{\fill}}ll}%
 }{%
-	\end{tabular*}%
+	\end{longtabu}%
 }
 
 % | <keyword>      <one-line description>            |
