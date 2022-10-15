@@ -97,6 +97,7 @@ Possible options that can be passed to FortySecondsCV are:
   bottom left corner in the default rounded profile picture style.
 * `sidebarplacement=right` puts the sidebar to the right of the body instead of
   to the left.
+* `datecolwidth=<length>` sets the width of the date column of the body.
 
 Notes:
 
@@ -342,8 +343,11 @@ The default "personal information table" uses
 
 ### Body
 
-The right column of the CV containing tables for sth. like "working experience"
+The right part of the CV containing tables for sth. like "working experience"
 has to be defined within the `document` environment.
+
+To prevent unwanted line breaks in dates, the width of the first column in the
+body can be adjusted via the `datecolwidth` class option.
 
 * Section and subsection headings
   ```latex
