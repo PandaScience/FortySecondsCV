@@ -1,5 +1,5 @@
 % FortySecondsCV LaTeX class
-% Copyright © 2019-2020 René Wirnata <rene.wirnata@pandascience.net>
+% Copyright © 2019-2022 René Wirnata <rene.wirnata@pandascience.net>
 % Licensed under the 3-Clause BSD License. See LICENSE file for details.
 %
 % Please visit https://github.com/PandaScience/FortySecondsCV for the most
