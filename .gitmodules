@@ -1,0 +1,3 @@
+[submodule "pics/flags"]
+	path = pics/gosquared-flags
+	url = https://github.com/gosquared/flags

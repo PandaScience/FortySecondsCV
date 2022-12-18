@@ -45,10 +45,15 @@ When you should use the FortySecondsCV class:
 
 You need to compile your document with XeLaTeX or LuaLaTeX in order to have
 the latest Font Awesome icons (`fontawesome5`) and Academicons. If you still
-want to compile with pdfLaTeX for whatever reason, ~~FortySecondsCV will fall
-back to the older icon package (`fontawesome`), where some icons look
-different and some others are not even included~~ Academicons won't be
+want to compile with pdfLaTeX for whatever reason, Academicons won't be
 available.
+
+If you want to use [gosquared's flag icon set](https://github.com/gosquared/flags),
+make sure to first run
+
+```
+git submodule update --init
+```
 
 ## License
 
