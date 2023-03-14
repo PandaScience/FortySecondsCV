@@ -355,6 +355,8 @@
 \newcommand*{\cvkey}[2]{\cvcustomdata{\faKey}{%
 	\href{https://keyserver.ubuntu.com/pks/lookup?search=#2\&op=vindex\&fingerprint=on}{#1}%
 }}
+\newcommand*{\cvgithub}[1]{\cvcustomdata{\faGithub}{\href{https://github.com/#1}{#1}}}
+\newcommand*{\cvlinkedin}[2]{\cvcustomdata{\faLinkedin}{\href{https://www.linkedin.com/in/#1}{#2}}}
 
 % TODO find a cleaner solution for consistent spacing
 \newcommand{\nameandjob}{%
