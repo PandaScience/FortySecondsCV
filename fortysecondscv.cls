@@ -135,6 +135,10 @@
 	\AtBeginDocument{\apptocmd{\personaldata}{\hline}{}{}}
 }
 
+% name and job position: 'after' (default) picture, 'before', or hidden (any other value)
+\newcommand*{\nameandjobposition}{after}
+\DeclareOptionX{nameandjobposition}{\renewcommand{\nameandjobposition}{#1}}
+
 % draw vertical guideline
 \newcommand{\plotvline}{}
 \DeclareOptionX{vline}{%
@@ -368,6 +372,19 @@
 	\setlength{\parskip}{2ex}
 	{\cvjobtitleformat\cvjobtitle}\par%
 	\setlength{\parskip}{1ex}
+}
+
+\newcommand{\nameandjobbeforepic}{%
+	\ifthenelse{\equal{\nameandjobposition}{before}}{%
+		\nameandjob
+		\vspace{1ex}
+	}{}
+}
+\newcommand{\nameandjobafterpic}{%
+	\ifthenelse{\equal{\nameandjobposition}{after}}{%
+		\vspace{1ex}
+		\nameandjob
+	}{}
 }
 
 \newcommand{\profileroundedcorners}{%
@@ -668,6 +685,9 @@
 		% most sidebar commands end with \par; increase space between them
 		\setlength{\parskip}{1ex}
 
+		% name and job - when \nameandjobposition = 'before'
+		\nameandjobbeforepic
+
 		% optionally insert logo picture before profile
 		\plotlogobefore
 
@@ -677,10 +697,8 @@
 		% optionally insert logo picture after profile
 		\plotlogoafter
 
-		\vspace{1ex}
-
-		% name and job
-		\nameandjob
+		% name and job - when \nameandjobposition = 'after'
+		\nameandjobafterpic
 
 		% personal information
 		\vspace*{0.5em}
