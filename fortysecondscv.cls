@@ -288,6 +288,12 @@
 % text in user-specific color
 \newcommand{\sidetext}[1]{\textcolor{sidetextcolor}{#1}}
 
+% style for name
+\newcommand*{\cvnameformat}{\Huge\color{maincolor}}
+
+% style for job title
+\newcommand*{\cvjobtitleformat}{\Large\color{black!80}}
+
 % mandatory personal information
 \newcommand*{\cvname}[1]{\renewcommand{\cvname}{#1}}
 \newcommand*{\cvjobtitle}[1]{\renewcommand{\cvjobtitle}{#1}}
@@ -358,9 +364,9 @@
 
 % TODO find a cleaner solution for consistent spacing
 \newcommand{\nameandjob}{%
-	{\Huge\color{maincolor}\cvname}\par%
+	{\cvnameformat\cvname}\par%
 	\setlength{\parskip}{2ex}
-	{\Large\color{black!80}\cvjobtitle}\par%
+	{\cvjobtitleformat\cvjobtitle}\par%
 	\setlength{\parskip}{1ex}
 }
 
