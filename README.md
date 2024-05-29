@@ -88,6 +88,9 @@ Possible options that can be passed to FortySecondsCV are:
   columns.
 * `leftrightmargin=<length>` sets the left and right page margin for both
   columns as well as how much space will be between both columns.
+* `nameandjobposition` controls the position of the name and job title with
+  regards the profile picture: 'after' (default), 'before' or hidden for any
+  other value.
 * `profilepicsize=<length>` sets the width of the profile picture.
 * `profilepicborderwidth=<length>` sets the width of the profile picture's
   border.
