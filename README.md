@@ -102,6 +102,11 @@ Possible options that can be passed to FortySecondsCV are:
   bottom left corner in the default rounded profile picture style.
 - `sidebarplacement=right` puts the sidebar to the right of the body instead of
   to the left.
+- `frontsidebaronallpages` renders the same (front)sidebar on all pages.
+
+  **NOTE:** when using this option, there is no need for any manual
+  `\makefrontsidebar` or `\makebacksidebar` commands in the `.tex` file!
+
 - `datecolwidth=<length>` sets the width of the date column of the body.
 
 Notes:

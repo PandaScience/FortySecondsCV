@@ -114,6 +114,14 @@
 	\expandafter\renewcommand{\sidesectionsize}{\csname #1\endcsname}%
 }
 
+% show front sidebar on all pages
+\newtoggle{tsamesidebar}
+\togglefalse{tsamesidebar}
+\DeclareOptionX{frontsidebaronallpages}{
+	\toggletrue{tsamesidebar}
+	\AddToHook{shipout/before}{\makefrontsidebar}
+}
+
 % logo settings
 \newlength\logowidth%
 \setlength{\logowidth}{\profilepicsize}
