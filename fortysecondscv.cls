@@ -113,7 +113,6 @@
 \DeclareOptionX{sidesectionsize}{%
 	\expandafter\renewcommand{\sidesectionsize}{\csname #1\endcsname}%
 }
-% \DeclareOptionX{sidesectionsize}{\renewcommand{\sidesectionsize}{\small}}
 
 % logo settings
 \newlength\logowidth%
