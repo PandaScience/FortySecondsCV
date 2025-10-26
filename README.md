@@ -1,6 +1,6 @@
 # Forty Seconds CV
 
-[中文](README-zh-CN.md) | [Nederlands](README-nl-NL.md)
+[中文](https://github.com/PandaScience/FortySecondsCV/blob/old-license/README-zh-CN.md) | [Nederlands](README-nl-NL.md)
 
 ## Description
 
